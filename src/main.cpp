@@ -1,7 +1,7 @@
 #include "./include/main.hpp"
 
-int main(int ac, char **av, char **env) {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+int main() {
+    sf::RenderWindow window(sf::VideoMode(200, 200), APP_NAME);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
@@ -10,7 +10,9 @@ int main(int ac, char **av, char **env) {
 
     window.setFramerateLimit(30);
     window.setVerticalSyncEnabled(true);
-    window.setSize(sf::Vector2u(WINDOW_SIZE, WINDOW_SIZE));
+    window.setSize(sf::Vector2u(2000, 2000));
+    std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
+              << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
     while (window.isOpen()) {
         sf::Event event;

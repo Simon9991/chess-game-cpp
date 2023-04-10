@@ -43,7 +43,7 @@ $(EXEC): $(OBJ)
 	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDEFLAGS)
 
 clean:
-	rm -Rf *.o
+	find . -name '*.o' -delete
 
 fclean: clean
 	rm -rf $(EXEC)

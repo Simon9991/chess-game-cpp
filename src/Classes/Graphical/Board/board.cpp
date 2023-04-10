@@ -13,9 +13,9 @@ Board::Board() {
 
         while (j < BOARD_SIZE) {
             if ((i + j) % 2 == 0) {
-                this->squares[i][j] = new Square(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, sf::Color::Black);
+                this->squares[i][j] = new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY);
             } else {
-                this->squares[i][j] = new Square(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, sf::Color::White);
+                this->squares[i][j] = new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY);
             }
             j++;
         }
@@ -23,7 +23,21 @@ Board::Board() {
     }
 }
 
-Board::~Board() {}
+Board::~Board() {
+    // Deletes the board
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            delete this->squares[i][j];
+            j++;
+        }
+        i++;
+    }
+}
 
 void Board::draw(sf::RenderWindow& window) {
     // Iterates through the squares array to draw each square

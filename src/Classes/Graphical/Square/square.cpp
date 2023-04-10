@@ -1,5 +1,7 @@
 #include "square.hpp"
 
+#include "./../../../include/main.hpp"
+
 Square::Square(int x, int y, int size, sf::Color color) {
     this->position = sf::Vector2f(x, y);
     this->size = size;
@@ -7,6 +9,13 @@ Square::Square(int x, int y, int size, sf::Color color) {
     this->shape = sf::RectangleShape(sf::Vector2f(size, size));
     this->shape.setPosition(position);
     this->shape.setFillColor(color);
+
+    if (DEBUG) {
+        std::cout << "Square created at " << x << "x" << y << " with size " << size << " and color "
+                  << color.toInteger() << std::endl;
+        this->shape.setOutlineColor(GREEN);
+        this->shape.setOutlineThickness(1);
+    }
 }
 
 Square::~Square() {
