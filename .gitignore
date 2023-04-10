@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Other files
+*.dSYM
+*.dwo
+*.DS_Store
+
+# Executables
+*.exe
+*.out
+sfml-app
