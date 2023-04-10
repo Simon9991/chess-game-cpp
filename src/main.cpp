@@ -5,8 +5,9 @@ int main() {
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
-    Square whiteSquare = Square(0, 0, 100, sf::Color::White);
     Board *board = new Board();
+    King king = King(0, 0, SQUARE_SIZE, MAGENTA);
+    MouseInput mouseInput = MouseInput();
 
     window.setFramerateLimit(30);
     window.setVerticalSyncEnabled(true);
@@ -20,8 +21,14 @@ int main() {
             if (event.type == sf::Event::Closed) window.close();
         }
 
+        while (mouseInput.isClicked(window)) {
+            std::cout << "Mouse clicked at " << mouseInput.getPositionClick(window).x << "x"
+                      << mouseInput.getPositionClick(window).y << std::endl;
+        }
+
         window.clear();
         board->draw(window);
+        king.draw(window);
         window.display();
     }
 

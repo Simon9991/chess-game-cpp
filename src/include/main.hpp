@@ -42,6 +42,8 @@
 #define ERROR 84
 
 #include "./../Classes/Graphical/Board/board.hpp"
+#include "./../Classes/Graphical/King/king.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"
+#include "./../Classes/Input/MouseInput/mouse_input.hpp"
 
 #endif /* !MAIN_HPP */
