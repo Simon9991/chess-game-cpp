@@ -8,6 +8,7 @@ class Square;
 
 class Board {
    public:
+    // TODO: Loading board from a text or pgn file
     // Constructor
     Board();
     // Destructor
