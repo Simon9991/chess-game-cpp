@@ -2,10 +2,9 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include <SFML/Graphics.hpp>
-
 #include "./../../../include/main.hpp"
-#include "./../Square/square.hpp"
+
+class Square;
 
 class Board {
    public:

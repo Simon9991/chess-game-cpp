@@ -1,12 +1,12 @@
 #ifndef PIECE_HPP
 #define PIECE_HPP
 
-#include <SFML/Graphics.hpp>
-
 #include "./../../../include/main.hpp"
 
 class Piece {
    public:
+    // Empty Piece
+    Piece(sf::Vector2f position, int x, int y);
     Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, PieceColor pieceColor, int x, int y);
     ~Piece();
     // Get the position of the piece

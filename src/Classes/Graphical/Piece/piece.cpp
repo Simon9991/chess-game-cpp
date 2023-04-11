@@ -2,6 +2,27 @@
 
 #include "./../../../include/main.hpp"
 
+Piece::Piece(sf::Vector2f position, int x, int y) {
+    // Creates an "EMPTY" piece, it has no color and is totally transparent
+    this->position = position;
+    this->x = x;
+    this->y = y;
+    this->type = PieceType::EMPTY;
+    this->color = sf::Color::Transparent;
+    this->shape = sf::CircleShape(SQUARE_SIZE / 2);
+    this->shape.setFillColor(color);
+    this->shape.setPosition(position);
+
+    this->size = SQUARE_SIZE / 2;
+
+    if (DEBUG) {
+        std::cout << "Empty piece created at " << this->x << "x" << this->y << std::endl;
+        // Red outline
+        this->shape.setOutlineColor(sf::Color::Red);
+        this->shape.setOutlineThickness(1);
+    }
+}
+
 Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, PieceColor pieceColor, int x, int y) {
     this->position = position;
     this->x = x;
@@ -16,7 +37,8 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->size = size;
 
     if (DEBUG) {
-        std::cout << "Piece created at " << this->x << "x" << this->y << std::endl;
+        std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
+                  << " color: " << this->pieceColor << std::endl;
         // Red outline
         this->shape.setOutlineColor(sf::Color::Red);
         this->shape.setOutlineThickness(1);

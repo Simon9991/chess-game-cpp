@@ -7,9 +7,9 @@ int main() {
 
     Board *board = new Board();
     MouseInput mouseInput = MouseInput();
-    Piece *piece = new Piece(sf::Vector2f(1 * SQUARE_SIZE, 2 * SQUARE_SIZE), PAWN, WHITE, SQUARE_SIZE,
-                             PieceColor::WHITE_PIECE, 1, 2);
-    Piece *king = new Piece(sf::Vector2f(0, 0), KING, MAGENTA, SQUARE_SIZE, PieceColor::BLACK_PIECE, 0, 0);
+    // Piece *piece = new Piece(sf::Vector2f(1 * SQUARE_SIZE, 2 * SQUARE_SIZE), PAWN, WHITE, SQUARE_SIZE,
+    //                          PieceColor::WHITE_PIECE, 1, 2);
+    // Piece *king = new Piece(sf::Vector2f(0, 0), KING, MAGENTA, SQUARE_SIZE, PieceColor::BLACK_PIECE, 0, 0);
 
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
@@ -23,22 +23,20 @@ int main() {
             if (event.type == sf::Event::Closed) window.close();
         }
 
-        // while (mouseInput.isClicked(window)) {
-        //     std::cout << "Mouse clicked at " << mouseInput.getPositionClick(window).x << "x"
-        //               << mouseInput.getPositionClick(window).y << std::endl;
-        // }
+        if (mouseInput.isClicked(window)) {
+            std::cout << "Mouse clicked at " << mouseInput.getPositionClick(window).x << "x"
+                      << mouseInput.getPositionClick(window).y << std::endl;
+        }
 
         window.clear();
         board->draw(window);
-        king->draw(window);
-        piece->draw(window);
         window.display();
     }
 
     // Free memory
     delete board;
-    delete piece;
-    delete king;
+    // delete piece;
+    // delete king;
 
     return 0;
 }

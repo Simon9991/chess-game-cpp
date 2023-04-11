@@ -12,9 +12,37 @@ Board::Board() {
 
         while (j < BOARD_SIZE) {
             if ((i + j) % 2 == 0) {
-                this->squares[i][j] = new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY);
+                if (i < 2) {
+                    Piece *blackPawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, BLACK,
+                                                 SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackPawn);
+                } else if (i > 5) {
+                    Piece *whitePawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, WHITE,
+                                                 SQUARE_SIZE, PieceColor::WHITE_PIECE, j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, whitePawn);
+                } else {
+                    Piece *emptyPiece = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, emptyPiece);
+                }
             } else {
-                this->squares[i][j] = new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY);
+                if (i < 2) {
+                    Piece *blackPawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, BLACK,
+                                                 SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackPawn);
+                } else if (i > 5) {
+                    Piece *whitePawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, WHITE,
+                                                 SQUARE_SIZE, PieceColor::WHITE_PIECE, j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, whitePawn);
+                } else {
+                    Piece *emptyPiece = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, emptyPiece);
+                }
             }
             j++;
         }
@@ -22,7 +50,7 @@ Board::Board() {
     }
 
     // Creates the memory board
-    this->memoryBoard = new PieceType*[BOARD_SIZE];
+    this->memoryBoard = new PieceType *[BOARD_SIZE];
 
     i = 0;
     while (i < BOARD_SIZE) {
@@ -70,7 +98,7 @@ Board::~Board() {
     delete[] this->memoryBoard;
 }
 
-void Board::draw(sf::RenderWindow& window) {
+void Board::draw(sf::RenderWindow &window) {
     // Iterates through the squares array to draw each square
     int i = 0;
     int j = 0;
@@ -80,13 +108,14 @@ void Board::draw(sf::RenderWindow& window) {
 
         while (j < BOARD_SIZE) {
             this->squares[i][j]->draw(window);
+            this->squares[i][j]->getPiece()->draw(window);
             j++;
         }
         i++;
     }
 }
 
-Square* Board::getSquare(int x, int y) {
+Square *Board::getSquare(int x, int y) {
     // Iterates through the squares array to find the square at the given position
     // x and y are the coordinates of the square
     // Returns the square at the given position
@@ -126,9 +155,9 @@ void Board::setSquare(int x, int y, Square square) {
     }
 }
 
-PieceType** Board::getMemoryBoard() { return this->memoryBoard; }
+PieceType **Board::getMemoryBoard() { return this->memoryBoard; }
 
-void Board::setMemoryBoard(PieceType** memoryBoard) { this->memoryBoard = memoryBoard; }
+void Board::setMemoryBoard(PieceType **memoryBoard) { this->memoryBoard = memoryBoard; }
 
 PieceType Board::getPiece(int x, int y) { return this->memoryBoard[x][y]; }
 
