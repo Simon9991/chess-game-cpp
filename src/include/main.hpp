@@ -5,7 +5,7 @@
 #include <iostream>
 
 // Debug mode
-#define DEBUG 1
+#define DEBUG 0
 
 // Font
 #define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
@@ -24,6 +24,7 @@
 #define BLUE sf::Color::Blue
 #define YELLOW sf::Color::Yellow
 #define MAGENTA sf::Color::Magenta
+#define CYAN sf::Color::Cyan
 #define DARK_GRAY sf::Color(64, 64, 64)
 #define LIGHT_GRAY sf::Color(192, 192, 192)
 

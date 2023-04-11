@@ -19,25 +19,75 @@ Board::Board() {
                                 new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::ROOK, YELLOW,
                                           SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
                             this->squares[i][j] =
-                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackRook);
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackRook);
                         } else if (j == 2) {
                             Piece *blackBishop =
                                 new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::KNIGHT, GREEN,
                                           SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
                             this->squares[i][j] =
-                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackBishop);
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackBishop);
                         } else if (j == 4) {
                             Piece *blackKing =
                                 new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::KING, RED,
                                           SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
                             this->squares[i][j] =
-                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackKing);
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackKing);
                         } else if (j == 6) {
                             Piece *blackKnight =
                                 new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::KNIGHT, BLUE,
                                           SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
                             this->squares[i][j] =
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackKnight);
+                        } else {
+                            Piece *blackQueen =
+                                new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::QUEEN, MAGENTA,
+                                          SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                            this->squares[i][j] =
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackQueen);
+                        }
+                    } else {
+                        Piece *blackPawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN,
+                                                     BLACK, SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                        this->squares[i][j] =
+                            new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackPawn);
+                    }
+                } else if (i > 5) {
+                    Piece *whitePawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, WHITE,
+                                                 SQUARE_SIZE, PieceColor::WHITE_PIECE, j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, whitePawn);
+                } else {
+                    Piece *emptyPiece = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), j, i);
+                    this->squares[i][j] =
+                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, emptyPiece);
+                }
+            } else {
+                if (i < 2) {
+                    if (i == 0) {
+                        if (j == 1) {
+                            Piece *blackKnight =
+                                new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::KNIGHT, BLUE,
+                                          SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                            this->squares[i][j] =
                                 new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackKnight);
+                        } else if (j == 3) {
+                            Piece *blackQueen =
+                                new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::QUEEN, CYAN,
+                                          SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                            this->squares[i][j] =
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackQueen);
+                        } else if (j == 5) {
+                            Piece *blackBishop =
+                                new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::BISHOP, GREEN,
+                                          SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                            this->squares[i][j] =
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackBishop);
+                        } else if (j == 7) {
+                            Piece *blackRook =
+                                new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::ROOK, YELLOW,
+                                          SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
+                            this->squares[i][j] =
+                                new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, blackRook);
                         } else {
                             Piece *blackQueen =
                                 new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::QUEEN, MAGENTA,
@@ -60,22 +110,6 @@ Board::Board() {
                     Piece *emptyPiece = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), j, i);
                     this->squares[i][j] =
                         new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, DARK_GRAY, emptyPiece);
-                }
-            } else {
-                if (i < 2) {
-                    Piece *blackPawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, BLACK,
-                                                 SQUARE_SIZE, PieceColor::BLACK_PIECE, j, i);
-                    this->squares[i][j] =
-                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, blackPawn);
-                } else if (i > 5) {
-                    Piece *whitePawn = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), PieceType::PAWN, WHITE,
-                                                 SQUARE_SIZE, PieceColor::WHITE_PIECE, j, i);
-                    this->squares[i][j] =
-                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, whitePawn);
-                } else {
-                    Piece *emptyPiece = new Piece(sf::Vector2f(j * SQUARE_SIZE, i * SQUARE_SIZE), j, i);
-                    this->squares[i][j] =
-                        new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY, emptyPiece);
                 }
             }
             j++;
