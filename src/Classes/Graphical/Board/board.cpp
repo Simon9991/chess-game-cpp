@@ -1,7 +1,6 @@
 #include "board.hpp"
 
 #include "./../../../include/main.hpp"
-#include "./../Square/square.hpp"
 
 Board::Board() {
     // Creates the board
@@ -17,6 +16,28 @@ Board::Board() {
             } else {
                 this->squares[i][j] = new Square(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, LIGHT_GRAY);
             }
+            j++;
+        }
+        i++;
+    }
+
+    // Creates the memory board
+    this->memoryBoard = new PieceType*[BOARD_SIZE];
+
+    i = 0;
+    while (i < BOARD_SIZE) {
+        this->memoryBoard[i] = new PieceType[BOARD_SIZE];
+        i++;
+    }
+
+    // Sets the memory board
+    i = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            this->memoryBoard[i][j] = PieceType::EMPTY;
             j++;
         }
         i++;
@@ -37,6 +58,16 @@ Board::~Board() {
         }
         i++;
     }
+
+    // Deletes the memory board
+    i = 0;
+
+    while (i < BOARD_SIZE) {
+        delete[] this->memoryBoard[i];
+        i++;
+    }
+
+    delete[] this->memoryBoard;
 }
 
 void Board::draw(sf::RenderWindow& window) {
@@ -93,4 +124,16 @@ void Board::setSquare(int x, int y, Square square) {
             j++;
         }
     }
+}
+
+PieceType** Board::getMemoryBoard() { return this->memoryBoard; }
+
+void Board::setMemoryBoard(PieceType** memoryBoard) { this->memoryBoard = memoryBoard; }
+
+PieceType Board::getPiece(int x, int y) { return this->memoryBoard[x][y]; }
+
+void Board::setPiece(int x, int y, PieceType piece) {
+    this->memoryBoard[x][y] = piece;
+    // TODO: Set the piece on the board (?)
+    // this->squares[x][y]->setPiece(piece);
 }

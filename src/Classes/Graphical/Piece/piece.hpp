@@ -7,7 +7,7 @@
 
 class Piece {
    public:
-    Piece(sf::Vector2f position, Pieces type, sf::Color color, int size);
+    Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, PieceColor pieceColor, int x, int y);
     ~Piece();
     // Get the position of the piece
     sf::Vector2f getPosition();
@@ -16,22 +16,25 @@ class Piece {
     // Get the y position of the piece
     int getY();
     // Get the type of the piece
-    Pieces getType();
+    PieceType getType();
     // Get the color of the piece
     sf::Color getColor();
     // Set the position of the piece
     void setPosition(sf::Vector2f position);
     // Draw the piece
     void draw(sf::RenderWindow &window);
+    // Get the piece color
+    PieceColor getPieceColor();
 
    private:
     sf::Vector2f position;
     int x;
     int y;
-    Pieces type;
+    PieceType type;
     sf::Color color;
     sf::CircleShape shape;
     int size;
+    PieceColor pieceColor;
     // To add later: movement, etc.
 };
 

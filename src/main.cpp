@@ -7,8 +7,9 @@ int main() {
 
     Board *board = new Board();
     MouseInput mouseInput = MouseInput();
-    Piece *piece = new Piece(sf::Vector2f(0, 25), PAWN, WHITE, SQUARE_SIZE);
-    Piece *king = new Piece(sf::Vector2f(0, 0), KING, MAGENTA, SQUARE_SIZE);
+    Piece *piece = new Piece(sf::Vector2f(1 * SQUARE_SIZE, 2 * SQUARE_SIZE), PAWN, WHITE, SQUARE_SIZE,
+                             PieceColor::WHITE_PIECE, 1, 2);
+    Piece *king = new Piece(sf::Vector2f(0, 0), KING, MAGENTA, SQUARE_SIZE, PieceColor::BLACK_PIECE, 0, 0);
 
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);

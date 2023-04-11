@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "./../../../include/main.hpp"
 #include "./../Square/square.hpp"
 
 class Board {
@@ -18,10 +19,20 @@ class Board {
     Square *getSquare(int x, int y);
     // Set the square at the given position
     void setSquare(int x, int y, Square square);
+    // Get the memory board
+    PieceType **getMemoryBoard();
+    // Set the memory board
+    void setMemoryBoard(PieceType **memoryBoard);
+    // Get the piece at the given position
+    PieceType getPiece(int x, int y);
+    // Set the piece at the given position
+    void setPiece(int x, int y, PieceType piece);
 
    private:
     // Array of squares
-    Square *squares[8][8];
+    Square *squares[BOARD_SIZE][BOARD_SIZE];
+    // Memory board
+    PieceType **memoryBoard;
 };
 
 #endif /* !BOARD_HPP */

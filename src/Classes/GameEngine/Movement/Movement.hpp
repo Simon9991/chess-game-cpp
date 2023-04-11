@@ -10,7 +10,7 @@
 
 class Movement {
    public:
-    Movement(Piece *piece);
+    Movement(Piece *piece, PieceType **memoryBoard);
     ~Movement();
     // Get the possible moves of the piece
     std::vector<sf::Vector2f> getPossibleMoves();
@@ -46,6 +46,7 @@ class Movement {
    private:
     Piece *piece;
     std::vector<sf::Vector2f> possibleMoves;
+    PieceType **memoryBoard;
 };
 
 #endif /* !MOVEMENT_HPP */

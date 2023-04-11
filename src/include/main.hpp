@@ -28,11 +28,8 @@
 #define LIGHT_GRAY sf::Color(192, 192, 192)
 
 // Defining Chess pieces
-enum Pieces { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING };
-
-// Defining Chess pieces colors
-#define WHITE_PIECE "White"
-#define BLACK_PIECE "Black"
+enum PieceType { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, EMPTY };
+enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
 // Defining return values
 #define SUCCESS 0
