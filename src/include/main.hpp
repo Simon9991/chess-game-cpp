@@ -5,7 +5,7 @@
 #include <iostream>
 
 // Debug mode
-#define DEBUG 0
+#define DEBUG 1
 
 // Font
 #define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
@@ -15,6 +15,7 @@
 #define SQUARE_SIZE 25
 #define BOARD_SIZE 8
 #define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
+#define PIECE_SIZE SQUARE_SIZE * 0.75
 
 // Defining Chess colors
 #define WHITE sf::Color::White

@@ -8,9 +8,10 @@ class Square;
 
 class Board {
    public:
-    // TODO: Loading board from a text or pgn file
     // Constructor
     Board();
+    // TODO: Loading board from a text or pgn file
+    Board(std::string board);
     // Destructor
     ~Board();
     // Draw the board
