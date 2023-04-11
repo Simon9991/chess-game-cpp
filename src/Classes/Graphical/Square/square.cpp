@@ -13,8 +13,8 @@ Square::Square(int x, int y, int size, sf::Color color) {
     if (DEBUG) {
         std::cout << "Square created at " << x << "x" << y << " with size " << size << " and color "
                   << color.toInteger() << std::endl;
-        this->shape.setOutlineColor(GREEN);
-        this->shape.setOutlineThickness(1);
+        // this->shape.setOutlineColor(GREEN);
+        // this->shape.setOutlineThickness(1);
     }
 }
 

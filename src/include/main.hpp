@@ -7,11 +7,14 @@
 // Debug mode
 #define DEBUG 1
 
+// Font
+#define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
+
 // Defining Chess constants
 #define APP_NAME "Chess"
 #define SQUARE_SIZE 25
 #define BOARD_SIZE 8
-#define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE
+#define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -25,12 +28,7 @@
 #define LIGHT_GRAY sf::Color(192, 192, 192)
 
 // Defining Chess pieces
-#define PAWN "Pawn"
-#define ROOK "Rook"
-#define KNIGHT "Knight"
-#define BISHOP "Bishop"
-#define QUEEN "Queen"
-#define KING "King"
+enum Pieces { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING };
 
 // Defining Chess pieces colors
 #define WHITE_PIECE "White"
@@ -43,6 +41,7 @@
 
 #include "./../Classes/Graphical/Board/board.hpp"
 #include "./../Classes/Graphical/King/king.hpp"
+#include "./../Classes/Graphical/Piece/piece.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"
 #include "./../Classes/Input/MouseInput/mouse_input.hpp"
 
