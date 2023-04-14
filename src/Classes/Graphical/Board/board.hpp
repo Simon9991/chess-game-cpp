@@ -9,7 +9,7 @@ class Square;
 class Board {
    public:
     // TODO: Loading board from a text or FEN file
-    Board(std::string fen = nullptr);
+    Board(std::string fen);
     // Destructor
     ~Board();
     // Initialize the board without a FEN file
