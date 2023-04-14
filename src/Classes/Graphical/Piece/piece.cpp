@@ -33,8 +33,21 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape = sf::CircleShape(size / 2);
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
-
     this->size = size;
+
+    // Creating an Image to display
+    sf::Image image;
+    if (!image.loadFromFile("./src/Assets/Sprites/w_king.png")) {
+        std::cout << "Error loading the image" << std::endl;
+    } else {
+        std::cout << "Image loaded" << std::endl;
+    }
+    sf::Texture texture;
+    texture.loadFromImage(image);
+    this->sprite = sf::Sprite();
+    this->sprite.setTexture(texture);
+    this->sprite.setPosition(100, 100);
+    this->sprite.setScale(0.6, 0.6);
 
     if (DEBUG) {
         std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
@@ -63,11 +76,11 @@ void Piece::setPosition(sf::Vector2f position) {
     this->y = position.y;
 }
 
-void Piece::draw(sf::RenderWindow &window) { window.draw(this->shape); }
+void Piece::draw(sf::RenderWindow &window) {
+    window.draw(this->shape);
+    window.draw(this->sprite);
+}
 
 PieceColor Piece::getPieceColor() { return this->pieceColor; }
 
-PieceType Piece::getPieceType()
-{
-    return this->type;
-}
+PieceType Piece::getPieceType() { return this->type; }

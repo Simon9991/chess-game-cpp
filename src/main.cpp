@@ -4,11 +4,11 @@
 #include <iostream>
 
 int main(int ac, char **av) {
+    std::string fen = "";
+
     sf::RenderWindow window(sf::VideoMode(200, 200), APP_NAME);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-
-    std::string fen = "";
 
     if (ac > 1) {
         // Opens the .txt path file and setup the FEN
@@ -42,6 +42,20 @@ int main(int ac, char **av) {
     std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
               << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
+    // Creating an Image to display
+    sf::Image image;
+    if (!image.loadFromFile("./src/Assets/Sprites/w_king.png")) {
+        std::cout << "Error loading the image" << std::endl;
+    } else {
+        std::cout << "Image loaded" << std::endl;
+    }
+    sf::Texture texture;
+    texture.loadFromImage(image);
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+    sprite.setPosition(0, 0);
+    sprite.setScale(0.6, 0.6);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -55,6 +69,7 @@ int main(int ac, char **av) {
 
         window.clear();
         board->draw(window);
+        window.draw(sprite);
         window.display();
     }
 

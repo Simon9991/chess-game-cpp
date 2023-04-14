@@ -37,7 +37,8 @@ class Piece {
     sf::CircleShape shape;
     int size;
     PieceColor pieceColor;
-    // To add later: movement, etc.
+    // To add later: movement, Sprite etc.
+    sf::Sprite sprite;
 };
 
 #endif /* !PIECE_HPP */
