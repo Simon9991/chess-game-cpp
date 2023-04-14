@@ -20,28 +20,6 @@ class Movement {
     std::vector<sf::Vector2f> getPossibleMoves(int x, int y);
     // Get the possible moves of the piece
     std::vector<sf::Vector2f> getPossibleMoves(int x, int y, sf::Vector2f position);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, sf::Vector2f position);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, sf::Vector2f position);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, int x4, int y4);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, int x4, int y4,
-    // sf::Vector2f position);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, int x4, int y4, int x5,
-    // int y5);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, int x4, int y4, int x5,
-    // int y5, sf::Vector2f position);
-    // // Get the possible moves of the piece
-    // std::vector<sf::Vector2f> getPossibleMoves(int x, int y, int x2, int y2, int x3, int y3, int x4, int y4, int x5,
-    // int y5, int x6, int y6);
 
    private:
     Piece *piece;
