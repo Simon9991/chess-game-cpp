@@ -3,6 +3,7 @@
 #include "./../../../include/main.hpp"
 
 Board::Board() {
+    // TODO: Replace with a PGN loader
     // Creates the board
     int i = 0;
     int j = 0;
