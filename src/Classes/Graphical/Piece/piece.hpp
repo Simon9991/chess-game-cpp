@@ -25,6 +25,8 @@ class Piece {
     void draw(sf::RenderWindow &window);
     // Get the piece color
     PieceColor getPieceColor();
+    // Getting the PieceType
+    PieceType getPieceType();
 
    private:
     sf::Vector2f position;

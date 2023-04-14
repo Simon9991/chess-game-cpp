@@ -8,12 +8,14 @@ class Square;
 
 class Board {
    public:
-    // Constructor
-    Board();
-    // TODO: Loading board from a text or pgn file
-    Board(std::string board);
+    // TODO: Loading board from a text or FEN file
+    Board(std::string fen = nullptr);
     // Destructor
     ~Board();
+    // Initialize the board without a FEN file
+    void initBoard();
+    // Initialize the board with a FEN file
+    void initBoard(std::string fen);
     // Draw the board
     void draw(sf::RenderWindow &window);
     // Get the square at the given position

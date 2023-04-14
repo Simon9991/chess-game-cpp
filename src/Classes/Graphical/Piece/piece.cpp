@@ -66,3 +66,8 @@ void Piece::setPosition(sf::Vector2f position) {
 void Piece::draw(sf::RenderWindow &window) { window.draw(this->shape); }
 
 PieceColor Piece::getPieceColor() { return this->pieceColor; }
+
+PieceType Piece::getPieceType()
+{
+    return this->type;
+}
