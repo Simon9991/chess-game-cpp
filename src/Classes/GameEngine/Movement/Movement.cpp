@@ -2,9 +2,10 @@
 
 #include "./../../../include/main.hpp"
 
-Movement::Movement(Piece* piece) {
+Movement::Movement(Piece* piece, PieceType** memoryBoard) {
     this->piece = piece;
     this->possibleMoves = std::vector<sf::Vector2f>();
+    this->memoryBoard = memoryBoard;
 }
 
 Movement::~Movement() {
@@ -14,10 +15,20 @@ Movement::~Movement() {
 
 std::vector<sf::Vector2f> Movement::getPossibleMoves() {
     switch (piece->getType()) {
-        case Pieces::PAWN:
-            // Can only move forward by the same amount of SQUARE_SIZE
-            return std::vector<sf::Vector2f>{
-                sf::Vector2f(this->piece->getPosition().x, this->piece->getPosition().y + SQUARE_SIZE)};
+        case PieceType::PAWN:
+            // Checking the piece color
+            if (piece->getPieceColor() == PieceColor::WHITE_PIECE) {
+                // Checking if can move forward
+                if (this->memoryBoard[this->piece->getX()][this->piece->getY() - 1] == PieceType::EMPTY) {
+                    this->possibleMoves.push_back(sf::Vector2f(this->piece->getX(), this->piece->getY() - 1));
+                    if (DEBUG) {
+                        std::cout << "Piece " << this->piece->getX() << "x" << this->piece->getY() << " can move to "
+                                  << this->piece->getX() << "x" << this->piece->getY() - 1 << std::endl;
+                    }
+                }
+            }
+
+            return this->possibleMoves;
             break;
         default:
             break;

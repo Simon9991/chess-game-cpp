@@ -15,6 +15,7 @@
 #define SQUARE_SIZE 25
 #define BOARD_SIZE 8
 #define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
+#define PIECE_SIZE SQUARE_SIZE * 0.75
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -24,15 +25,13 @@
 #define BLUE sf::Color::Blue
 #define YELLOW sf::Color::Yellow
 #define MAGENTA sf::Color::Magenta
+#define CYAN sf::Color::Cyan
 #define DARK_GRAY sf::Color(64, 64, 64)
 #define LIGHT_GRAY sf::Color(192, 192, 192)
 
 // Defining Chess pieces
-enum Pieces { PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING };
-
-// Defining Chess pieces colors
-#define WHITE_PIECE "White"
-#define BLACK_PIECE "Black"
+enum PieceType { WHITE_PAWN, WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, BLACK_PAWN, BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, EMPTY };
+enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
 // Defining return values
 #define SUCCESS 0

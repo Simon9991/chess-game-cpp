@@ -23,6 +23,8 @@ bool MouseInput::isClicked(sf::RenderWindow& window) {
     return this->clicked;
 }
 
+bool MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {}
+
 sf::Vector2i MouseInput::getPositionClick(sf::RenderWindow& window) {
     if (this->clicked) {
         this->positionClick = sf::Mouse::getPosition(window);

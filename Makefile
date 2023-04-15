@@ -6,7 +6,7 @@ CC = g++
 
 # Compiler flags
 
-CFLAGS = -Wall -Wextra -std=c++11 -g
+CFLAGS = -Wall -Wextra -std=c++11 -g3
 
 # SFML flags
 
@@ -18,7 +18,7 @@ INCLUDEFLAGS = -I./include
 
 # Executable name
 
-EXEC = sfml-app
+EXEC = chess-game
 
 # Source files
 

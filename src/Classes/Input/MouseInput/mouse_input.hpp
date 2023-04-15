@@ -1,9 +1,9 @@
 #ifndef MOUSE_INPUT_HPP
 #define MOUSE_INPUT_HPP
 
-#include <SFML/Graphics.hpp>
-
 #include "./../../../include/main.hpp"
+
+class Board;
 
 class MouseInput {
    public:
@@ -46,6 +46,9 @@ class MouseInput {
     // Get if the mouse is clicked
     bool isClicked(sf::RenderWindow &window);
 
+    // Check if we clicked on a piece in the board
+    bool isClickedOnPiece(sf::RenderWindow &window, Board *board);
+
    private:
     // Position of the mouse
     sf::Vector2i position;
@@ -53,6 +56,8 @@ class MouseInput {
     sf::Vector2i positionClick;
     // If the mouse is clicked
     bool clicked;
+    // Visual board
+    Board *board;
 };
 
 #endif /* !MOUSE_INPUT_HPP */

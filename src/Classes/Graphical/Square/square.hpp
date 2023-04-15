@@ -1,12 +1,15 @@
 // SFML class which represents a 2D square
 #ifndef SQUARE_HPP
 #define SQUARE_HPP
-#include <SFML/Graphics.hpp>
+
+#include "./../../../include/main.hpp"
+
+class Piece;
 
 class Square {
    public:
     // Constructor
-    Square(int x, int y, int size, sf::Color color);
+    Square(int x, int y, int size, sf::Color color, Piece *piece);
     // Destructor
     ~Square();
     // Draw the square
@@ -23,8 +26,10 @@ class Square {
     void setSize(int size);
     // Set the color of the square
     void setColor(sf::Color color);
-    // Return a NULL square
-    static Square nullSquare();
+    // Returns the piece on the square
+    Piece *getPiece();
+    // Set the piece on the square
+    void setPiece(Piece *piece);
 
    private:
     // Position of the square
@@ -35,6 +40,8 @@ class Square {
     sf::Color color;
     // SFML shape of the square
     sf::RectangleShape shape;
+    // Piece on the square
+    Piece *piece;
 };
 
 #endif /* !SQUARE_HPP */
