@@ -35,6 +35,8 @@
 *.dSYM
 *.dwo
 *.DS_Store
+*.v*
+*.vscode
 
 # Executables
 *.exe

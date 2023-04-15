@@ -32,9 +32,6 @@ int main(int ac, char **av) {
 
     Board *board = new Board(fen);
     MouseInput mouseInput = MouseInput();
-    // Piece *piece = new Piece(sf::Vector2f(1 * SQUARE_SIZE, 2 * SQUARE_SIZE), PAWN, WHITE, SQUARE_SIZE,
-    //                          PieceColor::WHITE_PIECE, 1, 2);
-    // Piece *king = new Piece(sf::Vector2f(0, 0), KING, MAGENTA, SQUARE_SIZE, PieceColor::BLACK_PIECE, 0, 0);
 
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
@@ -42,19 +39,6 @@ int main(int ac, char **av) {
     std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
               << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
-    // Creating an Image to display
-    sf::Image image;
-    if (!image.loadFromFile("./src/Assets/Sprites/w_king.png")) {
-        std::cout << "Error loading the image" << std::endl;
-    } else {
-        std::cout << "Image loaded" << std::endl;
-    }
-    sf::Texture texture;
-    texture.loadFromImage(image);
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setPosition(0, 0);
-    sprite.setScale(0.6, 0.6);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -75,8 +59,6 @@ int main(int ac, char **av) {
 
     // Free memory
     delete board;
-    // delete piece;
-    // delete king;
 
     return 0;
 }

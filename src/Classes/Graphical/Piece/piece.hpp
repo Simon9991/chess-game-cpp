@@ -38,7 +38,8 @@ class Piece {
     int size;
     PieceColor pieceColor;
     // To add later: movement, Sprite etc.
-    sf::Sprite sprite;
+    // sf::Sprite sprite;
+    // Or Graphical class from Malo
 };
 
 #endif /* !PIECE_HPP */
