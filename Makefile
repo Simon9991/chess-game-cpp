@@ -18,7 +18,7 @@ INCLUDEFLAGS = -I./include
 
 # Executable name
 
-EXEC = sfml-app
+EXEC = chess-game
 
 # Source files
 
