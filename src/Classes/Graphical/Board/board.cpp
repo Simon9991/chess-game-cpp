@@ -333,8 +333,9 @@ Piece *Board::getPiece(int x, int y) {
         j = 0;
 
         while (j < BOARD_SIZE) {
-            if (this->squares[i][j]->getPosition().x == x * SQUARE_SIZE &&
-                this->squares[i][j]->getPosition().y == y * SQUARE_SIZE) {
+            if (this->squares[i][j]->getPosition().x * SQUARE_SIZE == x &&
+                this->squares[i][j]->getPosition().y * SQUARE_SIZE == y) {
+                if (DEBUG) std::cout << "Found piece at " << x << ", " << y << std::endl;
                 return this->squares[i][j]->getPiece();
             }
             j++;

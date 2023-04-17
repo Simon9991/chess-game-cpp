@@ -23,7 +23,7 @@ Square::~Square() {
 
 void Square::draw(sf::RenderWindow& window) { window.draw(this->shape); }
 
-sf::Vector2f Square::getPosition() { return sf::Vector2f(); }
+sf::Vector2f Square::getPosition() { return this->position; }
 
 int Square::getSize() { return this->size; }
 
