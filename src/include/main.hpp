@@ -30,7 +30,21 @@
 #define LIGHT_GRAY sf::Color(192, 192, 192)
 
 // Defining Chess pieces
-enum PieceType { WHITE_PAWN, WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, BLACK_PAWN, BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, EMPTY };
+enum PieceType {
+    WHITE_PAWN,
+    WHITE_ROOK,
+    WHITE_KNIGHT,
+    WHITE_BISHOP,
+    WHITE_QUEEN,
+    WHITE_KING,
+    BLACK_PAWN,
+    BLACK_ROOK,
+    BLACK_KNIGHT,
+    BLACK_BISHOP,
+    BLACK_QUEEN,
+    BLACK_KING,
+    EMPTY
+};
 enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
 // Defining return values
@@ -39,6 +53,7 @@ enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 #define ERROR 84
 
 #include "./../Classes/Graphical/Board/board.hpp"
+#include "./../Classes/Graphical/Image/image.hpp"
 #include "./../Classes/Graphical/King/king.hpp"
 #include "./../Classes/Graphical/Piece/piece.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"

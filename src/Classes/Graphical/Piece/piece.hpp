@@ -3,6 +3,8 @@
 
 #include "./../../../include/main.hpp"
 
+class Image;
+
 class Piece {
    public:
     // Empty Piece
@@ -38,8 +40,7 @@ class Piece {
     int size;
     PieceColor pieceColor;
     // To add later: movement, Sprite etc.
-    // sf::Sprite sprite;
-    // Or Graphical class from Malo
+    Image *image;
 };
 
 #endif /* !PIECE_HPP */

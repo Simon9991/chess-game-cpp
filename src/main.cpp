@@ -39,7 +39,6 @@ int main(int ac, char **av) {
     std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
               << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
-
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -53,7 +52,6 @@ int main(int ac, char **av) {
 
         window.clear();
         board->draw(window);
-        window.draw(sprite);
         window.display();
     }
 

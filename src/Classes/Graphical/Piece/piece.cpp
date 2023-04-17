@@ -34,6 +34,7 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
     this->size = size;
+    this->image = new Image("./src/Assets/Pieces/w_king.png", position, sf::Vector2f(size, size));
 
     if (DEBUG) {
         std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
@@ -64,7 +65,9 @@ void Piece::setPosition(sf::Vector2f position) {
 
 void Piece::draw(sf::RenderWindow &window) {
     window.draw(this->shape);
-    window.draw(this->sprite);
+    if (this->type != PieceType::EMPTY) {
+        this->image->draw(window);
+    }
 }
 
 PieceColor Piece::getPieceColor() { return this->pieceColor; }
