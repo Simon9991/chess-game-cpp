@@ -35,6 +35,47 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape.setPosition(position);
     this->size = size;
 
+    switch (type) {
+        case PieceType::WHITE_PAWN:
+            this->image = new Image(WHITE_PAWN_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::WHITE_ROOK:
+            this->image = new Image(WHITE_ROOK_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::WHITE_KNIGHT:
+            this->image = new Image(WHITE_KNIGHT_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::WHITE_BISHOP:
+            this->image = new Image(WHITE_BISHOP_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::WHITE_QUEEN:
+            this->image = new Image(WHITE_QUEEN_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::WHITE_KING:
+            this->image = new Image(WHITE_KING_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_PAWN:
+            this->image = new Image(BLACK_PAWN_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_ROOK:
+            this->image = new Image(BLACK_ROOK_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_KNIGHT:
+            this->image = new Image(BLACK_KNIGHT_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_BISHOP:
+            this->image = new Image(BLACK_BISHOP_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_QUEEN:
+            this->image = new Image(BLACK_QUEEN_PATH, position, sf::Vector2f(size, size));
+            break;
+        case PieceType::BLACK_KING:
+            this->image = new Image(BLACK_KING_PATH, position, sf::Vector2f(size, size));
+            break;
+        default:
+            break;
+    }
+
     if (DEBUG) {
         std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
                   << " color: " << this->pieceColor << std::endl;
@@ -63,8 +104,10 @@ void Piece::setPosition(sf::Vector2f position) {
 }
 
 void Piece::draw(sf::RenderWindow &window) {
-    window.draw(this->shape);
-    window.draw(this->sprite);
+    // window.draw(this->shape);
+    if (this->type != PieceType::EMPTY) {
+        this->image->draw(window);
+    }
 }
 
 PieceColor Piece::getPieceColor() { return this->pieceColor; }

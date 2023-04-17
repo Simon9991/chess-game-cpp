@@ -6,7 +6,11 @@
 int main(int ac, char **av) {
     std::string fen = "";
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), APP_NAME);
+    // Setting anti-aliasing
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
+    sf::RenderWindow window(sf::VideoMode(200, 200), APP_NAME, sf::Style::Default, settings);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
@@ -39,7 +43,6 @@ int main(int ac, char **av) {
     std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
               << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
-
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -53,7 +56,6 @@ int main(int ac, char **av) {
 
         window.clear();
         board->draw(window);
-        window.draw(sprite);
         window.display();
     }
 
