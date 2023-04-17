@@ -61,3 +61,5 @@ sf::Vector2f Image::getPosition() { return this->position; }
 sf::Vector2f Image::getSize() { return this->size; }
 
 sf::Color Image::getColor() { return this->color; }
+
+sf::Sprite* Image::getSprite() { return this->sprite; }

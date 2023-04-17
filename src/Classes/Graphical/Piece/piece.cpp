@@ -113,3 +113,5 @@ void Piece::draw(sf::RenderWindow &window) {
 PieceColor Piece::getPieceColor() { return this->pieceColor; }
 
 PieceType Piece::getPieceType() { return this->type; }
+
+Image *Piece::getImage() { return this->image; }

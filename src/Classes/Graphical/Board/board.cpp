@@ -314,10 +314,32 @@ PieceType **Board::getMemoryBoard() { return this->memoryBoard; }
 
 void Board::setMemoryBoard(PieceType **memoryBoard) { this->memoryBoard = memoryBoard; }
 
-PieceType Board::getPiece(int x, int y) { return this->memoryBoard[x][y]; }
+PieceType Board::getPieceType(int x, int y) { return this->memoryBoard[x][y]; }
 
 void Board::setPiece(int x, int y, PieceType piece) {
     this->memoryBoard[x][y] = piece;
     // TODO: Set the piece on the board (?)
     // this->squares[x][y]->setPiece(piece);
+}
+
+Piece *Board::getPiece(int x, int y) {
+    // Iterates through the squares array to find the square at the given position
+    // x and y are the coordinates of the square
+    // Returns the piece at the given position
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            if (this->squares[i][j]->getPosition().x == x * SQUARE_SIZE &&
+                this->squares[i][j]->getPosition().y == y * SQUARE_SIZE) {
+                return this->squares[i][j]->getPiece();
+            }
+            j++;
+        }
+    }
+
+    return nullptr;
 }

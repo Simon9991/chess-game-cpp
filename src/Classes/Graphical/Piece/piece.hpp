@@ -29,6 +29,8 @@ class Piece {
     PieceColor getPieceColor();
     // Getting the PieceType
     PieceType getPieceType();
+    // Getting the Image
+    Image *getImage();
 
    private:
     sf::Vector2f position;

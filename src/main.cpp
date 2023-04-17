@@ -37,6 +37,8 @@ int main(int ac, char **av) {
     Board *board = new Board(fen);
     MouseInput mouseInput = MouseInput();
 
+    Piece *piece = nullptr;
+
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
     window.setSize(sf::Vector2u(2000, 2000));
@@ -49,9 +51,9 @@ int main(int ac, char **av) {
             if (event.type == sf::Event::Closed) window.close();
         }
 
-        if (mouseInput.isClicked(window)) {
-            std::cout << "Mouse clicked at " << mouseInput.getPositionClick(window).x << "x"
-                      << mouseInput.getPositionClick(window).y << std::endl;
+        piece = mouseInput.isClickedOnPiece(window, board);
+        if (piece != nullptr) {
+            std::cout << "Clicked on piece: " << piece->getType() << std::endl;
         }
 
         window.clear();

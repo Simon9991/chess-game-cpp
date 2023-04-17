@@ -5,6 +5,7 @@
 #include "./../../../include/main.hpp"
 
 class Square;
+class Piece;
 
 class Board {
    public:
@@ -24,10 +25,12 @@ class Board {
     PieceType **getMemoryBoard();
     // Set the memory board
     void setMemoryBoard(PieceType **memoryBoard);
-    // Get the piece at the given position
-    PieceType getPiece(int x, int y);
+    // Get the piece type at the given position
+    PieceType getPieceType(int x, int y);
     // Set the piece at the given position
     void setPiece(int x, int y, PieceType piece);
+    // Get the piece at the given position
+    Piece *getPiece(int x, int y);
 
    private:
     // Array of squares

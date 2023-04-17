@@ -23,13 +23,33 @@ bool MouseInput::isClicked(sf::RenderWindow& window) {
     return this->clicked;
 }
 
-bool MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {}
-
-sf::Vector2i MouseInput::getPositionClick(sf::RenderWindow& window) {
-    if (this->clicked) {
+Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         this->positionClick = sf::Mouse::getPosition(window);
-        return this->positionClick;
+        this->clicked = true;
     } else {
-        return sf::Vector2i(0, 0);
+        this->clicked = false;
     }
+    if (this->clicked) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board->getPieceType(i, j) != PieceType::EMPTY) {
+                    if (board->getPiece(i, j)->getImage()->getSprite()->getGlobalBounds().contains(
+                            this->positionClick.x, this->positionClick.y)) {
+                        return board->getPiece(i, j);
+                    }
+                }
+            }
+        }
+    }
+    return nullptr;
 }
+
+// sf::Vector2i MouseInput::getPositionClick(sf::RenderWindow& window) {
+//     if (this->clicked) {
+//         this->positionClick = sf::Mouse::getPosition(window);
+//         return this->positionClick;
+//     } else {
+//         return sf::Vector2i(0, 0);
+//     }
+// }
