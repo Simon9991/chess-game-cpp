@@ -23,13 +23,42 @@ bool MouseInput::isClicked(sf::RenderWindow& window) {
     return this->clicked;
 }
 
-bool MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {}
-
-sf::Vector2i MouseInput::getPositionClick(sf::RenderWindow& window) {
-    if (this->clicked) {
+Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         this->positionClick = sf::Mouse::getPosition(window);
-        return this->positionClick;
+        std::cout << "Clicked on " << this->positionClick.x << "x" << this->positionClick.y << std::endl;
+        sf::Vector2i relativePosition =
+            sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
+        std::cout << "Relative position: " << relativePosition.x << "x" << relativePosition.y << std::endl;
+        this->clicked = true;
     } else {
-        return sf::Vector2i(0, 0);
+        this->clicked = false;
     }
+    // if (this->clicked) {
+    //     for (int i = 0; i < BOARD_SIZE; i++) {
+    //         std::cout << "i: " << i << std::endl;
+    //         for (int j = 0; j < BOARD_SIZE; j++) {
+    //             std::cout << "j: " << j << std::endl;
+    //             if (board->getPieceType(i, j) != PieceType::EMPTY) {
+    //                 std::cout << "piece: " << board->getPieceType(i, j) << std::endl;
+    //                 if (board->getPiece(i, j)->getImage()->getSprite()->getGlobalBounds().contains(
+    //                         this->positionClick.x, this->positionClick.y)) {
+    //                     std::cout << "Found a piece" << std::endl;
+    //                     return board->getPiece(i, j);
+    //                     // return nullptr;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    return nullptr;
 }
+
+// sf::Vector2i MouseInput::getPositionClick(sf::RenderWindow& window) {
+//     if (this->clicked) {
+//         this->positionClick = sf::Mouse::getPosition(window);
+//         return this->positionClick;
+//     } else {
+//         return sf::Vector2i(0, 0);
+//     }
+// }

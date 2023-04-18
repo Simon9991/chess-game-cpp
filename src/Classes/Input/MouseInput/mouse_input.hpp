@@ -4,6 +4,7 @@
 #include "./../../../include/main.hpp"
 
 class Board;
+class Piece;
 
 class MouseInput {
    public:
@@ -13,41 +14,10 @@ class MouseInput {
     ~MouseInput();
     // Get the position of the mouse
     sf::Vector2i getPosition(sf::RenderWindow &window);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view);
-    // // Get the position of the mouse
-    // sf::Vector2i getPosition(sf::RenderWindow &window, sf::View &view);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset);
-    // // Get the position of the mouse
-    // sf::Vector2i getPosition(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale);
-    // // Get the position of the mouse
-    // sf::Vector2i getPosition(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale,
-    // sf::Vector2f origin);
-    // // Get the position of the mouse
-    // sf::Vector2i getPosition(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale,
-    // sf::Vector2f origin);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale,
-    // sf::Vector2f origin, sf::Vector2f size);
-    // // Get the position of the mouse
-    // sf::Vector2i getPosition(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale,
-    // sf::Vector2f origin, sf::Vector2f size);
-    // // Get the position of the mouse
-    // sf::Vector2f getPositionF(sf::RenderWindow &window, sf::View &view, sf::Vector2f offset, sf::Vector2f scale,
-    // sf::Vector2f origin, sf::Vector2f size, sf::Vector2f scaleOrigin); Get the position of the mouse click
-    sf::Vector2i getPositionClick(sf::RenderWindow &window);
     // Get if the mouse is clicked
     bool isClicked(sf::RenderWindow &window);
-
     // Check if we clicked on a piece in the board
-    bool isClickedOnPiece(sf::RenderWindow &window, Board *board);
+    Piece *isClickedOnPiece(sf::RenderWindow &window, Board *board);
 
    private:
     // Position of the mouse

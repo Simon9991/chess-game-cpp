@@ -18,11 +18,12 @@ INCLUDEFLAGS = -I./include
 
 # Executable name
 
-EXEC = sfml-app
+EXEC = chess-game
 
 # Source files
 
 SRC = 	src/main.cpp										\
+		src/Classes/Graphical/Image/image.cpp				\
 		src/Classes/Graphical/Square/square.cpp				\
 		src/Classes/Graphical/Board/board.cpp				\
 		src/Classes/Graphical/King/king.cpp					\

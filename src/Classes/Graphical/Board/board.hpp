@@ -5,15 +5,16 @@
 #include "./../../../include/main.hpp"
 
 class Square;
+class Piece;
 
 class Board {
    public:
-    // Constructor
-    Board();
-    // TODO: Loading board from a text or pgn file
-    Board(std::string board);
+    // Loading board from a FEN file
+    Board(std::string fen);
     // Destructor
     ~Board();
+    // Initialize the board with a FEN file
+    void initBoard(std::string fen);
     // Draw the board
     void draw(sf::RenderWindow &window);
     // Get the square at the given position
@@ -24,10 +25,12 @@ class Board {
     PieceType **getMemoryBoard();
     // Set the memory board
     void setMemoryBoard(PieceType **memoryBoard);
-    // Get the piece at the given position
-    PieceType getPiece(int x, int y);
+    // Get the piece type at the given position
+    PieceType getPieceType(int x, int y);
     // Set the piece at the given position
     void setPiece(int x, int y, PieceType piece);
+    // Get the piece at the given position
+    Piece *getPiece(int x, int y);
 
    private:
     // Array of squares

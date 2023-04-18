@@ -3,6 +3,8 @@
 
 #include "./../../../include/main.hpp"
 
+class Image;
+
 class Piece {
    public:
     // Empty Piece
@@ -25,6 +27,10 @@ class Piece {
     void draw(sf::RenderWindow &window);
     // Get the piece color
     PieceColor getPieceColor();
+    // Getting the PieceType
+    PieceType getPieceType();
+    // Getting the Image
+    Image *getImage();
 
    private:
     sf::Vector2f position;
@@ -35,7 +41,8 @@ class Piece {
     sf::CircleShape shape;
     int size;
     PieceColor pieceColor;
-    // To add later: movement, etc.
+    // To add later: movement, Sprite etc.
+    Image *image;
 };
 
 #endif /* !PIECE_HPP */
