@@ -15,7 +15,7 @@ class MouseInput {
     // Get the position of the mouse
     sf::Vector2i getPosition(sf::RenderWindow &window);
     // Get the relative position of the mouse click
-    sf::Vector2f getRelativePositionClick();
+    sf::Vector2i getRelativePositionClick();
     // Get the position of the mouse click
     sf::Vector2f getPositionClick();
     // Get if the mouse is clicked

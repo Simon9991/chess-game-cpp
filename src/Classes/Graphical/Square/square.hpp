@@ -30,6 +30,10 @@ class Square {
     Piece *getPiece();
     // Set the piece on the square
     void setPiece(Piece *piece);
+    // Get if it is possible to move to this square
+    bool isPossibleMove();
+    // Set if it is possible to move to this square
+    void setPossibleMove(bool possibleMove);
 
    private:
     // Position of the square
@@ -42,6 +46,8 @@ class Square {
     sf::RectangleShape shape;
     // Piece on the square
     Piece *piece;
+    // Is possible to move to this square
+    bool possibleMove;
 };
 
 #endif /* !SQUARE_HPP */

@@ -291,6 +291,28 @@ Square *Board::getSquare(int x, int y) {
     return nullptr;
 }
 
+Square *Board::getRelativeSquare(sf::Vector2i position) {
+    // Iterates through the squares array to find the square at the given position
+    // x and y are the coordinates of the square
+    // Returns the square at the given position
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            if (this->squares[i][j]->getPosition().x / SQUARE_SIZE / 10 == position.x &&
+                this->squares[i][j]->getPosition().y / SQUARE_SIZE / 10 == position.y) {
+                return this->squares[i][j];
+            }
+            j++;
+        }
+    }
+
+    return nullptr;
+}
+
 void Board::setSquare(int x, int y, Square square) {
     // Iterates through the squares array to find the square at the given position
     // x and y are the coordinates of the square
@@ -328,4 +350,19 @@ Piece *Board::getPiece(int x, int y) {
     // Then we get the piece at the given square
     // TODO: Check if the piece is EMPTY in the memory board (?)
     return this->squares[x][y]->getPiece();
+}
+
+void Board::movePiece(Piece *piece, sf::Vector2f position) {
+    /*
+        // Smoothly move the piece to the given relative position
+    this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
+    this->memoryBoard[relativePosition.y][relativePosition.x] = piece->getType();
+    piece->setPosition(sf::Vector2f(relativePosition.x * SQUARE_SIZE, relativePosition.y * SQUARE_SIZE));
+    */
+
+    // Move the piece to the given position
+    this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
+    sf::Vector2i relativePosition = sf::Vector2i(position.x / SQUARE_SIZE / 10, position.y / SQUARE_SIZE / 10);
+    this->memoryBoard[relativePosition.x][relativePosition.y] = piece->getType();
+    piece->setPosition(position);
 }

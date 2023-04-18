@@ -29,3 +29,7 @@ void Moves::setPossibleMoves(std::vector<sf::Vector2f> possibleMoves) {
         this->possibleMoves.push_back(circle);
     }
 }
+
+void Moves::clear() { this->possibleMoves = std::vector<sf::CircleShape>(); }
+
+sf::Vector2i Moves::getRelativePossibleMoves() { return sf::Vector2i(); }

@@ -13,11 +13,11 @@ sf::Vector2i MouseInput::getPosition(sf::RenderWindow& window) {
     return this->position;
 }
 
-sf::Vector2f MouseInput::getRelativePositionClick() {
+sf::Vector2i MouseInput::getRelativePositionClick() {
     if (this->clicked) {
-        return sf::Vector2f(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
+        return sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
     } else {
-        return sf::Vector2f(0, 0);
+        return sf::Vector2i(0, 0);
     }
 }
 

@@ -31,6 +31,10 @@ class Board {
     void setPiece(int x, int y, PieceType piece);
     // Get the piece at the given position from the memory board
     Piece *getPiece(int x, int y);
+    // Moving a piece from a position to another in the memory board
+    void movePiece(Piece *piece, sf::Vector2f position);
+    // Get the relative square
+    Square *getRelativeSquare(sf::Vector2i position);
 
    private:
     // Array of squares

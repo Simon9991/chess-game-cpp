@@ -14,6 +14,10 @@ class Moves {
     void draw(sf::RenderWindow &window);
     // Set the possible moves
     void setPossibleMoves(std::vector<sf::Vector2f> possibleMoves);
+    // Clearing the possible moves
+    void clear();
+    // Returns the relative possible moves
+    sf::Vector2i getRelativePossibleMoves();
 
    private:
     std::vector<sf::CircleShape> possibleMoves;

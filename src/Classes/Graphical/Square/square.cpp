@@ -8,6 +8,7 @@ Square::Square(int x, int y, int size, sf::Color color, Piece* piece) {
     this->shape = sf::RectangleShape(sf::Vector2f(size, size));
     this->shape.setPosition(position);
     this->shape.setFillColor(color);
+    this->possibleMove = false;
 
     if (DEBUG) {
         std::cout << "Square created at " << x << "x" << y << " with size " << size << " and color "
@@ -39,9 +40,20 @@ Piece* Square::getPiece() { return this->piece; }
 
 void Square::setPiece(Piece* piece) {
     this->piece = piece;
-    if (piece != nullptr) {
+    if (piece != nullptr)
         this->shape.setFillColor(piece->getColor());
-    } else {
+    else
         this->shape.setFillColor(this->color);
+}
+
+bool Square::isPossibleMove() { return this->possibleMove; }
+
+void Square::setPossibleMove(bool possibleMove) {
+    this->possibleMove = possibleMove;
+    if (possibleMove) {
+        this->shape.setOutlineColor(GREEN);
+        this->shape.setOutlineThickness(1);
+    } else {
+        this->shape.setOutlineThickness(0);
     }
 }
