@@ -61,15 +61,17 @@ int main(int ac, char **av) {
 
             if (mouseInput.isClicked(window)) {
                 Square *squareOfPossibleMove = board->getRelativeSquare(mouseInput.getRelativePositionClick());
-                if (mouseInput.getRelativePositionClick() == piece->getMemoryPosition()) {
-                    moves.clear();
-                    piece = nullptr;
-                } else if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
-                    std::cout << "Move piece to " << mouseInput.getRelativePositionClick().x << "x"
-                              << mouseInput.getRelativePositionClick().y << std::endl;
-                    board->movePiece(piece, squareOfPossibleMove->getPosition());
-                    moves.clear();
-                }
+                std::cout << "Clicked on square: " << mouseInput.getRelativePositionClick().x << "x"
+                          << mouseInput.getRelativePositionClick().y << std::endl;
+                // if (mouseInput.getRelativePositionClick() == piece->getMemoryPosition()) {
+                //     moves.clear();
+                //     piece = nullptr;
+                // } else if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
+                //     std::cout << "Move piece to " << mouseInput.getRelativePositionClick().x << "x"
+                //               << mouseInput.getRelativePositionClick().y << std::endl;
+                //     board->movePiece(piece, squareOfPossibleMove->getPosition());
+                //     moves.clear();
+                // }
             }
         }
 
