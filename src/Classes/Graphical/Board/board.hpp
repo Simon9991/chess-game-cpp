@@ -29,7 +29,7 @@ class Board {
     PieceType getPieceType(int x, int y);
     // Set the piece at the given position
     void setPiece(int x, int y, PieceType piece);
-    // Get the piece at the given position
+    // Get the piece at the given position from the memory board
     Piece *getPiece(int x, int y);
 
    private:
