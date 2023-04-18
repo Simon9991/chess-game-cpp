@@ -286,6 +286,8 @@ Square *Board::getSquare(int x, int y) {
             }
             j++;
         }
+
+        i++;
     }
 
     return nullptr;
@@ -308,6 +310,8 @@ Square *Board::getRelativeSquare(sf::Vector2i position) {
             }
             j++;
         }
+
+        i++;
     }
 
     return nullptr;

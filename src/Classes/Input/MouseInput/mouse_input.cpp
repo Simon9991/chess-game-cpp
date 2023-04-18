@@ -60,3 +60,7 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {
     }
     return nullptr;
 }
+
+void MouseInput::setClicked(bool clicked) { this->clicked = clicked; }
+
+bool MouseInput::getClicked() { return this->clicked; }

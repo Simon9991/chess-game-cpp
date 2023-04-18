@@ -22,6 +22,10 @@ class MouseInput {
     bool isClicked(sf::RenderWindow &window);
     // Check if we clicked on a piece in the board
     Piece *isClickedOnPiece(sf::RenderWindow &window, Board *board);
+    // Set the clicked state
+    void setClicked(bool clicked);
+    // Get the clicked state
+    bool getClicked();
 
    private:
     // Position of the mouse
