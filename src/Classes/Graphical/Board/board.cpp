@@ -323,24 +323,9 @@ void Board::setPiece(int x, int y, PieceType piece) {
 }
 
 Piece *Board::getPiece(int x, int y) {
-    // Iterates through the squares array to find the square at the given position
-    // x and y are the coordinates of the square
-    // Returns the piece at the given position
-    int i = 0;
-    int j = 0;
-
-    while (i < BOARD_SIZE) {
-        j = 0;
-
-        while (j < BOARD_SIZE) {
-            if (this->squares[i][j]->getPosition().x * SQUARE_SIZE == x &&
-                this->squares[i][j]->getPosition().y * SQUARE_SIZE == y) {
-                if (DEBUG) std::cout << "Found piece at " << x << ", " << y << std::endl;
-                return this->squares[i][j]->getPiece();
-            }
-            j++;
-        }
-    }
-
-    return nullptr;
+    // We get the y and x coordinate of the piece in the memory board
+    // Then we get the square at the given position
+    // Then we get the piece at the given square
+    // TODO: Check if the piece is EMPTY in the memory board (?)
+    return this->squares[x][y]->getPiece();
 }

@@ -25,7 +25,7 @@ class Board {
     PieceType **getMemoryBoard();
     // Set the memory board
     void setMemoryBoard(PieceType **memoryBoard);
-    // Get the piece type at the given position
+    // Get the piece type at the given position from the memory board
     PieceType getPieceType(int x, int y);
     // Set the piece at the given position
     void setPiece(int x, int y, PieceType piece);
