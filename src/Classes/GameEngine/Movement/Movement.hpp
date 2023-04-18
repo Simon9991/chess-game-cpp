@@ -16,6 +16,8 @@ class Movement {
     ~Movement();
     // Get the possible moves of the piece
     std::vector<sf::Vector2f> getPossibleMoves(Piece *piece);
+    // Moves the piece to the given relative position (memory position)
+    void movePiece(Piece *piece, sf::Vector2i relativePosition);
 
    private:
     PieceType **memoryBoard;

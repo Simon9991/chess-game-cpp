@@ -35,3 +35,10 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
     // TODO: Implement this function
     return std::vector<sf::Vector2f>();
 }
+
+void Movement::movePiece(Piece* piece, sf::Vector2i relativePosition) {
+    // Smoothly move the piece to the given relative position
+    this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
+    this->memoryBoard[relativePosition.y][relativePosition.x] = piece->getType();
+    piece->setPosition(sf::Vector2f(relativePosition.x * SQUARE_SIZE, relativePosition.y * SQUARE_SIZE));
+}
