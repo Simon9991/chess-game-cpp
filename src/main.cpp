@@ -36,6 +36,8 @@ int main(int ac, char **av) {
 
     Board *board = new Board(fen);
     MouseInput mouseInput = MouseInput();
+    Movement movement = Movement(board->getMemoryBoard());
+    Moves moves = Moves();
 
     Piece *piece = nullptr;
 
@@ -54,10 +56,13 @@ int main(int ac, char **av) {
         piece = mouseInput.isClickedOnPiece(window, board);
         if (piece != nullptr) {
             std::cout << "Clicked on piece: " << piece->getType() << std::endl;
+            std::vector<sf::Vector2f> possibleMoves = movement.getPossibleMoves(piece);
+            moves.setPossibleMoves(possibleMoves);
         }
 
         window.clear();
         board->draw(window);
+        moves.draw(window);
         window.display();
     }
 

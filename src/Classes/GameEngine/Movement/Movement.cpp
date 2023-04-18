@@ -1,46 +1,37 @@
-#include "Movement.hpp"
+#include "movement.hpp"
 
 #include "./../../../include/main.hpp"
 
-Movement::Movement(Piece* piece, PieceType** memoryBoard) {
-    this->piece = piece;
-    this->possibleMoves = std::vector<sf::Vector2f>();
-    this->memoryBoard = memoryBoard;
-}
+Movement::Movement(PieceType** memoryBoard) { this->memoryBoard = memoryBoard; }
 
-Movement::~Movement() {
-    delete this->piece;
-    this->possibleMoves.clear();
-}
+Movement::~Movement() {}
 
-std::vector<sf::Vector2f> Movement::getPossibleMoves() {
+std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
+    std::vector<sf::Vector2f> possibleMoves;
+
     switch (piece->getType()) {
-        case PieceType::PAWN:
-            // Checking the piece color
-            if (piece->getPieceColor() == PieceColor::WHITE_PIECE) {
-                // Checking if can move forward
-                if (this->memoryBoard[this->piece->getX()][this->piece->getY() - 1] == PieceType::EMPTY) {
-                    this->possibleMoves.push_back(sf::Vector2f(this->piece->getX(), this->piece->getY() - 1));
-                    if (DEBUG) {
-                        std::cout << "Piece " << this->piece->getX() << "x" << this->piece->getY() << " can move to "
-                                  << this->piece->getX() << "x" << this->piece->getY() - 1 << std::endl;
-                    }
+        case PieceType::WHITE_PAWN: {
+            // Checking if can move forward
+            sf::Vector2i memoryPosition = piece->getMemoryPosition();
+
+            // Checking if can move forward
+            // y and x are reversed
+            if (memoryPosition.y - 1 >= 0) {
+                if (memoryBoard[memoryPosition.y - 1][memoryPosition.x] == PieceType::EMPTY) {
+                    if (DEBUG)
+                        std::cout << "Can move forward to: " << memoryPosition.x << "x" << memoryPosition.y - 1
+                                  << std::endl;
+                    // TODO: Add the position to the vector
+                    possibleMoves.push_back(sf::Vector2f(piece->getPosition().x, piece->getPosition().y - SQUARE_SIZE));
                 }
             }
 
-            return this->possibleMoves;
+            return possibleMoves;
             break;
+        }
         default:
             break;
     }
     // TODO: Implement this function
-    return std::vector<sf::Vector2f>();
-}
-
-std::vector<sf::Vector2f> Movement::getPossibleMoves(sf::Vector2f position) { return std::vector<sf::Vector2f>(); }
-
-std::vector<sf::Vector2f> Movement::getPossibleMoves(int x, int y) { return std::vector<sf::Vector2f>(); }
-
-std::vector<sf::Vector2f> Movement::getPossibleMoves(int x, int y, sf::Vector2f position) {
     return std::vector<sf::Vector2f>();
 }

@@ -27,7 +27,9 @@ SRC = 	src/main.cpp										\
 		src/Classes/Graphical/Square/square.cpp				\
 		src/Classes/Graphical/Board/board.cpp				\
 		src/Classes/Graphical/King/king.cpp					\
+		src/Classes/Graphical/Moves/moves.cpp				\
 		src/Classes/Graphical/Piece/piece.cpp				\
+		src/Classes/GameEngine/Movement/movement.cpp		\
 		src/Classes/Input/MouseInput/mouse_input.cpp		\
 
 

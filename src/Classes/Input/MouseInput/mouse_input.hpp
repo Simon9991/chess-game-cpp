@@ -13,7 +13,9 @@ class MouseInput {
     // Destructor
     ~MouseInput();
     // Get the position of the mouse
-    sf::Vector2i getPosition(sf::RenderWindow &window);
+    sf::Vector2f getPosition(sf::RenderWindow &window);
+    // Get the relative position of the mouse click
+    sf::Vector2f getRelativePositionClick(sf::RenderWindow &window);
     // Get if the mouse is clicked
     bool isClicked(sf::RenderWindow &window);
     // Check if we clicked on a piece in the board

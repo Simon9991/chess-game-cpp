@@ -8,22 +8,16 @@
 
 #include "./../../../include/main.hpp"
 
+class Piece;
+
 class Movement {
    public:
-    Movement(Piece *piece, PieceType **memoryBoard);
+    Movement(PieceType **memoryBoard);
     ~Movement();
     // Get the possible moves of the piece
-    std::vector<sf::Vector2f> getPossibleMoves();
-    // Get the possible moves of the piece
-    std::vector<sf::Vector2f> getPossibleMoves(sf::Vector2f position);
-    // Get the possible moves of the piece
-    std::vector<sf::Vector2f> getPossibleMoves(int x, int y);
-    // Get the possible moves of the piece
-    std::vector<sf::Vector2f> getPossibleMoves(int x, int y, sf::Vector2f position);
+    std::vector<sf::Vector2f> getPossibleMoves(Piece *piece);
 
    private:
-    Piece *piece;
-    std::vector<sf::Vector2f> possibleMoves;
     PieceType **memoryBoard;
 };
 

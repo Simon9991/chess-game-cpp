@@ -27,7 +27,7 @@
 #define MAGENTA sf::Color::Magenta
 #define CYAN sf::Color::Cyan
 #define DARK_GRAY sf::Color(64, 64, 64)
-#define LIGHT_GRAY sf::Color(192, 192, 192)
+#define LIGHT_GRAY sf::Color(212, 212, 212)
 
 // Defining Chess pieces
 enum PieceType {
@@ -66,9 +66,11 @@ enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 #define FAILURE -1
 #define ERROR 84
 
+#include "./../Classes/GameEngine/Movement/movement.hpp"
 #include "./../Classes/Graphical/Board/board.hpp"
 #include "./../Classes/Graphical/Image/image.hpp"
 #include "./../Classes/Graphical/King/king.hpp"
+#include "./../Classes/Graphical/Moves/moves.hpp"
 #include "./../Classes/Graphical/Piece/piece.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"
 #include "./../Classes/Input/MouseInput/mouse_input.hpp"

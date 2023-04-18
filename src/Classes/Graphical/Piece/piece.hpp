@@ -13,6 +13,8 @@ class Piece {
     ~Piece();
     // Get the position of the piece
     sf::Vector2f getPosition();
+    // Get the position of the piece in the memory board
+    sf::Vector2i getMemoryPosition();
     // Get the x position of the piece
     int getX();
     // Get the y position of the piece

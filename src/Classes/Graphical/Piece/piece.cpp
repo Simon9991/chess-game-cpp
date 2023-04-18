@@ -89,6 +89,13 @@ Piece::~Piece() {}
 
 sf::Vector2f Piece::getPosition() { return this->position; }
 
+sf::Vector2i Piece::getMemoryPosition() {
+    sf::Vector2i memoryPosition;
+    memoryPosition.x = this->x;
+    memoryPosition.y = this->y;
+    return memoryPosition;
+}
+
 int Piece::getX() { return this->x; }
 
 int Piece::getY() { return this->y; }
