@@ -16,6 +16,8 @@ class Square {
     void draw(sf::RenderWindow &window);
     // Get the position of the square
     sf::Vector2f getPosition();
+    // Get the relative position of the square
+    sf::Vector2i getRelativePosition();
     // Get the size of the square
     int getSize();
     // Get the color of the square

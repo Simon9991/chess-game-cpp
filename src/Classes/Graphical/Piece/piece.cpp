@@ -108,6 +108,8 @@ void Piece::setPosition(sf::Vector2f position) {
     this->position = position;
     this->x = position.x;
     this->y = position.y;
+    this->shape.setPosition(position);
+    this->image->setPosition(position);
 }
 
 void Piece::draw(sf::RenderWindow &window) {

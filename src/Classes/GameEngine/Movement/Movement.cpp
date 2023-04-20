@@ -18,9 +18,9 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             // y and x are reversed
             if (memoryPosition.y - 1 >= 0) {
                 if (memoryBoard[memoryPosition.y - 1][memoryPosition.x] == PieceType::EMPTY) {
-                    if (DEBUG)
-                        std::cout << "Can move forward to: " << memoryPosition.x << "x" << memoryPosition.y - 1
-                                  << std::endl;
+                    // if (DEBUG)
+                    //     std::cout << "Can move forward to: " << memoryPosition.x << "x" << memoryPosition.y - 1
+                    //               << std::endl;
                     // TODO: Add the position to the vector
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x, piece->getPosition().y - SQUARE_SIZE));
                 }

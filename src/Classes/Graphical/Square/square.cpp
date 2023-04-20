@@ -26,6 +26,12 @@ void Square::draw(sf::RenderWindow& window) { window.draw(this->shape); }
 
 sf::Vector2f Square::getPosition() { return this->position; }
 
+sf::Vector2i Square::getRelativePosition() {
+    sf::Vector2i relativePosition = sf::Vector2i(this->position.x / SQUARE_SIZE, this->position.y / SQUARE_SIZE);
+
+    return relativePosition;
+}
+
 int Square::getSize() { return this->size; }
 
 sf::Color Square::getColor() { return this->color; }
@@ -46,7 +52,10 @@ void Square::setPiece(Piece* piece) {
         this->shape.setFillColor(this->color);
 }
 
-bool Square::isPossibleMove() { return this->possibleMove; }
+bool Square::isPossibleMove() {
+    std::cout << "Square::isPossibleMove() = " << this->possibleMove << std::endl;
+    return this->possibleMove;
+}
 
 void Square::setPossibleMove(bool possibleMove) {
     this->possibleMove = possibleMove;

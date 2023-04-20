@@ -33,20 +33,19 @@ bool MouseInput::isClicked(sf::RenderWindow& window) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         this->positionClick = sf::Mouse::getPosition(window);
         this->clicked = true;
-    } else {
+    } else
         this->clicked = false;
-    }
+
     return this->clicked;
 }
 
-Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {
+Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piece* oldPiece) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         this->positionClick = sf::Mouse::getPosition(window);
         std::cout << "Clicked on " << this->positionClick.x << "x" << this->positionClick.y << std::endl;
         this->clicked = true;
-    } else {
+    } else
         this->clicked = false;
-    }
 
     // Search in the memoryBoard for a piece (using relativePosition)
     if (this->clicked) {
@@ -58,7 +57,7 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board) {
             return board->getPiece(relativePosition.y, relativePosition.x);
         }
     }
-    return nullptr;
+    return oldPiece;
 }
 
 void MouseInput::setClicked(bool clicked) { this->clicked = clicked; }

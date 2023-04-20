@@ -35,6 +35,8 @@ class Board {
     void movePiece(Piece *piece, sf::Vector2f position);
     // Get the relative square
     Square *getRelativeSquare(sf::Vector2i position);
+    // Resets the possible moves
+    void resetPossibleMoves();
 
    private:
     // Array of squares
