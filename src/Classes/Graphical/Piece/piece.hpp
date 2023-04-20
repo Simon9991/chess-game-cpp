@@ -24,7 +24,7 @@ class Piece {
     // Get the color of the piece
     sf::Color getColor();
     // Set the position of the piece
-    void setPosition(sf::Vector2f position);
+    void setPosition(sf::Vector2f position, int x, int y);
     // Draw the piece
     void draw(sf::RenderWindow &window);
     // Get the piece color

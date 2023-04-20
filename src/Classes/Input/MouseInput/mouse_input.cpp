@@ -54,6 +54,9 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piec
         std::cout << "Relative position: " << relativePosition.x << "x" << relativePosition.y << std::endl;
         if (board->getPieceType(relativePosition.y, relativePosition.x) != PieceType::EMPTY) {
             std::cout << "Found a piece: " << board->getPieceType(relativePosition.y, relativePosition.x) << std::endl;
+            if (board->getPiece(relativePosition.y, relativePosition.x) == nullptr) {
+                std::cout << "Piece is null" << std::endl;
+            }
             return board->getPiece(relativePosition.y, relativePosition.x);
         }
     }

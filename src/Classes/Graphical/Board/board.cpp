@@ -333,6 +333,39 @@ void Board::resetPossibleMoves() {
     }
 }
 
+void Board::printMemoryBoard() {
+    // Prints the memory board
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            std::cout << this->memoryBoard[i][j] << " ";
+            j++;
+        }
+        std::cout << std::endl;
+        i++;
+    }
+}
+
+void Board::updateSquares() {
+    // Iterates through the squares array to update each square
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            // this->squares[i][j]->update(this->memoryBoard[i][j]);
+            j++;
+        }
+        i++;
+    }
+}
+
 void Board::setSquare(int x, int y, Square square) {
     // Iterates through the squares array to find the square at the given position
     // x and y are the coordinates of the square
@@ -353,6 +386,8 @@ void Board::setSquare(int x, int y, Square square) {
 }
 
 PieceType **Board::getMemoryBoard() { return this->memoryBoard; }
+
+PieceType ***Board::getMemoryBoardPointer() { return &this->memoryBoard; }
 
 void Board::setMemoryBoard(PieceType **memoryBoard) { this->memoryBoard = memoryBoard; }
 
@@ -381,10 +416,20 @@ void Board::movePiece(Piece *piece, sf::Vector2f position) {
     */
 
     // Move the piece to the given position
+    this->printMemoryBoard();
     this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
     sf::Vector2i relativePosition = sf::Vector2i(position.x / SQUARE_SIZE, position.y / SQUARE_SIZE);
-    this->memoryBoard[relativePosition.x][relativePosition.y] = piece->getType();
+    this->memoryBoard[relativePosition.y][relativePosition.x] = piece->getType();
 
-    piece->setPosition(position);
+    // Retrieves the square at the given position
+    Square *square = this->getRelativeSquare(relativePosition);
+    Square *oldSquare = this->getRelativeSquare(piece->getMemoryPosition());
+    oldSquare->setPiece(nullptr);
+    square->setPiece(piece);
+
+    sf::Vector2f memoryPosition = sf::Vector2f(position.y, position.x);
+
+    piece->setPosition(position, relativePosition.x, relativePosition.y);
     std::cout << "Piece moved to --> x: " << position.x << " y: " << position.y << std::endl;
+    this->printMemoryBoard();
 }

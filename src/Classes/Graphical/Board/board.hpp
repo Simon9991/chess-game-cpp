@@ -23,6 +23,8 @@ class Board {
     void setSquare(int x, int y, Square square);
     // Get the memory board
     PieceType **getMemoryBoard();
+    // Get the memory board pointer
+    PieceType ***getMemoryBoardPointer();
     // Set the memory board
     void setMemoryBoard(PieceType **memoryBoard);
     // Get the piece type at the given position from the memory board
@@ -37,6 +39,10 @@ class Board {
     Square *getRelativeSquare(sf::Vector2i position);
     // Resets the possible moves
     void resetPossibleMoves();
+    // Prints the memory board
+    void printMemoryBoard();
+    // Sets the squares Piece pointer to their new values based on the memory board
+    void updateSquares();
 
    private:
     // Array of squares

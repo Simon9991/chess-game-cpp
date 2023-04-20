@@ -46,10 +46,10 @@ Piece* Square::getPiece() { return this->piece; }
 
 void Square::setPiece(Piece* piece) {
     this->piece = piece;
-    if (piece != nullptr)
-        this->shape.setFillColor(piece->getColor());
-    else
-        this->shape.setFillColor(this->color);
+    // if (piece != nullptr)
+    //     this->shape.setFillColor(piece->getColor());
+    // else
+    // this->shape.setFillColor(this->color);
 }
 
 bool Square::isPossibleMove() {

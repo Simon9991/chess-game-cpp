@@ -49,13 +49,11 @@ int main(int ac, char **av) {
 
     while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
             if (event.type == sf::Event::Closed) window.close();
-        }
 
         piece = mouseInput.isClickedOnPiece(window, board, piece);
         if (piece != nullptr) {
-            // std::cout << "Clicked on piece: " << piece->getType() << std::endl;
             std::vector<sf::Vector2f> possibleMoves = movement.getPossibleMoves(piece);
             moves.setPossibleMoves(possibleMoves);
 
@@ -70,29 +68,17 @@ int main(int ac, char **av) {
             if (mouseInput.isClicked(window) == true) {
                 sf::Vector2i mousePosition = mouseInput.getRelativePositionClick();
                 Square *squareOfPossibleMove = board->getRelativeSquare(mousePosition);
-                std::cout << "Mouse click: " << mousePosition.x << "x" << mousePosition.y << std::endl;
-                // std::cout << "Clicked on square: " << mouseInput.getRelativePositionClick().x << "x"
-                //           << mouseInput.getRelativePositionClick().y << std::endl;
 
-                /*
-                if (mouseInput.getRelativePositionClick() == piece->getMemoryPosition()) {
-          moves.clear();
-          piece = nullptr;
-      } else */
-                if (squareOfPossibleMove != nullptr)
-                    std::cout << "Square of possible move: " << squareOfPossibleMove->getPosition().x << "x"
-                              << squareOfPossibleMove->getPosition().y << std::endl;
                 if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
-                    std::cout << "Move piece to " << mouseInput.getRelativePositionClick().x << "x"
-                              << mouseInput.getRelativePositionClick().y << std::endl;
                     sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE,
                                                          mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
-                    std::cout << "Position: " << position.x << "x" << position.y << std::endl;
                     board->movePiece(piece, position);
                     // Reset possible moves of the squares
                     board->resetPossibleMoves();
                     moves.clear();
                     piece = nullptr;
+                    squareOfPossibleMove = nullptr;
+                    movement.updateMemoryBoard(board->getMemoryBoard());
                 }
             }
         }

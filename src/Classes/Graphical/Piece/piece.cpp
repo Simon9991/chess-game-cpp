@@ -104,10 +104,10 @@ PieceType Piece::getType() { return this->type; }
 
 sf::Color Piece::getColor() { return this->color; }
 
-void Piece::setPosition(sf::Vector2f position) {
+void Piece::setPosition(sf::Vector2f position, int x, int y) {
     this->position = position;
-    this->x = position.x;
-    this->y = position.y;
+    this->x = x;
+    this->y = y;
     this->shape.setPosition(position);
     this->image->setPosition(position);
 }
