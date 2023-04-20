@@ -57,12 +57,4 @@ bool Square::isPossibleMove() {
     return this->possibleMove;
 }
 
-void Square::setPossibleMove(bool possibleMove) {
-    this->possibleMove = possibleMove;
-    if (possibleMove) {
-        this->shape.setOutlineColor(GREEN);
-        this->shape.setOutlineThickness(1);
-    } else {
-        this->shape.setOutlineThickness(0);
-    }
-}
+void Square::setPossibleMove(bool possibleMove) { this->possibleMove = possibleMove; }
