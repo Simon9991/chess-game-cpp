@@ -13,6 +13,8 @@ Piece::Piece(sf::Vector2f position, int x, int y) {
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
     this->isFirstMove = true;
+    this->canCastleKingSide = false;
+    this->canCastleQueenSide = false;
 
     this->size = SQUARE_SIZE / 2;
 
@@ -36,6 +38,8 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape.setPosition(position);
     this->size = size;
     this->isFirstMove = true;
+    this->canCastleKingSide = false;
+    this->canCastleQueenSide = false;
 
     switch (type) {
         case PieceType::WHITE_PAWN:
@@ -43,6 +47,8 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
             break;
         case PieceType::WHITE_ROOK:
             this->image = new Image(WHITE_ROOK_PATH, position, sf::Vector2f(size, size));
+            this->canCastleKingSide = true;
+            this->canCastleQueenSide = true;
             break;
         case PieceType::WHITE_KNIGHT:
             this->image = new Image(WHITE_KNIGHT_PATH, position, sf::Vector2f(size, size));
@@ -55,12 +61,16 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
             break;
         case PieceType::WHITE_KING:
             this->image = new Image(WHITE_KING_PATH, position, sf::Vector2f(size, size));
+            this->canCastleKingSide = true;
+            this->canCastleQueenSide = true;
             break;
         case PieceType::BLACK_PAWN:
             this->image = new Image(BLACK_PAWN_PATH, position, sf::Vector2f(size, size));
             break;
         case PieceType::BLACK_ROOK:
             this->image = new Image(BLACK_ROOK_PATH, position, sf::Vector2f(size, size));
+            this->canCastleKingSide = true;
+            this->canCastleQueenSide = true;
             break;
         case PieceType::BLACK_KNIGHT:
             this->image = new Image(BLACK_KNIGHT_PATH, position, sf::Vector2f(size, size));
@@ -73,18 +83,12 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
             break;
         case PieceType::BLACK_KING:
             this->image = new Image(BLACK_KING_PATH, position, sf::Vector2f(size, size));
+            this->canCastleKingSide = true;
+            this->canCastleQueenSide = true;
             break;
         default:
             break;
     }
-
-    // if (DEBUG) {
-    //     std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
-    //               << " color: " << this->pieceColor << std::endl;
-    //     // Red outline
-    //     this->shape.setOutlineColor(sf::Color::Red);
-    //     this->shape.setOutlineThickness(1);
-    // }
 }
 
 Piece::~Piece() {}
@@ -137,3 +141,17 @@ PieceColor Piece::getOppositeColor() {
 bool Piece::getIsFirstMove() { return this->isFirstMove; }
 
 void Piece::setIsFirstMove(bool isFirstMove) { this->isFirstMove = isFirstMove; }
+
+bool Piece::getCanCastleKingSide() { return false; }
+
+void Piece::setCanCastleKingSide(bool canCastleKingSide) {
+    // std::cout << "Can castle king side: " << canCastleKingSide << std::endl;
+    this->canCastleKingSide = canCastleKingSide;
+}
+
+bool Piece::getCanCastleQueenSide() { return false; }
+
+void Piece::setCanCastleQueenSide(bool canCastleQueenSide) {
+    // std::cout << "Can castle queen side: " << canCastleQueenSide << std::endl;
+    this->canCastleQueenSide = canCastleQueenSide;
+}

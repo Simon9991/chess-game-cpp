@@ -59,6 +59,13 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piec
             if (foundPiece != nullptr && foundPiece->getPieceColor() != board->getPlayerTurn()) {
                 return oldPiece;
             }
+            std::cout << "Is the square possible? " << board->getRelativeSquare(relativePosition)->isPossibleMove()
+                      << std::endl;
+            if (oldPiece != nullptr && board->getRelativeSquare(relativePosition)->isPossibleMove() &&
+                (foundPiece->getCanCastleKingSide() || foundPiece->getCanCastleQueenSide())) {
+                std::cout << "Found that you are trying to castle" << std::endl;
+                return oldPiece;
+            }
             if (oldPiece != nullptr && oldPiece->getPieceColor() != foundPiece->getPieceColor()) {
                 return oldPiece;
             }

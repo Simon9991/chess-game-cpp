@@ -2,7 +2,10 @@
 
 #include "./../../../include/main.hpp"
 
-Movement::Movement(PieceType** memoryBoard) { this->memoryBoard = memoryBoard; }
+Movement::Movement(PieceType** memoryBoard, Board* board) {
+    this->memoryBoard = memoryBoard;
+    this->board = board;
+}
 
 Movement::~Movement() {}
 
@@ -1073,6 +1076,20 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             if (memoryPosition.x + 1 < BOARD_SIZE) {
                 if (memoryBoard[memoryPosition.y][memoryPosition.x + 1] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x + SQUARE_SIZE, piece->getPosition().y));
+                    // Checking if can castle
+                    if (memoryPosition.x + 3 < BOARD_SIZE) {
+                        if (memoryBoard[memoryPosition.y][memoryPosition.x + 2] == PieceType::EMPTY &&
+                            memoryBoard[memoryPosition.y][memoryPosition.x + 3] == PieceType::BLACK_ROOK) {
+                            Piece* getRook = this->getPieceAtPosition(memoryPosition.y, memoryPosition.x + 3);
+                            if (getRook->getPieceType() == PieceType::BLACK_ROOK &&
+                                (piece->getIsFirstMove() && getRook->getIsFirstMove())) {
+                                possibleMoves.push_back(
+                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 3, piece->getPosition().y));
+                                piece->setCanCastleKingSide(true);
+                                getRook->setCanCastleKingSide(true);
+                            }
+                        }
+                    }
                 } else if (memoryBoard[memoryPosition.y][memoryPosition.x + 1] == PieceType::WHITE_PAWN ||
                            memoryBoard[memoryPosition.y][memoryPosition.x + 1] == PieceType::WHITE_ROOK ||
                            memoryBoard[memoryPosition.y][memoryPosition.x + 1] == PieceType::WHITE_KNIGHT ||
@@ -1086,6 +1103,20 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             if (memoryPosition.x - 1 >= 0) {
                 if (memoryBoard[memoryPosition.y][memoryPosition.x - 1] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x - SQUARE_SIZE, piece->getPosition().y));
+                    if (memoryPosition.x - 4 < BOARD_SIZE) {
+                        if (memoryBoard[memoryPosition.y][memoryPosition.x - 2] == PieceType::EMPTY &&
+                            memoryBoard[memoryPosition.y][memoryPosition.x - 3] == PieceType::EMPTY &&
+                            memoryBoard[memoryPosition.y][memoryPosition.x - 4] == PieceType::BLACK_ROOK) {
+                            Piece* getRook = this->getPieceAtPosition(memoryPosition.y, memoryPosition.x - 4);
+                            if (getRook->getPieceType() == PieceType::BLACK_ROOK &&
+                                (piece->getIsFirstMove() && getRook->getIsFirstMove())) {
+                                possibleMoves.push_back(
+                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 3, piece->getPosition().y));
+                                piece->setCanCastleKingSide(true);
+                                getRook->setCanCastleKingSide(true);
+                            }
+                        }
+                    }
                 } else if (memoryBoard[memoryPosition.y][memoryPosition.x - 1] == PieceType::WHITE_PAWN ||
                            memoryBoard[memoryPosition.y][memoryPosition.x - 1] == PieceType::WHITE_ROOK ||
                            memoryBoard[memoryPosition.y][memoryPosition.x - 1] == PieceType::WHITE_KNIGHT ||
@@ -1211,3 +1242,5 @@ void Movement::movePiece(Piece* piece, sf::Vector2i relativePosition) {
 }
 
 void Movement::updateMemoryBoard(PieceType** memoryBoard) { this->memoryBoard = memoryBoard; }
+
+Piece* Movement::getPieceAtPosition(int x, int y) { return this->board->getPiece(x, y); }

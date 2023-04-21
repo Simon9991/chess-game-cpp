@@ -36,7 +36,7 @@ int main(int ac, char **av) {
 
     Board *board = new Board(fen);
     MouseInput mouseInput = MouseInput();
-    Movement movement = Movement(board->getMemoryBoard());
+    Movement movement = Movement(board->getMemoryBoard(), board);
     Moves moves = Moves();
 
     Piece *piece = nullptr;
@@ -61,6 +61,8 @@ int main(int ac, char **av) {
             for (sf::Vector2f possibleMove : possibleMoves) {
                 sf::Vector2i relativePosition =
                     sf::Vector2i(possibleMove.x / SQUARE_SIZE, possibleMove.y / SQUARE_SIZE);
+                std::cout << "Relative position of possible square: " << relativePosition.x << "x" << relativePosition.y
+                          << std::endl;
                 Square *square = board->getRelativeSquare(relativePosition);
                 square->setPossibleMove(true);
             }

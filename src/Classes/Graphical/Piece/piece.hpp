@@ -39,6 +39,14 @@ class Piece {
     bool getIsFirstMove();
     // Set if it is the first move
     void setIsFirstMove(bool isFirstMove);
+    // Get if it can castle king side
+    bool getCanCastleKingSide();
+    // Set if it can castle king side
+    void setCanCastleKingSide(bool canCastleKingSide);
+    // Get if it can castle queen side
+    bool getCanCastleQueenSide();
+    // Set if it can castle queen side
+    void setCanCastleQueenSide(bool canCastleQueenSide);
 
    private:
     sf::Vector2f position;
@@ -52,6 +60,8 @@ class Piece {
     // To add later: movement, Sprite etc.
     Image *image;
     bool isFirstMove;
+    bool canCastleKingSide;
+    bool canCastleQueenSide;
 };
 
 #endif /* !PIECE_HPP */

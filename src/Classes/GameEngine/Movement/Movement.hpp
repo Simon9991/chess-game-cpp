@@ -9,10 +9,11 @@
 #include "./../../../include/main.hpp"
 
 class Piece;
+class Board;
 
 class Movement {
    public:
-    Movement(PieceType **memoryBoard);
+    Movement(PieceType **memoryBoard, Board *board);
     ~Movement();
     // Get the possible moves of the piece
     std::vector<sf::Vector2f> getPossibleMoves(Piece *piece);
@@ -20,9 +21,12 @@ class Movement {
     void movePiece(Piece *piece, sf::Vector2i relativePosition);
     // Updates the memory board
     void updateMemoryBoard(PieceType **memoryBoard);
+    // Get piece at relative position
+    Piece *getPieceAtPosition(int x, int y);
 
    private:
     PieceType **memoryBoard;
+    Board *board;
 };
 
 #endif /* !MOVEMENT_HPP */
