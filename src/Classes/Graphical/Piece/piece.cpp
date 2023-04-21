@@ -124,3 +124,10 @@ PieceColor Piece::getPieceColor() { return this->pieceColor; }
 PieceType Piece::getPieceType() { return this->type; }
 
 Image *Piece::getImage() { return this->image; }
+
+PieceColor Piece::getOppositeColor() {
+    if (this->pieceColor == PieceColor::WHITE)
+        return PieceColor::BLACK;
+    else
+        return PieceColor::WHITE;
+}

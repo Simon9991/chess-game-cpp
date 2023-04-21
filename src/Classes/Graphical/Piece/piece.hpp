@@ -33,6 +33,8 @@ class Piece {
     PieceType getPieceType();
     // Getting the Image
     Image *getImage();
+    // Get the opposite color
+    PieceColor getOppositeColor();
 
    private:
     sf::Vector2f position;
