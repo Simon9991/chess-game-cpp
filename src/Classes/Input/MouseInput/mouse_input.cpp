@@ -54,8 +54,11 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piec
         std::cout << "Relative position: " << relativePosition.x << "x" << relativePosition.y << std::endl;
         if (board->getPieceType(relativePosition.y, relativePosition.x) != PieceType::EMPTY) {
             std::cout << "Found a piece: " << board->getPieceType(relativePosition.y, relativePosition.x) << std::endl;
-            if (oldPiece->getColor() != board->getPiece(relativePosition.y, relativePosition.x)->getOppositeColor())
+            if (oldPiece != nullptr &&
+                oldPiece->getPieceColor() != board->getPiece(relativePosition.y, relativePosition.x)->getPieceColor()) {
+                std::cout << "Returning old piece: " << oldPiece->getPieceType() << std::endl;
                 return oldPiece;
+            }
             return board->getPiece(relativePosition.y, relativePosition.x);
         }
     }
