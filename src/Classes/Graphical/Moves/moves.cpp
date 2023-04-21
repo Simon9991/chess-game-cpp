@@ -7,7 +7,7 @@ Moves::Moves() { this->possibleMoves = std::vector<sf::CircleShape>(); }
 Moves::~Moves() {}
 
 void Moves::draw(sf::RenderWindow& window) {
-    for (int i = 0; i < possibleMoves.size(); i++) {
+    for (size_t i = 0; i < possibleMoves.size(); i++) {
         window.draw(possibleMoves[i]);
     }
 }

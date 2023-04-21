@@ -12,6 +12,7 @@ Piece::Piece(sf::Vector2f position, int x, int y) {
     this->shape = sf::CircleShape(SQUARE_SIZE / 2);
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
+    this->isFirstMove = true;
 
     this->size = SQUARE_SIZE / 2;
 
@@ -34,6 +35,7 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
     this->size = size;
+    this->isFirstMove = true;
 
     switch (type) {
         case PieceType::WHITE_PAWN:
@@ -131,3 +133,7 @@ PieceColor Piece::getOppositeColor() {
     else
         return PieceColor::WHITE_PIECE;
 }
+
+bool Piece::getIsFirstMove() { return this->isFirstMove; }
+
+void Piece::setIsFirstMove(bool isFirstMove) { this->isFirstMove = isFirstMove; }

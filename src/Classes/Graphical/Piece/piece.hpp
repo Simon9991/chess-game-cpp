@@ -35,6 +35,10 @@ class Piece {
     Image *getImage();
     // Get the opposite color
     PieceColor getOppositeColor();
+    // Get if it is the first move
+    bool getIsFirstMove();
+    // Set if it is the first move
+    void setIsFirstMove(bool isFirstMove);
 
    private:
     sf::Vector2f position;
@@ -47,6 +51,7 @@ class Piece {
     PieceColor pieceColor;
     // To add later: movement, Sprite etc.
     Image *image;
+    bool isFirstMove;
 };
 
 #endif /* !PIECE_HPP */

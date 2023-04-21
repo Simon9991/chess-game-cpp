@@ -25,6 +25,12 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             if (memoryPosition.y - 1 >= 0) {
                 if (memoryBoard[memoryPosition.y - 1][memoryPosition.x] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x, piece->getPosition().y - SQUARE_SIZE));
+                    // Checking if can move forward twice
+                    if (piece->getIsFirstMove() &&
+                        memoryBoard[memoryPosition.y - 2][memoryPosition.x] == PieceType::EMPTY) {
+                        possibleMoves.push_back(
+                            sf::Vector2f(piece->getPosition().x, piece->getPosition().y - SQUARE_SIZE * 2));
+                    }
                 }
                 if (memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_PAWN ||
                     memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_ROOK ||
@@ -1162,6 +1168,11 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             if (memoryPosition.y + 1 < BOARD_SIZE) {
                 if (memoryBoard[memoryPosition.y + 1][memoryPosition.x] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x, piece->getPosition().y + SQUARE_SIZE));
+                    if (piece->getIsFirstMove() &&
+                        memoryBoard[memoryPosition.y + 2][memoryPosition.x] == PieceType::EMPTY) {
+                        possibleMoves.push_back(
+                            sf::Vector2f(piece->getPosition().x, piece->getPosition().y + SQUARE_SIZE * 2));
+                    }
                 }
                 if (memoryBoard[memoryPosition.y + 1][memoryPosition.x - 1] == PieceType::WHITE_PAWN ||
                     memoryBoard[memoryPosition.y + 1][memoryPosition.x - 1] == PieceType::WHITE_ROOK ||

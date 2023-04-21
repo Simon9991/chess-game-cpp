@@ -50,7 +50,7 @@ Board::~Board() {
 void Board::initBoard(std::string fen) {
     // Initializes the board with the given FEN string
     // fen is the FEN string
-    int i = 0;
+    size_t i = 0;
     int j = 0;
     int k = 0;
 
@@ -434,6 +434,7 @@ void Board::movePiece(Piece *piece, sf::Vector2f position) {
     sf::Vector2f memoryPosition = sf::Vector2f(position.y, position.x);
 
     piece->setPosition(position, relativePosition.x, relativePosition.y);
+    piece->setIsFirstMove(false);
     // std::cout << "Piece moved to --> x: " << position.x << " y: " << position.y << std::endl;
     // this->printMemoryBoard();
 }

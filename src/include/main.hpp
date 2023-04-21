@@ -30,6 +30,8 @@
 #define LIGHT_GRAY sf::Color(212, 212, 212)
 
 // Defining Chess pieces
+// TODO: Add WHITE_EN_PASSANT and BLACK_EN_PASSANT (used in movement.cpp for pawn movement to check if the pawn can be
+// taken en passant)
 enum PieceType {
     WHITE_PAWN,
     WHITE_ROOK,
