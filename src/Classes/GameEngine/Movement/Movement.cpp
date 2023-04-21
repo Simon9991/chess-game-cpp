@@ -1084,7 +1084,7 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
                             if (getRook->getPieceType() == PieceType::BLACK_ROOK &&
                                 (piece->getIsFirstMove() && getRook->getIsFirstMove())) {
                                 possibleMoves.push_back(
-                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 3, piece->getPosition().y));
+                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 2, piece->getPosition().y));
                                 piece->setCanCastleKingSide(true);
                                 getRook->setCanCastleKingSide(true);
                             }
@@ -1111,7 +1111,7 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
                             if (getRook->getPieceType() == PieceType::BLACK_ROOK &&
                                 (piece->getIsFirstMove() && getRook->getIsFirstMove())) {
                                 possibleMoves.push_back(
-                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 3, piece->getPosition().y));
+                                    sf::Vector2f(piece->getPosition().x + SQUARE_SIZE * 2, piece->getPosition().y));
                                 piece->setCanCastleKingSide(true);
                                 getRook->setCanCastleKingSide(true);
                             }

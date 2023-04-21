@@ -53,16 +53,20 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piec
             sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
         // std::cout << "Relative position: " << relativePosition.x << "x" << relativePosition.y << std::endl;
         Piece* foundPiece = board->getPiece(relativePosition.y, relativePosition.x);
-        if (foundPiece->getType != PieceType::EMPTY) {
+        if (foundPiece != nullptr && foundPiece->getType() != PieceType::EMPTY) {
             // std::cout << "Found a piece: " << board->getPieceType(relativePosition.y, relativePosition.x) <<
             // std::endl;
             if (foundPiece != nullptr && foundPiece->getPieceColor() != board->getPlayerTurn()) {
                 return oldPiece;
             }
+            std::cout << "Type of the piece on Square:  " << foundPiece->getType() << std::endl;
             std::cout << "Is the square possible? " << board->getRelativeSquare(relativePosition)->isPossibleMove()
                       << std::endl;
+            std::cout << "Can castle king side? " << foundPiece->getCanCastleKingSide() << std::endl
+                      << "Can castle queen side? " << foundPiece->getCanCastleQueenSide() << std::endl;
             if (oldPiece != nullptr && board->getRelativeSquare(relativePosition)->isPossibleMove() &&
-                (foundPiece->getCanCastleKingSide() || foundPiece->getCanCastleQueenSide())) {
+                foundPiece->getIsFirstMove() &&
+                (foundPiece->getType() == PieceType::BLACK_ROOK || foundPiece->getType() == PieceType::WHITE_ROOK)) {
                 std::cout << "Found that you are trying to castle" << std::endl;
                 return oldPiece;
             }

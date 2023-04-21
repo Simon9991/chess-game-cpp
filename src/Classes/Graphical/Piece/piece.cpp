@@ -13,8 +13,8 @@ Piece::Piece(sf::Vector2f position, int x, int y) {
     this->shape.setFillColor(color);
     this->shape.setPosition(position);
     this->isFirstMove = true;
-    this->canCastleKingSide = false;
-    this->canCastleQueenSide = false;
+    this->canCastleKingSide = true;
+    this->canCastleQueenSide = true;
 
     this->size = SQUARE_SIZE / 2;
 
@@ -38,8 +38,8 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
     this->shape.setPosition(position);
     this->size = size;
     this->isFirstMove = true;
-    this->canCastleKingSide = false;
-    this->canCastleQueenSide = false;
+    this->canCastleKingSide = true;
+    this->canCastleQueenSide = true;
 
     switch (type) {
         case PieceType::WHITE_PAWN:
