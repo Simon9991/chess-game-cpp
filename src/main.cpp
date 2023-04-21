@@ -20,17 +20,17 @@ int main(int ac, char **av) {
 
         std::ifstream fenFile(fenPath);
         if (fenFile.is_open()) {
-            std::cout << "File opened" << std::endl;
+            // std::cout << "File opened" << std::endl;
             std::getline(fenFile, fen);
             fenFile.close();
         } else {
             std::cout << "Unable to open file" << std::endl;
         }
-        std::cout << "FEN: " << fen << std::endl;
+        // std::cout << "FEN: " << fen << std::endl;
 
     } else {
         // Load with default board
-        std::cout << "No arguments" << std::endl;
+        // std::cout << "No arguments" << std::endl;
         fen.assign("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");  // Default FEN, TODO: Create a macro
     }
 
@@ -44,8 +44,8 @@ int main(int ac, char **av) {
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
     window.setSize(sf::Vector2u(2000, 2000));
-    std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
-              << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
+    // std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
+    //           << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
     while (window.isOpen()) {
         sf::Event event;

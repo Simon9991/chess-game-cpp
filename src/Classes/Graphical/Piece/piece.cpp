@@ -15,12 +15,12 @@ Piece::Piece(sf::Vector2f position, int x, int y) {
 
     this->size = SQUARE_SIZE / 2;
 
-    if (DEBUG) {
-        std::cout << "Empty piece created at " << this->x << "x" << this->y << std::endl;
-        // Red outline
-        this->shape.setOutlineColor(sf::Color::Red);
-        this->shape.setOutlineThickness(1);
-    }
+    // if (DEBUG) {
+    //     std::cout << "Empty piece created at " << this->x << "x" << this->y << std::endl;
+    //     // Red outline
+    //     this->shape.setOutlineColor(sf::Color::Red);
+    //     this->shape.setOutlineThickness(1);
+    // }
 }
 
 Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, PieceColor pieceColor, int x, int y) {
@@ -76,13 +76,13 @@ Piece::Piece(sf::Vector2f position, PieceType type, sf::Color color, int size, P
             break;
     }
 
-    if (DEBUG) {
-        std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
-                  << " color: " << this->pieceColor << std::endl;
-        // Red outline
-        this->shape.setOutlineColor(sf::Color::Red);
-        this->shape.setOutlineThickness(1);
-    }
+    // if (DEBUG) {
+    //     std::cout << "Piece created at " << this->x << "x" << this->y << " value: " << this->type
+    //               << " color: " << this->pieceColor << std::endl;
+    //     // Red outline
+    //     this->shape.setOutlineColor(sf::Color::Red);
+    //     this->shape.setOutlineThickness(1);
+    // }
 }
 
 Piece::~Piece() {}

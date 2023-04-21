@@ -12,12 +12,13 @@ King::King(int x, int y, int size, sf::Color color) {
     this->shape.setPosition(position);
     this->shape.setFillColor(color);
 
-    if (DEBUG) {
-        std::cout << "King created at " << x << "x" << y << " with size " << size << " and color " << color.toInteger()
-                  << std::endl;
-        this->shape.setOutlineColor(GREEN);
-        this->shape.setOutlineThickness(1);
-    }
+    // if (DEBUG) {
+    //     std::cout << "King created at " << x << "x" << y << " with size " << size << " and color " <<
+    //     color.toInteger()
+    //               << std::endl;
+    //     this->shape.setOutlineColor(GREEN);
+    //     this->shape.setOutlineThickness(1);
+    // }
 }
 
 King::~King() {}

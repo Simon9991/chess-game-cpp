@@ -305,7 +305,7 @@ Square *Board::getRelativeSquare(sf::Vector2i position) {
 
         while (j < BOARD_SIZE) {
             if (this->squares[i][j]->getRelativePosition() == position) {
-                std::cout << "Found square at --> i: " << i << " j: " << j << std::endl;
+                // std::cout << "Found square at --> i: " << i << " j: " << j << std::endl;
                 return this->squares[i][j];
             }
             j++;
@@ -420,7 +420,7 @@ void Board::movePiece(Piece *piece, sf::Vector2f position) {
     */
 
     // Move the piece to the given position
-    this->printMemoryBoard();
+    // this->printMemoryBoard();
     this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
     sf::Vector2i relativePosition = sf::Vector2i(position.x / SQUARE_SIZE, position.y / SQUARE_SIZE);
     this->memoryBoard[relativePosition.y][relativePosition.x] = piece->getType();
@@ -434,6 +434,6 @@ void Board::movePiece(Piece *piece, sf::Vector2f position) {
     sf::Vector2f memoryPosition = sf::Vector2f(position.y, position.x);
 
     piece->setPosition(position, relativePosition.x, relativePosition.y);
-    std::cout << "Piece moved to --> x: " << position.x << " y: " << position.y << std::endl;
-    this->printMemoryBoard();
+    // std::cout << "Piece moved to --> x: " << position.x << " y: " << position.y << std::endl;
+    // this->printMemoryBoard();
 }

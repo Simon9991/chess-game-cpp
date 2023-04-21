@@ -10,12 +10,12 @@ Square::Square(int x, int y, int size, sf::Color color, Piece* piece) {
     this->shape.setFillColor(color);
     this->possibleMove = false;
 
-    if (DEBUG) {
-        std::cout << "Square created at " << x << "x" << y << " with size " << size << " and color "
-                  << color.toInteger() << std::endl;
-        // this->shape.setOutlineColor(GREEN);
-        // this->shape.setOutlineThickness(1);
-    }
+    // if (DEBUG) {
+    //     std::cout << "Square created at " << x << "x" << y << " with size " << size << " and color "
+    //               << color.toInteger() << std::endl;
+    //     // this->shape.setOutlineColor(GREEN);
+    //     // this->shape.setOutlineThickness(1);
+    // }
 }
 
 Square::~Square() {
@@ -53,7 +53,7 @@ void Square::setPiece(Piece* piece) {
 }
 
 bool Square::isPossibleMove() {
-    std::cout << "Square::isPossibleMove() = " << this->possibleMove << std::endl;
+    // std::cout << "Square::isPossibleMove() = " << this->possibleMove << std::endl;
     return this->possibleMove;
 }
 
