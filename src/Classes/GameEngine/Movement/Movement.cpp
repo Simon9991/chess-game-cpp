@@ -21,11 +21,19 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
                 if (memoryBoard[memoryPosition.y - 1][memoryPosition.x] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x, piece->getPosition().y - SQUARE_SIZE));
                 } else {
-                    if (memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_PAWN) {
+                    if (memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_PAWN ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_ROOK ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_KNIGHT ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_BISHOP ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x - 1] == PieceType::BLACK_QUEEN) {
                         possibleMoves.push_back(
                             sf::Vector2f(piece->getPosition().x - SQUARE_SIZE, piece->getPosition().y - SQUARE_SIZE));
                     }
-                    if (memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_PAWN) {
+                    if (memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_PAWN ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_ROOK ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_KNIGHT ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_BISHOP ||
+                        memoryBoard[memoryPosition.y - 1][memoryPosition.x + 1] == PieceType::BLACK_QUEEN) {
                         possibleMoves.push_back(
                             sf::Vector2f(piece->getPosition().x + SQUARE_SIZE, piece->getPosition().y - SQUARE_SIZE));
                     }

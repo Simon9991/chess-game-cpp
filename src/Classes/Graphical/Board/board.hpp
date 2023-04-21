@@ -43,12 +43,17 @@ class Board {
     void printMemoryBoard();
     // Sets the squares Piece pointer to their new values based on the memory board
     void updateSquares();
+    // Get the PlayerTurn
+    PieceColor getPlayerTurn();
+    // Set the PlayerTurn
+    void setPlayerTurn(PieceColor playerTurn);
 
    private:
     // Array of squares
     Square *squares[BOARD_SIZE][BOARD_SIZE];
     // Memory board
     PieceType **memoryBoard;
+    PieceColor playerTurn;
 };
 
 #endif /* !BOARD_HPP */

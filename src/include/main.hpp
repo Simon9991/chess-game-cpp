@@ -47,6 +47,9 @@ enum PieceType {
 };
 enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
+// Player turn
+enum PlayerTurn { WHITE_TURN, BLACK_TURN };
+
 // Defining image paths
 #define WHITE_PAWN_PATH "./src/Assets/Pieces/w_pawn.png"
 #define WHITE_ROOK_PATH "./src/Assets/Pieces/w_rook.png"

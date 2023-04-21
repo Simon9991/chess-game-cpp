@@ -366,6 +366,10 @@ void Board::updateSquares() {
     }
 }
 
+PieceColor Board::getPlayerTurn() { return this->playerTurn; }
+
+void Board::setPlayerTurn(PieceColor playerTurn) { this->playerTurn = playerTurn; }
+
 void Board::setSquare(int x, int y, Square square) {
     // Iterates through the squares array to find the square at the given position
     // x and y are the coordinates of the square

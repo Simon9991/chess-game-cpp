@@ -76,6 +76,10 @@ int main(int ac, char **av) {
                     // Reset possible moves of the squares
                     board->resetPossibleMoves();
                     moves.clear();
+                    board->setPlayerTurn(board->getPlayerTurn() == PieceColor::WHITE_PIECE
+                                             ? PieceColor::BLACK_PIECE
+                                             : PieceColor::WHITE_PIECE);  // To comment if you want to play multiple
+                                                                          // times with the same color
                     piece = nullptr;
                     squareOfPossibleMove = nullptr;
                     movement.updateMemoryBoard(board->getMemoryBoard());
