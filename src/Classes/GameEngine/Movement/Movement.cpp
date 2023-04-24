@@ -1103,6 +1103,7 @@ std::vector<sf::Vector2f> Movement::getPossibleMoves(Piece* piece) {
             if (memoryPosition.x - 1 >= 0) {
                 if (memoryBoard[memoryPosition.y][memoryPosition.x - 1] == PieceType::EMPTY) {
                     possibleMoves.push_back(sf::Vector2f(piece->getPosition().x - SQUARE_SIZE, piece->getPosition().y));
+                    // Checking if can castle queen side
                     if (memoryPosition.x - 4 < BOARD_SIZE) {
                         if (memoryBoard[memoryPosition.y][memoryPosition.x - 2] == PieceType::EMPTY &&
                             memoryBoard[memoryPosition.y][memoryPosition.x - 3] == PieceType::EMPTY &&
