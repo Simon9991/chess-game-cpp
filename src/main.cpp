@@ -20,32 +20,28 @@ int main(int ac, char **av) {
 
         std::ifstream fenFile(fenPath);
         if (fenFile.is_open()) {
-            // std::cout << "File opened" << std::endl;
             std::getline(fenFile, fen);
             fenFile.close();
         } else {
             std::cout << "Unable to open file" << std::endl;
         }
-        // std::cout << "FEN: " << fen << std::endl;
 
     } else {
         // Load with default board
-        // std::cout << "No arguments" << std::endl;
         fen.assign("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");  // Default FEN, TODO: Create a macro
     }
 
-    Board *board = new Board(fen);
+    std::unique_ptr<Board> board = std::make_unique<Board>(fen);
     MouseInput mouseInput = MouseInput();
     Movement movement = Movement(board->getMemoryBoard(), board);
     Moves moves = Moves();
 
-    Piece *piece = nullptr;
+    std::unique_ptr<Piece> piece = nullptr;
 
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
     window.setSize(sf::Vector2u(2000, 2000));
-    // std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
-    //           << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
+    // std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -58,13 +54,10 @@ int main(int ac, char **av) {
             moves.setPossibleMoves(possibleMoves);
 
             // For each possible move, we set the square to possible move
-            for (sf::Vector2f possibleMove : possibleMoves) {
-                sf::Vector2i relativePosition =
-                    sf::Vector2i(possibleMove.x / SQUARE_SIZE, possibleMove.y / SQUARE_SIZE);
-                std::cout << "Relative position of possible square: " << relativePosition.x << "x" << relativePosition.y
-                          << std::endl;
-                Square *square = board->getRelativeSquare(relativePosition);
-                square->setPossibleMove(true);
+            for (auto possibleMove : possibleMoves) {
+                auto relativePosition = sf::Vector2i(possibleMove.x / SQUARE_SIZE, possibleMove.y / SQUARE_SIZE);
+                board->getRelativeSquare(relativePosition)->setPossibleMove(true);
+                // std::cout << "Relative position of possible square: " << relativePosition.x << "x" << relativePosition.y << std::endl;
             }
 
             if (mouseInput.isClicked(window) == true) {
@@ -72,17 +65,15 @@ int main(int ac, char **av) {
                 Square *squareOfPossibleMove = board->getRelativeSquare(mousePosition);
 
                 if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
-                    sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE,
-                                                         mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
+                    sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE, mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
+
                     board->movePiece(piece, position);
+
                     // Reset possible moves of the squares
                     board->resetPossibleMoves();
                     moves.clear();
-                    board->setPlayerTurn(board->getPlayerTurn() == PieceColor::WHITE_PIECE
-                                             ? PieceColor::BLACK_PIECE
-                                             : PieceColor::WHITE_PIECE);  // To comment if you want to play multiple
-                                                                          // times with the same color
-                    piece = nullptr;
+                    board->setPlayerTurn(board->getPlayerTurn() == PieceColor::WHITE_PIECE ? PieceColor::BLACK_PIECE : PieceColor::WHITE_PIECE);  // To comment if you want to play multiple times with the same color
+                    piece.reset();
                     squareOfPossibleMove = nullptr;
                     movement.updateMemoryBoard(board->getMemoryBoard());
                 }

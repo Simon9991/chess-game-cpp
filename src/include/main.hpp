@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <memory>
 
 // Debug mode
 #define DEBUG 1
@@ -11,11 +12,10 @@
 #define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
 
 // Defining Chess constants
-#define APP_NAME "Chess"
-#define SQUARE_SIZE 25
-#define BOARD_SIZE 8
-#define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
-#define PIECE_SIZE SQUARE_SIZE * 1
+constexpr std::string APP_NAME = "Chess++";
+constexpr int SQUARE_SIZE = 25;
+constexpr int BOARD_SIZE 8 constexpr int WINDOW_SIZE = SQUARE_SIZE * BOARD_SIZE * 10;
+constexpr int PIECE_SIZE SQUARE_SIZE * 1;
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -47,10 +47,16 @@ enum PieceType {
     BLACK_KING,
     EMPTY
 };
-enum PieceColor { WHITE_PIECE, BLACK_PIECE };
+enum PieceColor {
+    WHITE_PIECE,
+    BLACK_PIECE
+};
 
 // Player turn
-enum PlayerTurn { WHITE_TURN, BLACK_TURN };
+enum PlayerTurn {
+    WHITE_TURN,
+    BLACK_TURN
+};
 
 // Defining image paths
 #define WHITE_PAWN_PATH "./src/Assets/Pieces/w_pawn.png"
@@ -67,9 +73,9 @@ enum PlayerTurn { WHITE_TURN, BLACK_TURN };
 #define BLACK_KING_PATH "./src/Assets/Pieces/b_king.png"
 
 // Defining return values
-#define SUCCESS 0
-#define FAILURE -1
-#define ERROR 84
+constexpr int SUCCESS = 0;
+constexpr int = FAILURE = -1;
+constexpr int ERROR = 84;
 
 #include "./../Classes/GameEngine/Movement/movement.hpp"
 #include "./../Classes/Graphical/Board/board.hpp"
