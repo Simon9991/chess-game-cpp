@@ -22,8 +22,8 @@ int main(int ac, char **av) {
     } else
         fen.assign(defaultFen);
 
-    EngineMemoryBoard *engineMemoryBoard = new EngineMemoryBoard(fen);
-    engineMemoryBoard->printMemoryBoard();
+    Board *engineMemoryBoard = new Board(fen);
+    engineMemoryBoard->print_board();
 
     return 0;
 }

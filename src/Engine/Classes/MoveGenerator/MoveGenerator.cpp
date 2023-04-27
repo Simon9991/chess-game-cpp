@@ -1,94 +1,105 @@
 #include "MoveGenerator.hpp"
 
-std::vector<Move> MoveGenerator::generateLegalMoves(const EngineMemoryBoard& board, PieceColor color) {
-    std::vector<Move> legalMoves;
-    
-    for (int square = 0; square < BOARD_SIZE * BOARD_SIZE; ++square) {
-        int piece = board.getPiece(square);
+std::vector<Move> MoveGenerator::generate_moves() const {
+    return std::vector<Move>();
+}
 
-        if (piece != 0 && board.getPieceColor(piece) == color) {
-            switch (board.getPieceType(piece)) {
-                case BasicPieceType::PAWN:
-                    generatePawnMoves(board, square, legalMoves, color);
-                    break;
-                case BasicPieceType::KNIGHT:
-                    generateKnightMoves(board, square, legalMoves);
-                    break;
-                case BasicPieceType::BISHOP:
-                    generateBishopMoves(board, square, legalMoves);
-                    break;
-                case BasicPieceType::ROOK:
-                    generateRookMoves(board, square, legalMoves);
-                    break;
-                case BasicPieceType::QUEEN:
-                    generateQueenMoves(board, square, legalMoves);
-                    break;
-                case BasicPieceType::KING:
-                    generateKingMoves(board, square, legalMoves);
-                    break;
-                default:
-                    break;
+std::vector<Move> MoveGenerator::generate_moves_for_piece(Piece piece, int row, int col) const {
+    return std::vector<Move>();
+}
+
+bool MoveGenerator::is_move_legal(const Move& move) const {
+    return false;
+}
+
+std::vector<Move> MoveGenerator::generate_pawn_moves(int row, int col) const {
+    std::vector<Move> moves;
+    Piece pawn = board.get_piece(row, col);
+
+    if (pawn == Piece::WHITE_PAWN) {
+        // Single move forward
+        if (row > 0 && board.get_piece(row - 1, col) == Piece::EMPTY) {
+            moves.emplace_back(row, col, row - 1, col);
+
+            // Double move forward from the starting position
+            if (row == 6 && board.get_piece(row - 2, col) == Piece::EMPTY) {
+                moves.emplace_back(row, col, row - 2, col);
             }
         }
-    }
-    
-    return legalMoves;
-}
 
-void MoveGenerator::generatePawnMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves, PieceColor color) {
+        // Capture moves
+        if (row > 0 && col > 0 && is_black_piece(board.get_piece(row - 1, col - 1))) {
+            moves.emplace_back(row, col, row - 1, col - 1);
+        }
+        if (row > 0 && col < 7 && is_black_piece(board.get_piece(row - 1, col + 1))) {
+            moves.emplace_back(row, col, row - 1, col + 1);
+        }
+    } else if (pawn == Piece::BLACK_PAWN) {
+        // Single move forward
+        if (row < 7 && board.get_piece(row + 1, col) == Piece::EMPTY) {
+            moves.emplace_back(row, col, row + 1, col);
 
-    // Get the rank and file of the source square
-    int rank = sourceSquare / BOARD_SIZE;
-    int file = sourceSquare % BOARD_SIZE;
-    
-    // Determine the direction of pawn movement based on the color
-    int direction = (color == PieceColor::WHITE_PIECE) ? -1 : 1;
-    
-    // Check if the pawn can move one square forward
-    int destinationSquare = sourceSquare + direction * BOARD_SIZE;
-    if (board.isEmptySquare(destinationSquare)) {
-        moves.emplace_back(sourceSquare, destinationSquare, board.getPiece(sourceSquare));
-        
-        // Check if the pawn is on its starting rank and can move two squares forward
-        if ((color == PieceColor::WHITE_PIECE && rank == 6) || (color == PieceColor::BLACK_PIECE && rank == 1)) {
-            destinationSquare += direction * BOARD_SIZE;
-            if (board.isEmptySquare(destinationSquare)) {
-                moves.emplace_back(sourceSquare, destinationSquare, board.getPiece(sourceSquare));
+            // Double move forward from the starting position
+            if (row == 1 && board.get_piece(row + 2, col) == Piece::EMPTY) {
+                moves.emplace_back(row, col, row + 2, col);
             }
         }
+
+        // Capture moves
+        if (row < 7 && col > 0 && is_white_piece(board.get_piece(row + 1, col - 1))) {
+            moves.emplace_back(row, col, row + 1, col - 1);
+        }
+        if (row < 7 && col < 7 && is_white_piece(board.get_piece(row + 1, col + 1))) {
+            moves.emplace_back(row, col, row + 1, col + 1);
+        }
     }
-    
-    // Check if the pawn can capture diagonally
-    int leftCaptureSquare = sourceSquare + direction * BOARD_SIZE - 1;
-    if (board.isEnemyPiece(leftCaptureSquare, color)) {
-        moves.emplace_back(sourceSquare, leftCaptureSquare, board.getPiece(sourceSquare), board.getPiece(leftCaptureSquare));
-    }
-    
-    int rightCaptureSquare = sourceSquare + direction * BOARD_SIZE + 1;
-    if (board.isEnemyPiece(rightCaptureSquare, color)) {
-        moves.emplace_back(sourceSquare, rightCaptureSquare, board.getPiece(sourceSquare), board.getPiece(rightCaptureSquare));
-    }
-    
-    // TODO: Handle en passant captures and pawn promotion moves if necessary
+
+    // TODO: Add en passant moves and promotion moves
+
+    return moves;
+}
+std::vector<Move> MoveGenerator::generate_rook_moves(int row, int col) const {
+    return std::vector<Move>();
 }
 
-
-void MoveGenerator::generateKnightMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves) {
-    // Add logic here to generate legal knight moves based on the current board position
+std::vector<Move> MoveGenerator::generate_knight_moves(int row, int col) const {
+    return std::vector<Move>();
 }
 
-void MoveGenerator::generateBishopMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves) {
-    // Add logic here to generate legal bishop moves based on the current board position
+std::vector<Move> MoveGenerator::generate_bishop_moves(int row, int col) const {
+    return std::vector<Move>();
 }
 
-void MoveGenerator::generateRookMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves) {
-    // Add logic here to generate legal rook moves based on the current board position
+std::vector<Move> MoveGenerator::generate_queen_moves(int row, int col) const {
+    return std::vector<Move>();
 }
 
-void MoveGenerator::generateQueenMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves) {
-    // Add logic here to generate legal queen moves based on the current board position
+std::vector<Move> MoveGenerator::generate_king_moves(int row, int col) const {
+    return std::vector<Move>();
 }
 
-void MoveGenerator::generateKingMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves) {
-    // Add logic here to generate legal king moves based on the
+// Helper methods for move validation
+
+bool MoveGenerator::is_move_in_bounds(const Move& move) const {
+    return false;
+}
+
+bool MoveGenerator::is_move_blocked(const Move& move) const {
+    return false;
+}
+
+bool MoveGenerator::is_move_capturing_own_piece(const Move& move) const {
+    return false;
+}
+
+bool MoveGenerator::is_king_in_check_after_move(const Move& move) const {
+    return false;
+}
+
+bool MoveGenerator::is_white_piece(Piece piece) const {
+    return piece >= Piece::WHITE_PAWN && piece <= Piece::WHITE_KING;
+}
+
+bool MoveGenerator::is_black_piece(Piece piece) const {
+    return piece >= Piece::BLACK_PAWN && piece <= Piece::BLACK_KING;
 }

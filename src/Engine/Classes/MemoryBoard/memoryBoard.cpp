@@ -1,51 +1,30 @@
 #include "memoryBoard.hpp"
 
-EngineMemoryBoard::EngineMemoryBoard(std::string fen) {
-    int i = 0;
+Board::Board(std::string fen) {
     int j = 0;
+    int k = 0;
 
-    this->memoryBoard = new PieceType *[BOARD_SIZE];
-
-    while (i < BOARD_SIZE) {
-        this->memoryBoard[i] = new PieceType[BOARD_SIZE];
-        j = 0;
-
-        while (j < BOARD_SIZE) {
-            this->memoryBoard[i][j] = PieceType::EMPTY;
-            j++;
+    // Setting the double vector to EMPTY
+    while (j < BOARD_SIZE) {
+        this->board.push_back(std::vector<Piece>());
+        while (k < BOARD_SIZE) {
+            this->board.at(j).push_back(Piece::EMPTY);
+            k++;
         }
-        i++;
+        k = 0;
+        j++;
     }
 
-    this->initBoard(fen);
+    initBoard(fen);
 }
 
-EngineMemoryBoard::~EngineMemoryBoard() {
-    for (int i = 0; i < BOARD_SIZE; i++)
-        delete[] this->memoryBoard[i];
-    delete[] this->memoryBoard;
-}
-
-void EngineMemoryBoard::printMemoryBoard() const {
-    std::cout << "Memory board:" << std::endl;
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++)
-            std::cout << this->memoryBoard[i][j] << " ";
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-}
-
-void EngineMemoryBoard::initBoard(std::string fen) {
+void Board::initBoard(std::string fen) {
     // Initializes the board with the given FEN string
     // fen is the FEN string
     size_t i = 0;
     int j = 0;
     int k = 0;
 
-    // Setting up the memeryBoard fist
-    // TODO: Change to a switch case
-    // TODO: Add FEN validation
     while (i < fen.length()) {
         if (fen[i] == '/') {
             j++;
@@ -56,29 +35,29 @@ void EngineMemoryBoard::initBoard(std::string fen) {
             k += fen[i] - '0';
         } else {
             if (fen[i] == 'p') {
-                this->memoryBoard[j][k] = PieceType::BLACK_PAWN;
+                this->board[j][k] = Piece::BLACK_PAWN;
             } else if (fen[i] == 'P') {
-                this->memoryBoard[j][k] = PieceType::WHITE_PAWN;
+                this->board[j][k] = Piece::WHITE_PAWN;
             } else if (fen[i] == 'n') {
-                this->memoryBoard[j][k] = PieceType::BLACK_KNIGHT;
+                this->board[j][k] = Piece::BLACK_KNIGHT;
             } else if (fen[i] == 'N') {
-                this->memoryBoard[j][k] = PieceType::WHITE_KNIGHT;
+                this->board[j][k] = Piece::WHITE_KNIGHT;
             } else if (fen[i] == 'b') {
-                this->memoryBoard[j][k] = PieceType::BLACK_BISHOP;
+                this->board[j][k] = Piece::BLACK_BISHOP;
             } else if (fen[i] == 'B') {
-                this->memoryBoard[j][k] = PieceType::WHITE_BISHOP;
+                this->board[j][k] = Piece::WHITE_BISHOP;
             } else if (fen[i] == 'r') {
-                this->memoryBoard[j][k] = PieceType::BLACK_ROOK;
+                this->board[j][k] = Piece::BLACK_ROOK;
             } else if (fen[i] == 'R') {
-                this->memoryBoard[j][k] = PieceType::WHITE_ROOK;
+                this->board[j][k] = Piece::WHITE_ROOK;
             } else if (fen[i] == 'q') {
-                this->memoryBoard[j][k] = PieceType::BLACK_QUEEN;
+                this->board[j][k] = Piece::BLACK_QUEEN;
             } else if (fen[i] == 'Q') {
-                this->memoryBoard[j][k] = PieceType::WHITE_QUEEN;
+                this->board[j][k] = Piece::WHITE_QUEEN;
             } else if (fen[i] == 'k') {
-                this->memoryBoard[j][k] = PieceType::BLACK_KING;
+                this->board[j][k] = Piece::BLACK_KING;
             } else if (fen[i] == 'K') {
-                this->memoryBoard[j][k] = PieceType::WHITE_KING;
+                this->board[j][k] = Piece::WHITE_KING;
             }
             k++;
         }
@@ -86,55 +65,4 @@ void EngineMemoryBoard::initBoard(std::string fen) {
     }
 
     this->playerTurn = (fen.find("w") != std::string::npos) ? PieceColor::WHITE_PIECE : PieceColor::BLACK_PIECE;
-
-
-}
-
-void EngineMemoryBoard::updatePosition(PieceType **position) {
-    this->memoryBoard = position;
-}
-
-bool EngineMemoryBoard::isLegalMove(int sourceSquare, int destinationSquare) const {
-    if (!isWithinBounds(sourceSquare) || !isWithinBounds(destinationSquare))
-        return false;
-
-    // Add your logic here to determine if the move is legal based on the current position
-
-    return true;  // Placeholder return statement
-}
-
-bool EngineMemoryBoard::isWithinBounds(int square) const {
-    return square >= 0 && square < BOARD_SIZE * BOARD_SIZE;
-}
-
-int EngineMemoryBoard::getPiece(int square) const {
-    const int rank = square / BOARD_SIZE;
-    const int file = square % BOARD_SIZE;
-
-    return this->memoryBoard[rank][file];
-}
-
-PieceType EngineMemoryBoard::getPieceType(int piece) const {
-    if (piece < 0)
-        return static_cast<PieceType>(piece * -1);
-    return static_cast<PieceType>(piece);
-}
-
-PieceColor EngineMemoryBoard::getPieceColor(int piece) const {
-    return (piece < 0) ? PieceColor::BLACK_PIECE : PieceColor::WHITE_PIECE;
-}
-
-bool EngineMemoryBoard::isEnemyPiece(int square, PieceColor color) const {
-    const int rank = square / BOARD_SIZE;
-    const int file = square % BOARD_SIZE;
-
-    int piece = this->memoryBoard[rank][file];
-    return (piece != 0 && getPieceColor(piece) != color);
-}
-
-bool EngineMemoryBoard::isEmptySquare(int square) const {
-    const int rank = square / BOARD_SIZE;
-    const int file = square % BOARD_SIZE;
-
-    return this->memoryBoard[rank][file] == 0;
 }

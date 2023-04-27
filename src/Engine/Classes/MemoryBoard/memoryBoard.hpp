@@ -4,35 +4,51 @@
 
 #include "./../../include/main.hpp"
 
-class EngineMemoryBoard {
-   public:
-    // Loading board from a FEN file
-    EngineMemoryBoard(std::string fen);
-    // Destructor
-    ~EngineMemoryBoard();
-    // Get the memory board
-    void printMemoryBoard() const;
-    // TODO: Add: update the position, and retrieve information about the position, such as piece locations and legality of moves
-    // Update the board position
-    void updatePosition(PieceType **position);
-    // Check if a move is legal
-    bool isLegalMove(int sourceSquare, int destinationSquare) const;
+class Board {
+public:
+    // Constructor
+    Board() {
+        reset_board();
+    }
 
-    int getPiece(int square) const;
-    PieceType getPieceType(int piece) const;
-    PieceColor getPieceColor(int piece) const;
-    bool isEnemyPiece(int square, PieceColor color) const;
-    bool isEmptySquare(int square) const;
+    // Constructor with FEN string
+    Board(std::string fen);
 
+    void reset_board() {
+        board = {
+            {Piece::WHITE_ROOK, Piece::WHITE_KNIGHT, Piece::WHITE_BISHOP, Piece::WHITE_QUEEN, Piece::WHITE_KING, Piece::WHITE_BISHOP, Piece::WHITE_KNIGHT, Piece::WHITE_ROOK},
+            {Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN, Piece::WHITE_PAWN},
+            {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
+            {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
+            {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
+            {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
+            {Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN},
+            {Piece::BLACK_ROOK, Piece::BLACK_KNIGHT, Piece::BLACK_BISHOP, Piece::BLACK_QUEEN, Piece::BLACK_KING, Piece::BLACK_BISHOP, Piece::BLACK_KNIGHT, Piece::BLACK_ROOK}
+        };
+    }
 
-   private:
-    PieceType** memoryBoard;
-    PieceColor playerTurn;
-    // Initialize the board with a FEN file
+    Piece get_piece(int row, int col) const {
+        return board[row][col];
+    }
+
+    void set_piece(int row, int col, Piece piece) {
+        board[row][col] = piece;
+    }
+
+    void print_board() const {
+        for (const auto& row : board) {
+            for (const auto& piece : row) {
+                std::cout << static_cast<int>(piece) << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+private:
+    std::vector<std::vector<Piece>> board;
     void initBoard(std::string fen);
-    // Checks if a square is within the board bounds
-    bool isWithinBounds(int square) const;
-
+    PieceColor playerTurn;
 };
+
 
 #endif /* !ENGINE_MEMORYBOARD_HPP */

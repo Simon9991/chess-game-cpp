@@ -3,31 +3,41 @@
 
 #include "./../../include/main.hpp"
 
-#include <vector>
+class Board;
 
 class MoveGenerator {
 public:
-    // Generates all legal moves for the specified color in the given board position
-    static std::vector<Move> generateLegalMoves(const EngineMemoryBoard& board, PieceColor color);
+    MoveGenerator(const Board& board)
+        : board(board) {}
+
+    // Generate moves for all pieces on the board
+    std::vector<Move> generate_moves() const;
+
+    // Generate moves for a specific piece at a given position
+    std::vector<Move> generate_moves_for_piece(Piece piece, int row, int col) const;
+
+    // Validate if a move is legal according to the rules of chess
+    bool is_move_legal(const Move& move) const;
 
 private:
-    // Generates legal moves for pawns
-    static void generatePawnMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves, PieceColor color);
+    const Board& board;
 
-    // Generates legal moves for knights
-    static void generateKnightMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves);
+    // Helper methods for generating moves for each piece type
+    std::vector<Move> generate_pawn_moves(int row, int col) const;
+    std::vector<Move> generate_rook_moves(int row, int col) const;
+    std::vector<Move> generate_knight_moves(int row, int col) const;
+    std::vector<Move> generate_bishop_moves(int row, int col) const;
+    std::vector<Move> generate_queen_moves(int row, int col) const;
+    std::vector<Move> generate_king_moves(int row, int col) const;
 
-    // Generates legal moves for bishops
-    static void generateBishopMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves);
-
-    // Generates legal moves for rooks
-    static void generateRookMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves);
-
-    // Generates legal moves for queens
-    static void generateQueenMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves);
-
-    // Generates legal moves for kings
-    static void generateKingMoves(const EngineMemoryBoard& board, int sourceSquare, std::vector<Move>& moves);
+    // Helper methods for move validation
+    bool is_move_in_bounds(const Move& move) const;
+    bool is_move_blocked(const Move& move) const;
+    bool is_move_capturing_own_piece(const Move& move) const;
+    bool is_king_in_check_after_move(const Move& move) const;
+    bool is_white_piece(Piece piece) const;
+    bool is_black_piece(Piece piece) const;
 };
+
 
 #endif
