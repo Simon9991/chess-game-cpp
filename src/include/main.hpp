@@ -11,11 +11,14 @@
 #define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
 
 // Defining Chess constants
-#define APP_NAME "Chess"
-#define SQUARE_SIZE 25
+#define APP_NAME "Chess++"
+#define SQUARE_SIZE 15 * 10
 #define BOARD_SIZE 8
 #define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
 #define PIECE_SIZE SQUARE_SIZE * 1
+
+constexpr int windowSize = SQUARE_SIZE * BOARD_SIZE;
+constexpr char defaultFen[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -27,9 +30,11 @@
 #define MAGENTA sf::Color::Magenta
 #define CYAN sf::Color::Cyan
 #define DARK_GRAY sf::Color(64, 64, 64)
-#define LIGHT_GRAY sf::Color(192, 192, 192)
+#define LIGHT_GRAY sf::Color(212, 212, 212)
 
 // Defining Chess pieces
+// TODO: Add WHITE_EN_PASSANT and BLACK_EN_PASSANT (used in movement.cpp for pawn movement to check if the pawn can be
+// taken en passant)
 enum PieceType {
     WHITE_PAWN,
     WHITE_ROOK,
@@ -47,6 +52,9 @@ enum PieceType {
 };
 enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
+// Player turn
+enum PlayerTurn { WHITE_TURN, BLACK_TURN };
+
 // Defining image paths
 #define WHITE_PAWN_PATH "./src/Assets/Pieces/w_pawn.png"
 #define WHITE_ROOK_PATH "./src/Assets/Pieces/w_rook.png"
@@ -62,13 +70,15 @@ enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 #define BLACK_KING_PATH "./src/Assets/Pieces/b_king.png"
 
 // Defining return values
-#define SUCCESS 0
-#define FAILURE -1
-#define ERROR 84
+constexpr int SUCCESS = 0;
+constexpr int FAILURE = -1;
+constexpr int ERROR = 84;
 
+#include "./../Classes/GameEngine/Movement/movement.hpp"
 #include "./../Classes/Graphical/Board/board.hpp"
 #include "./../Classes/Graphical/Image/image.hpp"
 #include "./../Classes/Graphical/King/king.hpp"
+#include "./../Classes/Graphical/Moves/moves.hpp"
 #include "./../Classes/Graphical/Piece/piece.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"
 #include "./../Classes/Input/MouseInput/mouse_input.hpp"

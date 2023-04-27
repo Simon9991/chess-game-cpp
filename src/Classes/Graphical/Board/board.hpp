@@ -5,6 +5,7 @@
 #include "./../../../include/main.hpp"
 
 class Square;
+class Piece;
 
 class Board {
    public:
@@ -22,18 +23,37 @@ class Board {
     void setSquare(int x, int y, Square square);
     // Get the memory board
     PieceType **getMemoryBoard();
+    // Get the memory board pointer
+    PieceType ***getMemoryBoardPointer();
     // Set the memory board
     void setMemoryBoard(PieceType **memoryBoard);
-    // Get the piece at the given position
-    PieceType getPiece(int x, int y);
+    // Get the piece type at the given position from the memory board
+    PieceType getPieceType(int x, int y);
     // Set the piece at the given position
     void setPiece(int x, int y, PieceType piece);
+    // Get the piece at the given position from the memory board
+    Piece *getPiece(int x, int y);
+    // Moving a piece from a position to another in the memory board
+    void movePiece(Piece *piece, sf::Vector2f position);
+    // Get the relative square
+    Square *getRelativeSquare(sf::Vector2i position);
+    // Resets the possible moves
+    void resetPossibleMoves();
+    // Prints the memory board
+    void printMemoryBoard();
+    // Sets the squares Piece pointer to their new values based on the memory board
+    void updateSquares();
+    // Get the PlayerTurn
+    PieceColor getPlayerTurn();
+    // Set the PlayerTurn
+    void setPlayerTurn(PieceColor playerTurn);
 
    private:
     // Array of squares
     Square *squares[BOARD_SIZE][BOARD_SIZE];
     // Memory board
     PieceType **memoryBoard;
+    PieceColor playerTurn;
 };
 
 #endif /* !BOARD_HPP */

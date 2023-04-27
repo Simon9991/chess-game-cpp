@@ -8,9 +8,9 @@ Image::Image(std::string path, sf::Vector2f position, sf::Vector2f size, sf::Col
     this->color = color;
     this->load(path);
 
-    if (DEBUG) {
-        std::cout << "Image created at " << this->position.x << "x" << this->position.y << std::endl;
-    }
+    // if (DEBUG) {
+    //     std::cout << "Image created at " << this->position.x << "x" << this->position.y << std::endl;
+    // }
 }
 
 Image::Image(std::string path, sf::Vector2f position, sf::Vector2f size) {
@@ -21,9 +21,9 @@ Image::Image(std::string path, sf::Vector2f position, sf::Vector2f size) {
     this->color = sf::Color::White;
     this->load(path);
 
-    if (DEBUG) {
-        std::cout << "Image created at " << this->position.x << "x" << this->position.y << std::endl;
-    }
+    // if (DEBUG) {
+    //     std::cout << "Image created at " << this->position.x << "x" << this->position.y << std::endl;
+    // }
 }
 
 Image::~Image() {
@@ -61,3 +61,5 @@ sf::Vector2f Image::getPosition() { return this->position; }
 sf::Vector2f Image::getSize() { return this->size; }
 
 sf::Color Image::getColor() { return this->color; }
+
+sf::Sprite* Image::getSprite() { return this->sprite; }

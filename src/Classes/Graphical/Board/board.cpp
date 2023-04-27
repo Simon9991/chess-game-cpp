@@ -18,6 +18,8 @@ Board::Board(std::string fen) {
         i++;
     }
 
+    this->playerTurn = PieceColor::WHITE_PIECE;  // Can be changed later to be more flexible
+
     this->initBoard(fen);
 }
 
@@ -50,7 +52,7 @@ Board::~Board() {
 void Board::initBoard(std::string fen) {
     // Initializes the board with the given FEN string
     // fen is the FEN string
-    int i = 0;
+    size_t i = 0;
     int j = 0;
     int k = 0;
 
@@ -286,10 +288,69 @@ Square *Board::getSquare(int x, int y) {
             }
             j++;
         }
+
+        i++;
     }
 
     return nullptr;
 }
+
+Square *Board::getRelativeSquare(sf::Vector2i position) {
+    return this->squares[position.y][position.x];
+}
+
+void Board::resetPossibleMoves() {
+    // Iterates through the squares array to reset the possible moves of each square
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            this->squares[i][j]->setPossibleMove(false);
+            j++;
+        }
+        i++;
+    }
+}
+
+void Board::printMemoryBoard() {
+    // Prints the memory board
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            std::cout << this->memoryBoard[i][j] << " ";
+            j++;
+        }
+        std::cout << std::endl;
+        i++;
+    }
+}
+
+void Board::updateSquares() {
+    // Iterates through the squares array to update each square
+    int i = 0;
+    int j = 0;
+
+    while (i < BOARD_SIZE) {
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            // this->squares[i][j]->update(this->memoryBoard[i][j]);
+            j++;
+        }
+        i++;
+    }
+}
+
+PieceColor Board::getPlayerTurn() { return this->playerTurn; }
+
+void Board::setPlayerTurn(PieceColor playerTurn) { this->playerTurn = playerTurn; }
 
 void Board::setSquare(int x, int y, Square square) {
     // Iterates through the squares array to find the square at the given position
@@ -312,12 +373,112 @@ void Board::setSquare(int x, int y, Square square) {
 
 PieceType **Board::getMemoryBoard() { return this->memoryBoard; }
 
+PieceType ***Board::getMemoryBoardPointer() { return &this->memoryBoard; }
+
 void Board::setMemoryBoard(PieceType **memoryBoard) { this->memoryBoard = memoryBoard; }
 
-PieceType Board::getPiece(int x, int y) { return this->memoryBoard[x][y]; }
+PieceType Board::getPieceType(int x, int y) { return this->memoryBoard[x][y]; }
 
 void Board::setPiece(int x, int y, PieceType piece) {
     this->memoryBoard[x][y] = piece;
     // TODO: Set the piece on the board (?)
     // this->squares[x][y]->setPiece(piece);
+}
+
+Piece *Board::getPiece(int x, int y) {
+    // We get the y and x coordinate of the piece in the memory board
+    // Then we get the square at the given position
+    // Then we get the piece at the given square
+    // TODO: Check if the piece is EMPTY in the memory board (?)
+    return this->squares[x][y]->getPiece();
+}
+
+void Board::movePiece(Piece *piece, sf::Vector2f position) {
+    /*
+    "Smoothly move the piece to the given relative position"
+    */
+
+    // Checking if the piece is a king and it is trying to castle
+    if (piece->getType() == PieceType::WHITE_KING && piece->getIsFirstMove() && position.x > piece->getPosition().x) {
+        // Checking if the white king is trying to castle to the king side
+        Piece *rook = this->getPiece(7, 7);
+
+        if (rook->getPieceType() != PieceType::WHITE_ROOK || !rook->getIsFirstMove())
+            return;
+
+        // Moving the rook to the left of the king
+        this->movePiece(rook, sf::Vector2f(5 * SQUARE_SIZE, 7 * SQUARE_SIZE));
+
+        // Moving the king to the right of the rook
+        piece->setIsFirstMove(false);
+        this->movePiece(piece, sf::Vector2f(position.x, position.y));
+        return;
+
+    }  // Checking if castling queen side
+    else if (piece->getType() == PieceType::WHITE_KING && piece->getIsFirstMove() && position.x < piece->getPosition().x) {
+        // Checking if the white king is trying to castle to the queen side
+        Piece *rook = this->getPiece(7, 0);
+
+        if (rook->getPieceType() != PieceType::WHITE_ROOK || !rook->getIsFirstMove())
+            return;
+
+        // Moving the rook to the right of the king
+        this->movePiece(rook, sf::Vector2f(3 * SQUARE_SIZE, 7 * SQUARE_SIZE));
+
+        // Moving the king to the left of the rook
+        piece->setIsFirstMove(false);
+        this->movePiece(piece, sf::Vector2f(position.x, position.y));
+        return;
+    } else if (piece->getType() == PieceType::BLACK_KING && piece->getIsFirstMove() && position.x > piece->getPosition().x) {
+        // Checking if the black king is trying to castle to the king side
+        Piece *rook = this->getPiece(0, 7);
+
+        if (rook->getPieceType() != PieceType::BLACK_ROOK || !rook->getIsFirstMove())
+            return;
+
+        // Moving the rook to the left of the king
+        this->movePiece(rook, sf::Vector2f(5 * SQUARE_SIZE, 0));
+
+        // Moving the king to the right of the rook
+        piece->setIsFirstMove(false);
+        this->movePiece(piece, sf::Vector2f(position.x, position.y));
+        return;
+    } else if (piece->getType() == PieceType::BLACK_KING && piece->getIsFirstMove() && position.x < piece->getPosition().x) {
+        // Checking if the black king is trying to castle to the queen side
+        Piece *rook = this->getPiece(0, 0);
+
+        if (rook->getPieceType() != PieceType::BLACK_ROOK || !rook->getIsFirstMove())
+            return;
+
+        // Moving the rook to the right of the king
+        this->movePiece(rook, sf::Vector2f(3 * SQUARE_SIZE, 0));
+
+        // Moving the king to the left of the rook
+        piece->setIsFirstMove(false);
+        this->movePiece(piece, sf::Vector2f(position.x, position.y));
+        return;
+    }
+
+    // Move the piece to the given position
+    // this->printMemoryBoard();
+    this->memoryBoard[piece->getMemoryPosition().y][piece->getMemoryPosition().x] = PieceType::EMPTY;
+    sf::Vector2i relativePosition = sf::Vector2i(position.x / SQUARE_SIZE / 100, position.y / SQUARE_SIZE / 100);
+    this->memoryBoard[relativePosition.y][relativePosition.x] = piece->getType();
+
+    // Retrieves the square at the given position
+    Square *square = this->getRelativeSquare(relativePosition);
+    Square *oldSquare = this->getRelativeSquare(piece->getMemoryPosition());
+    oldSquare->setPiece(nullptr);
+    square->setPiece(piece);
+
+    sf::Vector2f memoryPosition = sf::Vector2f(position.y, position.x);
+
+    piece->setPosition(position, relativePosition.x, relativePosition.y);
+    piece->setIsFirstMove(false);
+    piece->setCanCastleKingSide(false);
+    piece->setCanCastleKingSide(false);
+    // this->printMemoryBoard();
+
+    // TODO: Check if the move puts the opponent's king in check
+    // TODO: Check if the move puts the player's king in check (in movement.cpp)
 }

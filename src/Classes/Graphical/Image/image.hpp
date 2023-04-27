@@ -37,6 +37,8 @@ class Image {
     sf::Vector2f getSize();
     // Get the color of the image
     sf::Color getColor();
+    // Get the sprite of the image
+    sf::Sprite *getSprite();
 };
 
 #endif /* !IMAGE_HPP */
