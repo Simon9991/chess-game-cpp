@@ -4,8 +4,10 @@
 
 #include "./../../include/main.hpp"
 
+class Move;
+
 class Board {
-public:
+   public:
     // Constructor
     Board() {
         reset_board();
@@ -23,8 +25,7 @@ public:
             {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
             {Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY, Piece::EMPTY},
             {Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN, Piece::BLACK_PAWN},
-            {Piece::BLACK_ROOK, Piece::BLACK_KNIGHT, Piece::BLACK_BISHOP, Piece::BLACK_QUEEN, Piece::BLACK_KING, Piece::BLACK_BISHOP, Piece::BLACK_KNIGHT, Piece::BLACK_ROOK}
-        };
+            {Piece::BLACK_ROOK, Piece::BLACK_KNIGHT, Piece::BLACK_BISHOP, Piece::BLACK_QUEEN, Piece::BLACK_KING, Piece::BLACK_BISHOP, Piece::BLACK_KNIGHT, Piece::BLACK_ROOK}};
     }
 
     Piece get_piece(int row, int col) const {
@@ -44,11 +45,23 @@ public:
         }
     }
 
-private:
+    // Execute a move on the board
+    void execute_move(const Move& move);
+    // Checks if the king is in check
+    bool is_king_in_check(bool is_white_turn) const;
+
+   private:
     std::vector<std::vector<Piece>> board;
     void initBoard(std::string fen);
     PieceColor playerTurn;
-};
 
+    bool is_white_piece(Piece piece) const {
+        return piece >= Piece::WHITE_PAWN && piece <= Piece::WHITE_KING;
+    }
+
+    bool is_black_piece(Piece piece) const {
+        return piece >= Piece::BLACK_PAWN && piece <= Piece::BLACK_KING;
+    }
+};
 
 #endif /* !ENGINE_MEMORYBOARD_HPP */

@@ -66,3 +66,68 @@ void Board::initBoard(std::string fen) {
 
     this->playerTurn = (fen.find("w") != std::string::npos) ? PieceColor::WHITE_PIECE : PieceColor::BLACK_PIECE;
 }
+
+void Board::execute_move(const Move& move) {
+    int start_row = move.get_start_row();
+    int start_col = move.get_start_col();
+    int end_row = move.get_end_row();
+    int end_col = move.get_end_col();
+
+    Piece piece_to_move = get_piece(start_row, start_col);
+
+    // Move the piece to the destination square
+    set_piece(end_row, end_col, piece_to_move);
+
+    // Clear the starting square
+    set_piece(start_row, start_col, Piece::EMPTY);
+
+    // Handle pawn promotion (assumes promotion to queen)
+    if (piece_to_move == Piece::WHITE_PAWN && end_row == 0) {
+        set_piece(end_row, end_col, Piece::WHITE_QUEEN);
+    } else if (piece_to_move == Piece::BLACK_PAWN && end_row == 7) {
+        set_piece(end_row, end_col, Piece::BLACK_QUEEN);
+    }
+
+    // Note: This implementation does not handle castling, en passant, or other
+    // special chess rules.
+}
+
+bool Board::is_king_in_check(bool is_white_turn) const {
+    // Find the position of the king
+    int king_row = -1;
+    int king_col = -1;
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            Piece piece = get_piece(row, col);
+            if ((piece == Piece::WHITE_KING && is_white_turn) || (piece == Piece::BLACK_KING && !is_white_turn)) {
+                king_row = row;
+                king_col = col;
+                break;
+            }
+        }
+        if (king_row != -1) {
+            break;
+        }
+    }
+
+    // Check if any opposing piece attacks the king's position
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            Piece piece = get_piece(row, col);
+            if (piece != Piece::EMPTY && is_white_turn != is_white_piece(piece)) {
+                // Generate moves for the current piece
+                MoveGenerator move_gen(*this);
+                std::vector<Move> moves = move_gen.generate_moves_for_piece(piece, row, col);
+
+                // Check if any move attacks the king's position
+                for (const Move& move : moves) {
+                    if (move.get_end_row() == king_row && move.get_end_col() == king_col) {
+                        return true;  // King is in check
+                    }
+                }
+            }
+        }
+    }
+
+    return false;  // King is not in check
+}
