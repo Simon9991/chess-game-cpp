@@ -12,10 +12,11 @@
 #define FONT "src/Assets/Fonts/Lato/Lato-Regular.ttf"
 
 // Defining Chess constants
-constexpr std::string APP_NAME = "Chess++";
-constexpr int SQUARE_SIZE = 25;
-constexpr int BOARD_SIZE 8 constexpr int WINDOW_SIZE = SQUARE_SIZE * BOARD_SIZE * 10;
-constexpr int PIECE_SIZE SQUARE_SIZE * 1;
+#define APP_NAME "Chess++"
+#define SQUARE_SIZE 10
+#define BOARD_SIZE 8
+#define WINDOW_SIZE SQUARE_SIZE * BOARD_SIZE * 10
+#define PIECE_SIZE SQUARE_SIZE * 1
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -74,7 +75,7 @@ enum PlayerTurn {
 
 // Defining return values
 constexpr int SUCCESS = 0;
-constexpr int = FAILURE = -1;
+constexpr int FAILURE = -1;
 constexpr int ERROR = 84;
 
 #include "./../Classes/GameEngine/Movement/movement.hpp"

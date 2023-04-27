@@ -6,7 +6,7 @@ CC = g++
 
 # Compiler flags
 
-CFLAGS = -Wall -Wextra -std=c++11 -g3
+CFLAGS = -Wall -Wextra -std=c++14 -g3
 
 # SFML flags
 

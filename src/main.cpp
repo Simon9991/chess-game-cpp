@@ -28,12 +28,12 @@ int main(int ac, char **av) {
 
     } else {
         // Load with default board
-        fen.assign("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");  // Default FEN, TODO: Create a macro
+        fen.assign("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");  // Default FEN, TODO: Ceate a macro
     }
 
-    std::unique_ptr<Board> board = std::make_unique<Board>(fen);
+    std::unique_ptr<Board> board(new Board(fen));
     MouseInput mouseInput = MouseInput();
-    Movement movement = Movement(board->getMemoryBoard(), board);
+    Movement movement = Movement(board->getMemoryBoard(), board.get());
     Moves moves = Moves();
 
     std::unique_ptr<Piece> piece = nullptr;
@@ -48,9 +48,10 @@ int main(int ac, char **av) {
         while (window.pollEvent(event))
             if (event.type == sf::Event::Closed) window.close();
 
-        piece = mouseInput.isClickedOnPiece(window, board, piece);
+        piece = std::unique_ptr<Piece>(mouseInput.isClickedOnPiece(window, board.get(), piece.get()));
+
         if (piece != nullptr) {
-            std::vector<sf::Vector2f> possibleMoves = movement.getPossibleMoves(piece);
+            std::vector<sf::Vector2f> possibleMoves = movement.getPossibleMoves(piece.get());
             moves.setPossibleMoves(possibleMoves);
 
             // For each possible move, we set the square to possible move
@@ -67,7 +68,7 @@ int main(int ac, char **av) {
                 if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
                     sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE, mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
 
-                    board->movePiece(piece, position);
+                    board->movePiece(piece.get(), position);
 
                     // Reset possible moves of the squares
                     board->resetPossibleMoves();
@@ -85,9 +86,6 @@ int main(int ac, char **av) {
         moves.draw(window);
         window.display();
     }
-
-    // Free memory
-    delete board;
 
     return 0;
 }
