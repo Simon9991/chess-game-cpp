@@ -18,6 +18,13 @@ class EngineMemoryBoard {
     // Check if a move is legal
     bool isLegalMove(int sourceSquare, int destinationSquare) const;
 
+    int getPiece(int square) const;
+    PieceType getPieceType(int piece) const;
+    PieceColor getPieceColor(int piece) const;
+    bool isEnemyPiece(int square, PieceColor color) const;
+    bool isEmptySquare(int square) const;
+
+
    private:
     PieceType** memoryBoard;
     PieceColor playerTurn;

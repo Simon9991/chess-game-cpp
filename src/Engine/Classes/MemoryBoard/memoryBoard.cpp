@@ -4,22 +4,18 @@ EngineMemoryBoard::EngineMemoryBoard(std::string fen) {
     int i = 0;
     int j = 0;
 
-    this->playerTurn = PieceColor::WHITE_PIECE;
-
     this->memoryBoard = new PieceType *[BOARD_SIZE];
 
-    std::cout << "Creating memory board..." << std::endl;
     while (i < BOARD_SIZE) {
         this->memoryBoard[i] = new PieceType[BOARD_SIZE];
         j = 0;
 
         while (j < BOARD_SIZE) {
-            this->memoryBoard[i][j] = EMPTY;
+            this->memoryBoard[i][j] = PieceType::EMPTY;
             j++;
         }
         i++;
     }
-    std::cout << "Memory board created" << std::endl;
 
     this->initBoard(fen);
 }
@@ -109,4 +105,36 @@ bool EngineMemoryBoard::isLegalMove(int sourceSquare, int destinationSquare) con
 
 bool EngineMemoryBoard::isWithinBounds(int square) const {
     return square >= 0 && square < BOARD_SIZE * BOARD_SIZE;
+}
+
+int EngineMemoryBoard::getPiece(int square) const {
+    const int rank = square / BOARD_SIZE;
+    const int file = square % BOARD_SIZE;
+
+    return this->memoryBoard[rank][file];
+}
+
+PieceType EngineMemoryBoard::getPieceType(int piece) const {
+    if (piece < 0)
+        return static_cast<PieceType>(piece * -1);
+    return static_cast<PieceType>(piece);
+}
+
+PieceColor EngineMemoryBoard::getPieceColor(int piece) const {
+    return (piece < 0) ? PieceColor::BLACK_PIECE : PieceColor::WHITE_PIECE;
+}
+
+bool EngineMemoryBoard::isEnemyPiece(int square, PieceColor color) const {
+    const int rank = square / BOARD_SIZE;
+    const int file = square % BOARD_SIZE;
+
+    int piece = this->memoryBoard[rank][file];
+    return (piece != 0 && getPieceColor(piece) != color);
+}
+
+bool EngineMemoryBoard::isEmptySquare(int square) const {
+    const int rank = square / BOARD_SIZE;
+    const int file = square % BOARD_SIZE;
+
+    return this->memoryBoard[rank][file] == 0;
 }
