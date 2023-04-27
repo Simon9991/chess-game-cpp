@@ -40,6 +40,7 @@ int main(int ac, char **av) {
 
     window.setFramerateLimit(15);
     window.setVerticalSyncEnabled(true);
+    // To change the window size
     window.setSize(sf::Vector2u(2000, 2000));
     // std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
