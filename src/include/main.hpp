@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <memory>
 
 // Debug mode
 #define DEBUG 1
@@ -13,9 +12,9 @@
 
 // Defining Chess constants
 #define APP_NAME "Chess++"
-#define SQUARE_SIZE 10
+#define SQUARE_SIZE 25
 #define BOARD_SIZE 8
-#define WINDOW_SIZE SQUARE_SIZE * BOARD_SIZE * 10
+#define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
 #define PIECE_SIZE SQUARE_SIZE * 1
 
 // Defining Chess colors
@@ -48,16 +47,10 @@ enum PieceType {
     BLACK_KING,
     EMPTY
 };
-enum PieceColor {
-    WHITE_PIECE,
-    BLACK_PIECE
-};
+enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
 // Player turn
-enum PlayerTurn {
-    WHITE_TURN,
-    BLACK_TURN
-};
+enum PlayerTurn { WHITE_TURN, BLACK_TURN };
 
 // Defining image paths
 #define WHITE_PAWN_PATH "./src/Assets/Pieces/w_pawn.png"
