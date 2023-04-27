@@ -27,7 +27,7 @@ void Square::draw(sf::RenderWindow& window) { window.draw(this->shape); }
 sf::Vector2f Square::getPosition() { return this->position; }
 
 sf::Vector2i Square::getRelativePosition() {
-    sf::Vector2i relativePosition = sf::Vector2i(this->position.x / SQUARE_SIZE, this->position.y / SQUARE_SIZE);
+    sf::Vector2i relativePosition = sf::Vector2i(this->position.x / SQUARE_SIZE,  this->position.y / SQUARE_SIZE);
 
     return relativePosition;
 }

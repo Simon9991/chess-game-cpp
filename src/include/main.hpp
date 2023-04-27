@@ -12,10 +12,13 @@
 
 // Defining Chess constants
 #define APP_NAME "Chess++"
-#define SQUARE_SIZE 25
+#define SQUARE_SIZE 15 * 10
 #define BOARD_SIZE 8
 #define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
 #define PIECE_SIZE SQUARE_SIZE * 1
+
+constexpr int windowSize = SQUARE_SIZE * BOARD_SIZE;
+constexpr char defaultFen[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 // Defining Chess colors
 #define WHITE sf::Color::White

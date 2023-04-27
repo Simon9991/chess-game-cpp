@@ -10,9 +10,11 @@ int main(int ac, char **av) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), APP_NAME, sf::Style::Default, settings);
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    int windowSize = SQUARE_SIZE * BOARD_SIZE;
+
+    sf::RenderWindow window(sf::VideoMode(windowSize, windowSize), APP_NAME, sf::Style::Default, settings);
+    window.setFramerateLimit(15);
+    window.setVerticalSyncEnabled(true);
 
     if (ac > 1) {
         // Opens the .txt path file and setup the FEN
@@ -20,19 +22,12 @@ int main(int ac, char **av) {
 
         std::ifstream fenFile(fenPath);
         if (fenFile.is_open()) {
-            // std::cout << "File opened" << std::endl;
             std::getline(fenFile, fen);
             fenFile.close();
-        } else {
+        } else
             std::cout << "Unable to open file" << std::endl;
-        }
-        // std::cout << "FEN: " << fen << std::endl;
-
-    } else {
-        // Load with default board
-        // std::cout << "No arguments" << std::endl;
-        fen.assign("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");  // Default FEN, TODO: Create a macro
-    }
+    } else
+        fen.assign(defaultFen);
 
     Board *board = new Board(fen);
     MouseInput mouseInput = MouseInput();
@@ -40,13 +35,6 @@ int main(int ac, char **av) {
     Moves moves = Moves();
 
     Piece *piece = nullptr;
-
-    window.setFramerateLimit(15);
-    window.setVerticalSyncEnabled(true);
-    // To change the window size
-    window.setSize(sf::Vector2u(2000, 2000));
-    // std::cout << "Window size: " << window.getSize().x << "x" << window.getSize().y << std::endl
-    //           << "Supposed size: " << WINDOW_SIZE << "x" << WINDOW_SIZE << std::endl;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -61,10 +49,7 @@ int main(int ac, char **av) {
 
             // For each possible move, we set the square to possible move
             for (sf::Vector2f possibleMove : possibleMoves) {
-                sf::Vector2i relativePosition =
-                    sf::Vector2i(possibleMove.x / SQUARE_SIZE, possibleMove.y / SQUARE_SIZE);
-                std::cout << "Relative position of possible square: " << relativePosition.x << "x" << relativePosition.y
-                          << std::endl;
+                sf::Vector2i relativePosition = sf::Vector2i(possibleMove.x / SQUARE_SIZE / 100, possibleMove.y / SQUARE_SIZE / 100);
                 Square *square = board->getRelativeSquare(relativePosition);
                 square->setPossibleMove(true);
             }
@@ -74,16 +59,13 @@ int main(int ac, char **av) {
                 Square *squareOfPossibleMove = board->getRelativeSquare(mousePosition);
 
                 if (squareOfPossibleMove != nullptr && squareOfPossibleMove->isPossibleMove()) {
-                    sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE,
-                                                         mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
+                    sf::Vector2f position = sf::Vector2f(mouseInput.getRelativePositionClick().x * SQUARE_SIZE, mouseInput.getRelativePositionClick().y * SQUARE_SIZE);
                     board->movePiece(piece, position);
+
                     // Reset possible moves of the squares
                     board->resetPossibleMoves();
                     moves.clear();
-                    board->setPlayerTurn(board->getPlayerTurn() == PieceColor::WHITE_PIECE
-                                             ? PieceColor::BLACK_PIECE
-                                             : PieceColor::WHITE_PIECE);  // To comment if you want to play multiple
-                                                                          // times with the same color
+                    board->setPlayerTurn(board->getPlayerTurn() == PieceColor::WHITE_PIECE ? PieceColor::BLACK_PIECE : PieceColor::WHITE_PIECE);  // To comment if you want to play multiple times with the same color
                     piece = nullptr;
                     squareOfPossibleMove = nullptr;
                     movement.updateMemoryBoard(board->getMemoryBoard());

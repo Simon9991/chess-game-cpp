@@ -15,7 +15,7 @@ sf::Vector2i MouseInput::getPosition(sf::RenderWindow& window) {
 
 sf::Vector2i MouseInput::getRelativePositionClick() {
     if (this->clicked) {
-        return sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
+        return sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 100, this->positionClick.y / SQUARE_SIZE / 100);
     } else {
         return sf::Vector2i(0, 0);
     }
@@ -50,12 +50,15 @@ Piece* MouseInput::isClickedOnPiece(sf::RenderWindow& window, Board* board, Piec
     // Search in the memoryBoard for a piece (using relativePosition)
     if (this->clicked) {
         sf::Vector2i relativePosition =
-            sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 10, this->positionClick.y / SQUARE_SIZE / 10);
+            sf::Vector2i(this->positionClick.x / SQUARE_SIZE / 100, this->positionClick.y / SQUARE_SIZE / 100);
         std::cout << "Relative position: " << relativePosition.x << "x" << relativePosition.y << std::endl;
         Piece* foundPiece = board->getPiece(relativePosition.y, relativePosition.x);
         if (foundPiece != nullptr && foundPiece->getType() != PieceType::EMPTY) {
             std::cout << "Found a piece: " << board->getPieceType(relativePosition.y, relativePosition.x) <<std::endl;
             if (foundPiece != nullptr && foundPiece->getPieceColor() != board->getPlayerTurn()) {
+
+                std::cout << "Wrong color" << std::endl;
+                std::cout << "Color found: " << foundPiece->getPieceColor() << " | Color expected: " << board->getPlayerTurn() << std::endl;
                 return oldPiece;
             }
             std::cout << "Type of the piece on Square:  " << foundPiece->getType() << std::endl;
