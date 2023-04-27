@@ -43,3 +43,4 @@
 *.out
 sfml-app
 chess-game
+chess-engine
