@@ -20,6 +20,10 @@ INCLUDEFLAGS = -I./include
 
 EXEC = chess-game
 
+# Engine executable name
+
+ENGINE_EXEC = chess-engine
+
 # Source files
 
 SRC = 	src/main.cpp										\
@@ -31,6 +35,12 @@ SRC = 	src/main.cpp										\
 		src/Classes/Graphical/Piece/piece.cpp				\
 		src/Classes/GameEngine/Movement/movement.cpp		\
 		src/Classes/Input/MouseInput/mouse_input.cpp		\
+
+
+# Engine files
+
+ENGINE_SRC	=	src/Engine/main.cpp									\
+				src/Engine/Classes/MemoryBoard/memoryBoard.cpp	\
 
 
 # Object files
@@ -56,5 +66,10 @@ fclean: clean
 	rm -rf $(EXEC)
 
 re: fclean all
+
+engine:
+	$(CC) -o $(ENGINE_EXEC) $(ENGINE_SRC) $(SFMLFLAGS) $(CFLAGS)
+
+re-engine: fclean engine
 
 .PHONY: all clean fclean re

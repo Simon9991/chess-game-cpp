@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "./../include/main.hpp"
+#include "./include/main.hpp"
 
 int main(int ac, char **av) {
     std::string fen = "";
@@ -21,6 +21,9 @@ int main(int ac, char **av) {
             std::cout << "Unable to open file" << std::endl;
     } else
         fen.assign(defaultFen);
+
+    EngineMemoryBoard *engineMemoryBoard = new EngineMemoryBoard(fen);
+    engineMemoryBoard->printMemoryBoard();
 
     return 0;
 }

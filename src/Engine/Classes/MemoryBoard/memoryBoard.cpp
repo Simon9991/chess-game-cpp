@@ -1,77 +1,112 @@
 #include "memoryBoard.hpp"
 
 EngineMemoryBoard::EngineMemoryBoard(std::string fen) {
+    int i = 0;
+    int j = 0;
+
     this->playerTurn = PieceColor::WHITE_PIECE;
 
     this->memoryBoard = new PieceType *[BOARD_SIZE];
-    for (int i = 0; i < BOARD_SIZE; i++) {
+
+    std::cout << "Creating memory board..." << std::endl;
+    while (i < BOARD_SIZE) {
         this->memoryBoard[i] = new PieceType[BOARD_SIZE];
-        for (int j = 0; j < BOARD_SIZE; j++)
-            this->memoryBoard[i][j] = PieceType::EMPTY;
+        j = 0;
+
+        while (j < BOARD_SIZE) {
+            this->memoryBoard[i][j] = EMPTY;
+            j++;
+        }
+        i++;
     }
+    std::cout << "Memory board created" << std::endl;
 
     this->initBoard(fen);
 }
 
 EngineMemoryBoard::~EngineMemoryBoard() {
+    for (int i = 0; i < BOARD_SIZE; i++)
+        delete[] this->memoryBoard[i];
+    delete[] this->memoryBoard;
+}
+
+void EngineMemoryBoard::printMemoryBoard() const {
+    std::cout << "Memory board:" << std::endl;
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++)
+            std::cout << this->memoryBoard[i][j] << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 void EngineMemoryBoard::initBoard(std::string fen) {
-    int i = 0;
+    // Initializes the board with the given FEN string
+    // fen is the FEN string
+    size_t i = 0;
     int j = 0;
+    int k = 0;
 
-    for (char c : fen) {
-        if (c == '/') {
-            i++;
-            j = 0;
-        } else if (c >= '1' && c <= '8') {
-            for (int k = 0; k < c - '0'; k++)
-                this->memoryBoard[i][j++] = PieceType::EMPTY;
+    // Setting up the memeryBoard fist
+    // TODO: Change to a switch case
+    // TODO: Add FEN validation
+    while (i < fen.length()) {
+        if (fen[i] == '/') {
+            j++;
+            k = 0;
+        } else if (fen[i] == ' ') {
+            break;
+        } else if (fen[i] >= '1' && fen[i] <= '8') {
+            k += fen[i] - '0';
         } else {
-            switch (c) {
-                case 'p':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_PAWN;
-                    break;
-                case 'r':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_ROOK;
-                    break;
-                case 'n':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_KNIGHT;
-                    break;
-                case 'b':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_BISHOP;
-                    break;
-                case 'q':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_QUEEN;
-                    break;
-                case 'k':
-                    this->memoryBoard[i][j++] = PieceType::BLACK_KING;
-                    break;
-                case 'P':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_PAWN;
-                    break;
-                case 'R':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_ROOK;
-                    break;
-                case 'N':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_KNIGHT;
-                    break;
-                case 'B':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_BISHOP;
-                    break;
-                case 'Q':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_QUEEN;
-                    break;
-                case 'K':
-                    this->memoryBoard[i][j++] = PieceType::WHITE_KING;
-                    break;
-                default:
-                    break;
+            if (fen[i] == 'p') {
+                this->memoryBoard[j][k] = PieceType::BLACK_PAWN;
+            } else if (fen[i] == 'P') {
+                this->memoryBoard[j][k] = PieceType::WHITE_PAWN;
+            } else if (fen[i] == 'n') {
+                this->memoryBoard[j][k] = PieceType::BLACK_KNIGHT;
+            } else if (fen[i] == 'N') {
+                this->memoryBoard[j][k] = PieceType::WHITE_KNIGHT;
+            } else if (fen[i] == 'b') {
+                this->memoryBoard[j][k] = PieceType::BLACK_BISHOP;
+            } else if (fen[i] == 'B') {
+                this->memoryBoard[j][k] = PieceType::WHITE_BISHOP;
+            } else if (fen[i] == 'r') {
+                this->memoryBoard[j][k] = PieceType::BLACK_ROOK;
+            } else if (fen[i] == 'R') {
+                this->memoryBoard[j][k] = PieceType::WHITE_ROOK;
+            } else if (fen[i] == 'q') {
+                this->memoryBoard[j][k] = PieceType::BLACK_QUEEN;
+            } else if (fen[i] == 'Q') {
+                this->memoryBoard[j][k] = PieceType::WHITE_QUEEN;
+            } else if (fen[i] == 'k') {
+                this->memoryBoard[j][k] = PieceType::BLACK_KING;
+            } else if (fen[i] == 'K') {
+                this->memoryBoard[j][k] = PieceType::WHITE_KING;
             }
+            k++;
         }
+        i++;
     }
 
     this->playerTurn = (fen.find("w") != std::string::npos) ? PieceColor::WHITE_PIECE : PieceColor::BLACK_PIECE;
 
-    
+
+}
+
+void EngineMemoryBoard::updatePosition(PieceType **position) {
+    this->memoryBoard = position;
+}
+
+bool EngineMemoryBoard::isLegalMove(int sourceSquare, int destinationSquare) const {
+    if (!isWithinBounds(sourceSquare) || !isWithinBounds(destinationSquare))
+        return false;
+
+    // Add your logic here to determine if the move is legal based on the current position
+
+    return true;  // Placeholder return statement
+}
+
+bool EngineMemoryBoard::isWithinBounds(int square) const {
+    return square >= 0 && square < BOARD_SIZE * BOARD_SIZE;
 }
