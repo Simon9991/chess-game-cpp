@@ -7,7 +7,7 @@ std::vector<Move> MoveGenerator::generate_moves(bool is_white_turn) const {
         for (int col = 0; col < 8; ++col) {
             Piece piece = board.get_piece(row, col);
             if (piece != Piece::EMPTY && is_white_turn == is_white_piece(piece)) {
-                std::vector<Move> piece_moves = generate_moves_for_piece(piece, row, col);
+                std::vector<Move> piece_moves = generate_moves_for_piece(row, col);
                 moves.insert(moves.end(), piece_moves.begin(), piece_moves.end());
             }
         }
@@ -19,7 +19,7 @@ std::vector<Move> MoveGenerator::generate_moves(bool is_white_turn) const {
     return moves;
 }
 
-std::vector<Move> MoveGenerator::generate_moves_for_piece(Piece piece, int row, int col) const {
+std::vector<Move> MoveGenerator::generate_moves_for_piece(int row, int col) const {
     Piece gotPiece = board.get_piece(row, col);
     std::vector<Move> moves;
     std::vector<Move> legal_moves;
@@ -61,7 +61,7 @@ std::vector<Move> MoveGenerator::generate_moves_for_piece(Piece piece, int row, 
         }
     }
 
-    return moves;
+    return legal_moves;
 }
 
 bool MoveGenerator::is_move_legal(const Move& move) const {
@@ -305,26 +305,21 @@ bool MoveGenerator::is_move_in_bounds(int row, int col) const {
     return row >= 0 && row <= 7 && col >= 0 && col <= 7;
 }
 
-bool MoveGenerator::is_move_blocked(const Move& move) const {
-    return false;
-}
-
-bool MoveGenerator::is_move_capturing_own_piece(const Move& move) const {
-    return false;
-}
-
 bool MoveGenerator::is_king_in_check_after_move(const Move& move) const {
     // Create a temporary copy of the board
     Board temp_board = board;
 
+    // std::cout << "Executing move" << std::endl;
     // Execute the move on the temporary board
-    // temp_board.execute_move(move);
+    temp_board.execute_move(move);
+
+    // std::cout << "Checking if king is in check" << std::endl;
 
     // Check if the player's king is in check on the temporary board
     bool is_white_turn = is_white_piece(board.get_piece(move.get_start_row(), move.get_start_col()));
-    // return temp_board.is_king_in_check(is_white_turn);
+    return temp_board.is_king_in_check(is_white_turn, board);
 
-    return false;  // Placeholder return
+    // return false;  // Placeholder return
 }
 
 bool MoveGenerator::is_white_piece(Piece piece) const {

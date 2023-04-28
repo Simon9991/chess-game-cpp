@@ -46,7 +46,7 @@ class Board {
     // Execute a move on the board
     void execute_move(const Move& move);
     // Checks if the king is in check
-    bool is_king_in_check(bool is_white_turn) const;
+    bool is_king_in_check(bool is_white_turn, const Board &board) const;
 
     // Gets if it is white's turn
     bool get_player_turn() const {

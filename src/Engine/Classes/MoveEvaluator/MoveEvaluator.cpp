@@ -106,5 +106,6 @@ int MoveEvaluator::pawn_structure() const {
 int MoveEvaluator::king_safety() const {
     // A more sophisticated evaluation would consider factors like king shelter, king exposure, etc.
     // For this basic example, we'll return 0 (no evaluation)
+
     return 0;
 }
