@@ -44,3 +44,7 @@
 sfml-app
 chess-game
 chess-engine
+
+# Valgrind
+valgrind-out.txt
+vgcore.*
