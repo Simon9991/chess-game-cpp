@@ -39,8 +39,14 @@ SRC = 	src/main.cpp										\
 
 # Engine files
 
-ENGINE_SRC	=	src/Engine/main.cpp									\
-				src/Engine/Classes/MemoryBoard/memoryBoard.cpp	\
+ENGINE_SRC	=	src/Engine/main.cpp										\
+				src/Engine/Classes/MemoryBoard/memoryBoard.cpp			\
+				src/Engine/Classes/Move/EngineMove.cpp					\
+				src/Engine/Classes/MoveGenerator/MoveGenerator.cpp		\
+				src/Engine/Classes/MoveEvaluator/MoveEvaluator.cpp		\
+				src/Engine/Classes/Search/Search.cpp					\
+
+
 
 
 # Object files

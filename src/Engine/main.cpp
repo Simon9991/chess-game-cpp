@@ -1,10 +1,10 @@
 // Header
 // File contains main function for the engine (compiled only if 'make engine' is called)
 
-#include <iostream>
-#include <fstream>
-
 #include "./include/main.hpp"
+
+#include <fstream>
+#include <iostream>
 
 int main(int ac, char **av) {
     std::string fen = "";
@@ -24,6 +24,12 @@ int main(int ac, char **av) {
 
     Board *engineMemoryBoard = new Board(fen);
     engineMemoryBoard->print_board();
+
+    MoveEvaluator *moveEvaluator = new MoveEvaluator(*engineMemoryBoard);
+    std::cout << "Score: " << moveEvaluator->evaluate_position() << std::endl;
+
+    Search *search = new Search(*engineMemoryBoard, *moveEvaluator, 4);
+    search->print_best_move(engineMemoryBoard->get_player_turn());
 
     return 0;
 }

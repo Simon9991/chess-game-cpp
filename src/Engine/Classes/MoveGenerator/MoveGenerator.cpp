@@ -20,11 +20,11 @@ std::vector<Move> MoveGenerator::generate_moves(bool is_white_turn) const {
 }
 
 std::vector<Move> MoveGenerator::generate_moves_for_piece(Piece piece, int row, int col) const {
-    Piece piece = board.get_piece(row, col);
+    Piece gotPiece = board.get_piece(row, col);
     std::vector<Move> moves;
     std::vector<Move> legal_moves;
 
-    switch (piece) {
+    switch (gotPiece) {
         case Piece::WHITE_PAWN:
         case Piece::BLACK_PAWN:
             moves = generate_pawn_moves(row, col);

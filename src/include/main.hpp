@@ -50,10 +50,12 @@ enum PieceType {
     BLACK_KING = -6,
     EMPTY = 0
 };
-enum PieceColor { WHITE_PIECE, BLACK_PIECE };
+enum PieceColor { WHITE_PIECE,
+                  BLACK_PIECE };
 
 // Player turn
-enum PlayerTurn { WHITE_TURN, BLACK_TURN };
+enum PlayerTurn { WHITE_TURN,
+                  BLACK_TURN };
 
 // Defining image paths
 #define WHITE_PAWN_PATH "./src/Assets/Pieces/w_pawn.png"
@@ -82,8 +84,5 @@ constexpr int ERROR = 84;
 #include "./../Classes/Graphical/Piece/piece.hpp"
 #include "./../Classes/Graphical/Square/square.hpp"
 #include "./../Classes/Input/MouseInput/mouse_input.hpp"
-
-// Engine includes
-#include "./../Engine/Classes/MemoryBoard/memoryBoard.hpp"
 
 #endif /* !MAIN_HPP */

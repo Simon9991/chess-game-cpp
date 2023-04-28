@@ -17,7 +17,6 @@
 constexpr int windowSize = SQUARE_SIZE * BOARD_SIZE;
 constexpr char defaultFen[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-
 // Defining Chess pieces
 // TODO: Add WHITE_EN_PASSANT and BLACK_EN_PASSANT (used in movement.cpp for pawn movement to check if the pawn can be
 // taken en passant)
@@ -36,7 +35,6 @@ enum PieceType {
     BLACK_KING = -6,
     EMPTY = 0,
 };
-
 
 enum class Piece {
     EMPTY = 0,
@@ -64,22 +62,31 @@ enum BasicPieceType {
     EMPTY_PIECE = 0,
 };
 
-enum PieceColor { WHITE_PIECE, BLACK_PIECE };
+enum PieceColor { WHITE_PIECE,
+                  BLACK_PIECE };
 
 // Player turn
-enum PlayerTurn { WHITE_TURN, BLACK_TURN };
+enum PlayerTurn { WHITE_TURN,
+                  BLACK_TURN };
 
 // Defining return values
 constexpr int SUCCESS = 0;
 constexpr int FAILURE = -1;
 constexpr int ERROR = 84;
 
+// Engine classes
+class Board;
+class MoveGenerator;
+class Move;
+class EngineMove;
+class MoveEvaluator;
+class Search;
 
 // Engine includes
 #include "./../Classes/MemoryBoard/memoryBoard.hpp"
 #include "./../Classes/Move/EngineMove.hpp"
+#include "./../Classes/MoveEvaluator/MoveEvaluator.hpp"
 #include "./../Classes/MoveGenerator/MoveGenerator.hpp"
-
-
+#include "./../Classes/Search/Search.hpp"
 
 #endif /* !MAIN_HPP */

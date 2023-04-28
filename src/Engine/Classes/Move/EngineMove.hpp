@@ -1,8 +1,11 @@
 #ifndef MOVE_HPP
 #define MOVE_HPP
 
+#include "./../../include/main.hpp"
+
 class Move {
-public:
+   public:
+    Move() = default;
     Move(int start_row, int start_col, int end_row, int end_col)
         : start_row(start_row), start_col(start_col), end_row(end_row), end_col(end_col) {}
 
@@ -26,12 +29,11 @@ public:
         std::cout << "Move from (" << start_row << ", " << start_col << ") to (" << end_row << ", " << end_col << ")" << std::endl;
     }
 
-private:
+   private:
     int start_row;
     int start_col;
     int end_row;
     int end_col;
 };
-
 
 #endif

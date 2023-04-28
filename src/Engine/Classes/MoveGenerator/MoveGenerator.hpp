@@ -3,8 +3,6 @@
 
 #include "./../../include/main.hpp"
 
-class Board;
-
 class MoveGenerator {
    public:
     MoveGenerator(const Board& board)

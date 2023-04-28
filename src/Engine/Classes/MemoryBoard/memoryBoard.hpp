@@ -4,8 +4,6 @@
 
 #include "./../../include/main.hpp"
 
-class Move;
-
 class Board {
    public:
     // Constructor
@@ -49,6 +47,11 @@ class Board {
     void execute_move(const Move& move);
     // Checks if the king is in check
     bool is_king_in_check(bool is_white_turn) const;
+
+    // Gets if it is white's turn
+    bool get_player_turn() const {
+        return playerTurn == PieceColor::WHITE_PIECE;
+    }
 
    private:
     std::vector<std::vector<Piece>> board;
