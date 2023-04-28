@@ -92,7 +92,7 @@ void Board::execute_move(const Move& move) {
     // special chess rules.
 }
 
-bool Board::is_king_in_check(bool is_white_turn, const Board& board) const {
+bool Board::is_king_in_check(bool is_white_turn, const MoveGenerator& move_gen) const {
     // Find the position of the king
     int king_row = -1;
     int king_col = -1;
@@ -115,9 +115,7 @@ bool Board::is_king_in_check(bool is_white_turn, const Board& board) const {
         for (int col = 0; col < BOARD_SIZE; col++) {
             Piece piece = get_piece(row, col);
             if (piece != Piece::EMPTY && is_white_turn != is_white_piece(piece)) {
-                // Generate moves for the current piece
-                MoveGenerator move_gen(board);
-                // std::cout << "Piece found: " << static_cast<int>(piece) << std::endl;
+                // Generate moves for the current piece using the passed move generator
                 std::vector<Move> moves = move_gen.generate_moves_for_piece(row, col);
 
                 // Check if any move attacks the king's position
