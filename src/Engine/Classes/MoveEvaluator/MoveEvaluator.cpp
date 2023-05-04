@@ -226,10 +226,13 @@ int MoveEvaluator::pawn_structure() const {
 
 // Evaluates king safety (not implemented in this basic example)
 int MoveEvaluator::king_safety() const {
-    // A more sophisticated evaluation would consider factors like king shelter, king exposure, etc.
-    // For this basic example, we'll return 0 (no evaluation)
+    // Define king safety score matrix for opening/middlegame
+    constexpr int king_safety_matrix[BOARD_SIZE][BOARD_SIZE] = {
+        {5, 5, 4, 3, 3, 3, 5, 5}, {4, 3, 3, 3, 3, 3, 3, 4}, {2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2}, {4, 3, 3, 3, 3, 3, 3, 4}, {5, 5, 4, 3, 3, 3, 5, 5},
+    };
 
-    // Checking if the king is in the center of the board
+    // Find the kings' positions
     int white_king_row = 0;
     int white_king_col = 0;
     int black_king_row = 0;
@@ -249,15 +252,9 @@ int MoveEvaluator::king_safety() const {
         }
     }
 
-    int white_score = 0;
-    int black_score = 0;
+    // Calculate the king safety scores based on the matrix
+    int white_score = king_safety_matrix[white_king_row][white_king_col];
+    int black_score = king_safety_matrix[black_king_row][black_king_col];
 
-    // The more the king is in the center, the more it is exposed
-    // Center is BOARD_SIZE / 2
-    white_score -= std::abs(white_king_row - BOARD_SIZE / 2);
-    white_score -= std::abs(white_king_col - BOARD_SIZE / 2);
-    black_score -= std::abs(black_king_row - BOARD_SIZE / 2);
-    black_score -= std::abs(black_king_col - BOARD_SIZE / 2);
-
-    return white_score + black_score;
+    return white_score - black_score;
 }
