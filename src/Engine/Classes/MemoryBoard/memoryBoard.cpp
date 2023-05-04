@@ -93,6 +93,7 @@ void Board::execute_move(const Move& move) {
 }
 
 bool Board::is_king_in_check(bool is_white_turn, const MoveGenerator& move_gen) const {
+    std::cout << "Checking if king is in check" << std::endl;
     // Find the position of the king
     int king_row = -1;
     int king_col = -1;
@@ -110,6 +111,8 @@ bool Board::is_king_in_check(bool is_white_turn, const MoveGenerator& move_gen) 
         }
     }
 
+    std::cout << "King position: " << king_row << ", " << king_col << std::endl;
+
     // Check if any opposing piece attacks the king's position
     for (int row = 0; row < BOARD_SIZE; row++) {
         for (int col = 0; col < BOARD_SIZE; col++) {
@@ -117,6 +120,7 @@ bool Board::is_king_in_check(bool is_white_turn, const MoveGenerator& move_gen) 
             if (piece != Piece::EMPTY && is_white_turn != is_white_piece(piece)) {
                 // Generate moves for the current piece using the passed move generator
                 std::vector<Move> moves = move_gen.generate_moves_for_piece(row, col);
+                std::cout << "Piece found: " << static_cast<int>(piece) << std::endl;
 
                 // Check if any move attacks the king's position
                 for (const Move& move : moves) {
@@ -127,6 +131,8 @@ bool Board::is_king_in_check(bool is_white_turn, const MoveGenerator& move_gen) 
             }
         }
     }
+
+    std::cout << "King is not in check" << std::endl;
 
     return false;  // King is not in check
 }

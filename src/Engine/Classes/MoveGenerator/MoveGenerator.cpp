@@ -178,8 +178,7 @@ std::vector<Move> MoveGenerator::generate_knight_moves(int row, int col) const {
     bool is_knight_white = is_white_piece(knight);
 
     // Possible knight moves relative to the current position
-    const std::vector<std::pair<int, int>> knight_moves = {{-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},
-                                                           {1, -2},  {1, 2},  {2, -1},  {2, 1}};
+    const std::vector<std::pair<int, int>> knight_moves = {{-2, -1}, {-2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}, {2, -1}, {2, 1}};
 
     for (const auto& move : knight_moves) {
         int new_row = row + move.first;
@@ -276,8 +275,7 @@ std::vector<Move> MoveGenerator::generate_king_moves(int row, int col) const {
     bool is_king_white = is_white_piece(king);
 
     // Possible king moves relative to the current position
-    const std::vector<std::pair<int, int>> king_moves = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1},
-                                                         {0, 1},   {1, -1}, {1, 0},  {1, 1}};
+    const std::vector<std::pair<int, int>> king_moves = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
     for (const auto& move : king_moves) {
         int new_row = row + move.first;
@@ -313,6 +311,10 @@ bool MoveGenerator::is_king_in_check_after_move(const Move& move) const {
 
     // // Check if the player's king is in check on the temporary board
     // bool is_white_turn = is_white_piece(board.get_piece(move.get_start_row(), move.get_start_col()));
+    // return temp_board.is_king_in_check(is_white_turn, *this);  // Pass a reference to the current MoveGenerator
+    // Check if the player's king is in check on the temporary board
+    // bool is_white_turn = is_white_piece(board.get_piece(move.get_start_row(), move.get_start_col()));
+    // std::cout << "is this infinte loop" << std::endl;
     // return temp_board.is_king_in_check(is_white_turn, *this);  // Pass a reference to the current MoveGenerator
 
     return false;  // Placeholder return
