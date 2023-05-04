@@ -29,7 +29,8 @@ int MoveEvaluator::material_balance() const {
     // Possible improvement: add a bonus for having a queen on an open file
     // Possible improvement: add a bonus for having a queen on the 7th rank
 
-    // Possible change: values can be inside a .ini file which can be changed by the user or by the engine itself (machine learning)
+    // Possible change: values can be inside a .ini file which can be changed by the user or by the engine itself
+    // (machine learning)
     const int pawn_value = 100;
     const int knight_value = 300;
     const int bishop_value = 300;
@@ -99,7 +100,128 @@ int MoveEvaluator::piece_activity() const {
 int MoveEvaluator::pawn_structure() const {
     // A more sophisticated evaluation would consider factors like pawn chains, doubled pawns, etc.
     // For this basic example, we'll return 0 (no evaluation)
-    return 0;
+
+    // Checking if there are doubled pawns
+    int white_doubled_pawns = 0;
+    int black_doubled_pawns = 0;
+
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+        int white_pawns_in_col = 0;
+        int black_pawns_in_col = 0;
+
+        for (int row = 0; row < BOARD_SIZE; ++row) {
+            Piece piece = board.get_piece(row, col);
+
+            if (piece == Piece::WHITE_PAWN) {
+                ++white_pawns_in_col;
+            } else if (piece == Piece::BLACK_PAWN) {
+                ++black_pawns_in_col;
+            }
+        }
+
+        if (white_pawns_in_col > 1) {
+            white_doubled_pawns += white_pawns_in_col;
+        }
+
+        if (black_pawns_in_col > 1) {
+            black_doubled_pawns += black_pawns_in_col;
+        }
+    }
+
+    // Checking if there are isolated pawns
+    int white_isolated_pawns = 0;
+    int black_isolated_pawns = 0;
+
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+        int white_pawns_in_col = 0;
+        int black_pawns_in_col = 0;
+
+        for (int row = 0; row < BOARD_SIZE; ++row) {
+            Piece piece = board.get_piece(row, col);
+
+            if (piece == Piece::WHITE_PAWN) {
+                ++white_pawns_in_col;
+            } else if (piece == Piece::BLACK_PAWN) {
+                ++black_pawns_in_col;
+            }
+        }
+
+        if (white_pawns_in_col > 1) {
+            bool is_isolated = true;
+
+            // Checking the right column
+            if (col + 1 < BOARD_SIZE) {
+                for (int row = 0; row < BOARD_SIZE; ++row) {
+                    Piece piece = board.get_piece(row, col + 1);
+
+                    if (piece == Piece::WHITE_PAWN) {
+                        is_isolated = false;
+                    }
+                }
+            }
+
+            // Checking the left column
+            if (col - 1 >= 0) {
+                for (int row = 0; row < BOARD_SIZE; ++row) {
+                    Piece piece = board.get_piece(row, col - 1);
+
+                    if (piece == Piece::WHITE_PAWN) {
+                        is_isolated = false;
+                    }
+                }
+            }
+
+            if (is_isolated) {
+                ++white_isolated_pawns;
+            }
+        }
+
+        if (black_pawns_in_col > 1) {
+            bool is_isolated = true;
+
+            // Checking the right column
+            if (col + 1 < BOARD_SIZE) {
+                for (int row = 0; row < BOARD_SIZE; ++row) {
+                    Piece piece = board.get_piece(row, col + 1);
+
+                    if (piece == Piece::BLACK_PAWN) {
+                        is_isolated = false;
+                    }
+                }
+            }
+
+            // Checking the left column
+            if (col - 1 >= 0) {
+                for (int row = 0; row < BOARD_SIZE; ++row) {
+                    Piece piece = board.get_piece(row, col - 1);
+
+                    if (piece == Piece::BLACK_PAWN) {
+                        is_isolated = false;
+                    }
+                }
+            }
+
+            if (is_isolated) {
+                ++black_isolated_pawns;
+            }
+        }
+    }
+
+    // TODO: Checking if pawn is passed
+
+    // TODO: Checking pawn chains
+
+    // Computing the score
+    int white_score = 0;
+    int black_score = 0;
+
+    white_score -= white_doubled_pawns * 10;
+    black_score -= black_doubled_pawns * 10;
+
+    white_score -= white_isolated_pawns * 10;
+    black_score -= black_isolated_pawns * 10;
+
+    return white_score + black_score;
 }
 
 // Evaluates king safety (not implemented in this basic example)
@@ -107,5 +229,35 @@ int MoveEvaluator::king_safety() const {
     // A more sophisticated evaluation would consider factors like king shelter, king exposure, etc.
     // For this basic example, we'll return 0 (no evaluation)
 
-    return 0;
+    // Checking if the king is in the center of the board
+    int white_king_row = 0;
+    int white_king_col = 0;
+    int black_king_row = 0;
+    int black_king_col = 0;
+
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+            Piece piece = board.get_piece(row, col);
+
+            if (piece == Piece::WHITE_KING) {
+                white_king_row = row;
+                white_king_col = col;
+            } else if (piece == Piece::BLACK_KING) {
+                black_king_row = row;
+                black_king_col = col;
+            }
+        }
+    }
+
+    int white_score = 0;
+    int black_score = 0;
+
+    // The more the king is in the center, the more it is exposed
+    // Center is BOARD_SIZE / 2
+    white_score -= std::abs(white_king_row - BOARD_SIZE / 2);
+    white_score -= std::abs(white_king_col - BOARD_SIZE / 2);
+    black_score -= std::abs(black_king_row - BOARD_SIZE / 2);
+    black_score -= std::abs(black_king_col - BOARD_SIZE / 2);
+
+    return white_score + black_score;
 }

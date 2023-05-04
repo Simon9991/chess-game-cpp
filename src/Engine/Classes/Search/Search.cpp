@@ -19,7 +19,8 @@ Move Search::find_best_move(bool is_white_turn) {
         temp_board.execute_move(move);
 
         // Call minimax search algorithm
-        int score = minimax(search_depth - 1, !is_white_turn, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+        int score =
+            minimax(search_depth - 1, !is_white_turn, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
         // Update best move and best score
         if (is_white_turn && score > best_score) {
@@ -61,6 +62,11 @@ int Search::minimax(int depth, bool is_white_turn, int alpha, int beta) {
             Board temp_board = board;
             temp_board.execute_move(move);
             int score = minimax(depth - 1, !is_white_turn, alpha, beta);
+
+            std::cout << "Score for move: ";
+            move.print_move();
+            std::cout << " is: " << score << std::endl;
+
             best_score = std::max(best_score, score);
             alpha = std::max(alpha, best_score);
             if (beta <= alpha) {
