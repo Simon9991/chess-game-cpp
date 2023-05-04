@@ -303,19 +303,19 @@ bool MoveGenerator::is_move_in_bounds(int row, int col) const { return row >= 0 
 
 bool MoveGenerator::is_king_in_check_after_move(const Move& move) const {
     // Create a temporary copy of the board
-    Board temp_board = board;
+    // Board temp_board = board;
 
-    // std::cout << "Executing move" << std::endl;
-    // Execute the move on the temporary board
-    temp_board.execute_move(move);
+    // // std::cout << "Executing move" << std::endl;
+    // // Execute the move on the temporary board
+    // temp_board.execute_move(move);
 
-    // std::cout << "Checking if king is in check" << std::endl;
+    // // std::cout << "Checking if king is in check" << std::endl;
 
-    // Check if the player's king is in check on the temporary board
-    bool is_white_turn = is_white_piece(board.get_piece(move.get_start_row(), move.get_start_col()));
-    return temp_board.is_king_in_check(is_white_turn, *this);  // Pass a reference to the current MoveGenerator
+    // // Check if the player's king is in check on the temporary board
+    // bool is_white_turn = is_white_piece(board.get_piece(move.get_start_row(), move.get_start_col()));
+    // return temp_board.is_king_in_check(is_white_turn, *this);  // Pass a reference to the current MoveGenerator
 
-    // return false;  // Placeholder return
+    return false;  // Placeholder return
 }
 
 bool MoveGenerator::is_white_piece(Piece piece) const {
