@@ -80,6 +80,11 @@ int Search::minimax(int depth, bool is_white_turn, int alpha, int beta) {
             Board temp_board = board;
             temp_board.execute_move(move);
             int score = minimax(depth - 1, !is_white_turn, alpha, beta);
+
+            std::cout << "Score for move: ";
+            move.print_move();
+            std::cout << " is: " << score << std::endl;
+            
             best_score = std::min(best_score, score);
             beta = std::min(beta, best_score);
             if (beta <= alpha) {

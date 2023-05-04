@@ -11,6 +11,7 @@ int MoveEvaluator::evaluate_position() const {
     score += piece_activity();
     score += pawn_structure();
     score += king_safety();
+    score += king_tropism();
 
     // Add scores from additional evaluation functions here, if any
 
@@ -207,9 +208,67 @@ int MoveEvaluator::pawn_structure() const {
         }
     }
 
-    // TODO: Checking if pawn is passed
+    // Checking if pawn is passed
+    int white_passed_pawns = 0;
+    int black_passed_pawns = 0;
 
-    // TODO: Checking pawn chains
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+            Piece piece = board.get_piece(row, col);
+
+            if (piece == Piece::WHITE_PAWN || piece == Piece::BLACK_PAWN) {
+                bool is_passed = true;
+
+                for (int other_row = row - 1; other_row >= 0; --other_row) {
+                    for (int other_col = std::max(col - 1, 0); other_col <= std::min(col + 1, BOARD_SIZE - 1); ++other_col) {
+                        Piece other_piece = board.get_piece(other_row, other_col);
+
+                        if (piece == Piece::WHITE_PAWN && other_piece == Piece::BLACK_PAWN) {
+                            is_passed = false;
+                            break;
+                        } else if (piece == Piece::BLACK_PAWN && other_piece == Piece::WHITE_PAWN) {
+                            is_passed = false;
+                            break;
+                        }
+                    }
+
+                    if (!is_passed) {
+                        break;
+                    }
+                }
+
+                if (is_passed) {
+                    if (piece == Piece::WHITE_PAWN) {
+                        ++white_passed_pawns;
+                    } else {
+                        ++black_passed_pawns;
+                    }
+                }
+            }
+        }
+    }
+
+    // Checking pawn chains
+    int white_chains = 0;
+    int black_chains = 0;
+
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+            Piece piece = board.get_piece(row, col);
+
+            if (piece == Piece::WHITE_PAWN) {
+                if ((col - 1 >= 0 && board.get_piece(row - 1, col - 1) == Piece::WHITE_PAWN) ||
+                    (col + 1 < BOARD_SIZE && board.get_piece(row - 1, col + 1) == Piece::WHITE_PAWN)) {
+                    ++white_chains;
+                }
+            } else if (piece == Piece::BLACK_PAWN) {
+                if ((col - 1 >= 0 && board.get_piece(row + 1, col - 1) == Piece::BLACK_PAWN) ||
+                    (col + 1 < BOARD_SIZE && board.get_piece(row + 1, col + 1) == Piece::BLACK_PAWN)) {
+                    ++black_chains;
+                }
+            }
+        }
+    }
 
     // Computing the score
     int white_score = 0;
@@ -221,6 +280,12 @@ int MoveEvaluator::pawn_structure() const {
     white_score -= white_isolated_pawns * 10;
     black_score -= black_isolated_pawns * 10;
 
+    white_score += white_passed_pawns * 20;
+    black_score += black_passed_pawns * 20;
+
+    white_score += white_chains * 5;
+    black_score += black_chains * 5;
+
     return white_score + black_score;
 }
 
@@ -228,8 +293,14 @@ int MoveEvaluator::pawn_structure() const {
 int MoveEvaluator::king_safety() const {
     // Define king safety score matrix for opening/middlegame
     constexpr int king_safety_matrix[BOARD_SIZE][BOARD_SIZE] = {
-        {5, 5, 4, 3, 3, 3, 5, 5}, {4, 3, 3, 3, 3, 3, 3, 4}, {2, 2, 2, 2, 2, 2, 2, 2}, {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0}, {2, 2, 2, 2, 2, 2, 2, 2}, {4, 3, 3, 3, 3, 3, 3, 4}, {5, 5, 4, 3, 3, 3, 5, 5},
+        {5, 5, 4, 3, 3, 3, 5, 5},
+        {4, 3, 3, 3, 3, 3, 3, 4},
+        {2, 2, 2, 2, 2, 2, 2, 2},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {2, 2, 2, 2, 2, 2, 2, 2},
+        {4, 3, 3, 3, 3, 3, 3, 4},
+        {5, 5, 4, 3, 3, 3, 5, 5},
     };
 
     // Find the kings' positions
@@ -257,4 +328,47 @@ int MoveEvaluator::king_safety() const {
     int black_score = king_safety_matrix[black_king_row][black_king_col];
 
     return white_score - black_score;
+}
+
+int MoveEvaluator::king_tropism() const {
+    int white_king_row = -1;
+    int white_king_col = -1;
+    int black_king_row = -1;
+    int black_king_col = -1;
+
+    // Locate kings
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+            Piece piece = board.get_piece(row, col);
+            if (piece == Piece::WHITE_KING) {
+                white_king_row = row;
+                white_king_col = col;
+            } else if (piece == Piece::BLACK_KING) {
+                black_king_row = row;
+                black_king_col = col;
+            }
+        }
+    }
+
+    int white_tropism = 0;
+    int black_tropism = 0;
+
+    // Calculate tropism
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+            Piece piece = board.get_piece(row, col);
+            if (piece != Piece::EMPTY && piece != Piece::WHITE_KING && piece != Piece::BLACK_KING) {
+                int distance_to_white_king = std::abs(row - white_king_row) + std::abs(col - white_king_col);
+                int distance_to_black_king = std::abs(row - black_king_row) + std::abs(col - black_king_col);
+
+                if (is_white_piece(piece)) {
+                    white_tropism += 10 * (BOARD_SIZE - distance_to_black_king);
+                } else {
+                    black_tropism += 10 * (BOARD_SIZE - distance_to_white_king);
+                }
+            }
+        }
+    }
+
+    return white_tropism - black_tropism;
 }

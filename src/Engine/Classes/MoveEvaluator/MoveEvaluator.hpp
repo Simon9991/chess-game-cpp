@@ -20,6 +20,9 @@ class MoveEvaluator {
 
     // Additional evaluation functions can be added here
 
+    // Calculates the number of squares around the king that are attacked by the opponent
+    int king_tropism() const;
+
     // Reference to the board object
     const Board& board;
 
