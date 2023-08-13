@@ -20,7 +20,7 @@ Move Search::find_best_move(bool is_white_turn) {
 
         // Call minimax search algorithm
         int score =
-            minimax(search_depth - 1, !is_white_turn, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+            minimax(search_depth - 1, is_white_turn, std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
 
         // Update best move and best score
         if (is_white_turn && score > best_score) {
@@ -48,22 +48,21 @@ void Search::print_best_move(bool is_white_turn) {
 }
 
 int Search::minimax(int depth, bool is_white_turn, int alpha, int beta) {
-    if (depth == 0) {
-        return move_evaluator.evaluate_position();
-    }
+    if (depth == 0) return move_evaluator.evaluate_position();
 
     MoveGenerator move_gen(board);
 
     std::vector<Move> legal_moves = move_gen.generate_moves(is_white_turn);
 
+    // std::cout << "Is it white turn? 1 = WHITE_TURN --> " << is_white_turn << std::endl;
     if (is_white_turn) {
         int best_score = std::numeric_limits<int>::min();
+
         for (const Move& move : legal_moves) {
-            Board temp_board = board;
-            temp_board.execute_move(move);
+            board.execute_move(move);
             int score = minimax(depth - 1, !is_white_turn, alpha, beta);
 
-            std::cout << "Score for move: ";
+            std::cout << "[WHITE_TURN] Score for move: ";
             move.print_move();
             std::cout << " is: " << score << std::endl;
 
@@ -76,15 +75,15 @@ int Search::minimax(int depth, bool is_white_turn, int alpha, int beta) {
         return best_score;
     } else {
         int best_score = std::numeric_limits<int>::max();
+
         for (const Move& move : legal_moves) {
-            Board temp_board = board;
-            temp_board.execute_move(move);
+            board.execute_move(move);
             int score = minimax(depth - 1, !is_white_turn, alpha, beta);
 
-            std::cout << "Score for move: ";
+            std::cout << "[BLACK_TURN] Score for move: ";
             move.print_move();
             std::cout << " is: " << score << std::endl;
-            
+
             best_score = std::min(best_score, score);
             beta = std::min(beta, best_score);
             if (beta <= alpha) {

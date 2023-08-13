@@ -29,6 +29,8 @@ int main(int ac, char **av) {
     std::cout << "Score: " << moveEvaluator->evaluate_position() << std::endl;
 
     Search *search = new Search(*engineMemoryBoard, *moveEvaluator, 4);
+
+    std::cout << "Is it white's turn? 1 = WHITE_TURN: " << engineMemoryBoard->get_player_turn() << std::endl;
     search->print_best_move(engineMemoryBoard->get_player_turn());
 
     return 0;
