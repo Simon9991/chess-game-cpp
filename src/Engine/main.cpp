@@ -22,16 +22,19 @@ int main(int ac, char **av) {
     } else
         fen.assign(defaultFen);
 
-    Board *engineMemoryBoard = new Board(fen);
-    engineMemoryBoard->print_board();
+    Board board(fen);
+    board.print_board();
 
-    MoveEvaluator *moveEvaluator = new MoveEvaluator(*engineMemoryBoard);
-    std::cout << "Score: " << moveEvaluator->evaluate_position() << std::endl;
-
-    Search *search = new Search(*engineMemoryBoard, *moveEvaluator, 4);
-
-    std::cout << "Is it white's turn? 1 = WHITE_TURN: " << engineMemoryBoard->get_player_turn() << std::endl;
-    search->print_best_move(engineMemoryBoard->get_player_turn());
+    Engine engine(&board);
+    std::cout << "Board Evaluation: " << engine.evaluateBoard() << std::endl;
 
     return 0;
+
+    // MoveEvaluator *moveEvaluator = new MoveEvaluator(*engineMemoryBoard);
+    // std::cout << "Score: " << moveEvaluator->evaluate_position() << std::endl;
+
+    // Search *search = new Search(*engineMemoryBoard, *moveEvaluator, 4);
+
+    // std::cout << "Is it white's turn? 1 = WHITE_TURN: " << engineMemoryBoard->get_player_turn() << std::endl;
+    // search->print_best_move(engineMemoryBoard->get_player_turn());
 }

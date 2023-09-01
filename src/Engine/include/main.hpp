@@ -2,6 +2,7 @@
 #define MAIN_HPP
 
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 // Debug mode
@@ -62,12 +63,10 @@ enum BasicPieceType {
     EMPTY_PIECE = 0,
 };
 
-enum PieceColor { WHITE_PIECE,
-                  BLACK_PIECE };
+enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
 // Player turn
-enum PlayerTurn { WHITE_TURN,
-                  BLACK_TURN };
+enum PlayerTurn { WHITE_TURN, BLACK_TURN };
 
 // Defining return values
 constexpr int SUCCESS = 0;
@@ -76,6 +75,7 @@ constexpr int ERROR = 84;
 
 // Engine classes
 class Board;
+class Engine;
 class MoveGenerator;
 class Move;
 class EngineMove;
@@ -83,7 +83,8 @@ class MoveEvaluator;
 class Search;
 
 // Engine includes
-#include "./../Classes/MemoryBoard/memoryBoard.hpp"
+#include "./../Classes/Evaluator/Evaluator.hpp"
+#include "./../Classes/MemoryBoard/EngineBoard.hpp"
 #include "./../Classes/Move/EngineMove.hpp"
 #include "./../Classes/MoveEvaluator/MoveEvaluator.hpp"
 #include "./../Classes/MoveGenerator/MoveGenerator.hpp"

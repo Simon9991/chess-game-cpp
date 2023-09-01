@@ -2,39 +2,65 @@
 #ifndef ENGINE_BOARD_HPP
 #define ENGINE_BOARD_HPP
 
-#include "./../../include/main.hpp"
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+
+struct Move {
+    int startSquare;
+    int endSquare;
+    bool isCastling = false;
+    bool isEnPassant = false;
+    char promotionPiece = '\0';  // 'Q', 'R', 'B', 'N' for promotions
+    int capturedPiece = 0;       // 0 if no piece captured, 1-12 for piece captured
+};
+
+enum class TURN { WHITE, BLACK };
 
 class Board {
    public:
-    Board(std::string fen);
-    ~Board();
+    Board(const std::string &fen) { this->parseFEN(fen); }
 
-    // Add public methods to retrieve information or update the board.
+    uint64_t pieces[12];
+    uint64_t enPassant = 0;
+    bool castlingRights[4] = {false, false, false, false};
+    TURN sideToMove = TURN::WHITE;
 
-   protected:
-    // Bitboards for each piece type
-    U64 pawns[2];
-    U64 knights[2];
-    U64 bishops[2];
-    U64 rooks[2];
-    U64 queens[2];
-    U64 kings[2];
+    void parseFEN(const std::string &fen);
 
-    // Bitboards for all pieces, by color
-    U64 pieces[2];  // pieces[0] = all white pieces, pieces[1] = all black pieces
+    // Prints the board to the console.
+    void print_board() const;
 
-    // Bitboards for occupied and empty squares
-    U64 occupied_squares;
-    U64 empty_squares;
+    int evaluate();
 
-    // Additional board state
-    int castling_rights;
-    int en_passant_square;
-    bool side_to_move;  // true for white, false for black
-    int halfmove_clock;
-    int fullmove_number;
+    int legalMovesForPawn(int position, bool isWhite);
 
-    // Add utility methods and other internal members as necessary.
+    int legalMovesForKnight(int position);
+
+    int legalMovesForBishop(int position);
+
+    int legalMovesForRook(int position);
+
+    int legalMovesForQueen(int position);
+
+    int activityScore();
+
+    void makeMove(Move move);
+    void undoMove(Move move);
+    std::vector<Move> generateLegalMoves();
+    int getPieceAt(int square);
+
+    // // Function to execute a move on the board.
+    // void execute_move(const Move& move);
+
+    // // Function to undo a move on the board.
+    // void undo_move(const Move& move);
+
+    // // Checks if the king is in check
+    // bool is_king_in_check(bool is_white_turn) const;
+
+    // // Returns true if the player to move is white, false if black
+    // bool get_player_turn() const { return side_to_move == PieceColor::WHITE_PIECE; }
 };
 
 #endif  // ENGINE_BOARD_HPP
