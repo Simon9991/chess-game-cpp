@@ -134,7 +134,14 @@ namespace Engine {
             std::cout << "\n";
         }
 
-        std::cout << "  a b c d e f g h\n"; // Print file letters
+        std::cout << "  a b c d e f g h" << std::endl << std::endl; // Print file letters
+        std::cout << "side to move: " << (side_to_move == WHITE ? "white" : "black") << std::endl;
+        std::cout << "castling rights: ";
+        if (castling_rights & WHITE_OO)  std::cout << "K";
+        if (castling_rights & WHITE_OOO) std::cout << "Q";
+        if (castling_rights & BLACK_OO)  std::cout << "k";
+        if (castling_rights & BLACK_OOO) std::cout << "q";
+        std::cout << std::endl;
     }
 
     Piece Board::pieceOnSquare(Square square) const {
