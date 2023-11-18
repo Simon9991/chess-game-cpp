@@ -2,14 +2,14 @@
 CC = g++
 
 # Flags
-LDFLAGS = -Wall -Wextra -g
+LDFLAGS = -Wall -Wextra -g -std=c++20
 INC = -I include
 
 # Executable
 NAME = evaluate
 
 # Files
-SRC = $(wildcard src/*.cpp)
+SRC = $(wildcard src/*.cpp src/*/*.cpp src/*/*/*.cpp)
 
 # Object files
 OBJ = $(SRC:src/%.cpp=src/%.o)
