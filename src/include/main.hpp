@@ -1,7 +1,7 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include <SFML/Graphics.hpp>
+/* #include <SFML/Graphics.hpp> */
 #include <iostream>
 
 // Debug mode
@@ -14,11 +14,12 @@
 #define APP_NAME "Chess++"
 #define SQUARE_SIZE 15 * 10
 #define BOARD_SIZE 8
-#define WINDOW_SIZE SQUARE_SIZE* BOARD_SIZE * 10
+#define WINDOW_SIZE SQUARE_SIZE *BOARD_SIZE * 10
 #define PIECE_SIZE SQUARE_SIZE * 1
 
 constexpr int windowSize = SQUARE_SIZE * BOARD_SIZE;
-constexpr char defaultFen[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+constexpr char defaultFen[] =
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 // Defining Chess colors
 #define WHITE sf::Color::White
@@ -33,22 +34,22 @@ constexpr char defaultFen[] = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQk
 #define LIGHT_GRAY sf::Color(212, 212, 212)
 
 // Defining Chess pieces
-// TODO: Add WHITE_EN_PASSANT and BLACK_EN_PASSANT (used in movement.cpp for pawn movement to check if the pawn can be
-// taken en passant)
+// TODO: Add WHITE_EN_PASSANT and BLACK_EN_PASSANT (used in movement.cpp for
+// pawn movement to check if the pawn can be taken en passant)
 enum PieceType {
-    WHITE_PAWN,
-    WHITE_ROOK,
-    WHITE_KNIGHT,
-    WHITE_BISHOP,
-    WHITE_QUEEN,
-    WHITE_KING,
-    BLACK_PAWN,
-    BLACK_ROOK,
-    BLACK_KNIGHT,
-    BLACK_BISHOP,
-    BLACK_QUEEN,
-    BLACK_KING,
-    EMPTY
+  WHITE_PAWN,
+  WHITE_ROOK,
+  WHITE_KNIGHT,
+  WHITE_BISHOP,
+  WHITE_QUEEN,
+  WHITE_KING,
+  BLACK_PAWN,
+  BLACK_ROOK,
+  BLACK_KNIGHT,
+  BLACK_BISHOP,
+  BLACK_QUEEN,
+  BLACK_KING,
+  EMPTY
 };
 enum PieceColor { WHITE_PIECE, BLACK_PIECE };
 
@@ -74,13 +75,13 @@ constexpr int SUCCESS = 0;
 constexpr int FAILURE = -1;
 constexpr int ERROR = 84;
 
-#include "./../Classes/GameEngine/Movement/movement.hpp"
-#include "./../Classes/Graphical/Board/board.hpp"
-#include "./../Classes/Graphical/Image/image.hpp"
-#include "./../Classes/Graphical/King/king.hpp"
-#include "./../Classes/Graphical/Moves/moves.hpp"
-#include "./../Classes/Graphical/Piece/piece.hpp"
-#include "./../Classes/Graphical/Square/square.hpp"
-#include "./../Classes/Input/MouseInput/mouse_input.hpp"
+/* #include "./../Classes/GameEngine/Movement/movement.hpp" */
+/* #include "./../Classes/Graphical/Board/board.hpp" */
+/* #include "./../Classes/Graphical/Image/image.hpp" */
+/* #include "./../Classes/Graphical/King/king.hpp" */
+/* #include "./../Classes/Graphical/Moves/moves.hpp" */
+/* #include "./../Classes/Graphical/Piece/piece.hpp" */
+/* #include "./../Classes/Graphical/Square/square.hpp" */
+/* #include "./../Classes/Input/MouseInput/mouse_input.hpp" */
 
 #endif /* !MAIN_HPP */

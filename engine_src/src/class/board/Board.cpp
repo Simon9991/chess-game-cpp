@@ -1,10 +1,11 @@
 #include "Board.hpp"
-#include <ostream>
+
 #include <iostream>
+#include <ostream>
 #include <sstream>
 
 namespace Engine {
-    Board::Board(const std::string& fen) {
+    Board::Board(const std::string &fen) {
         this->bitboards.fill(0);
         this->side_to_move = WHITE;
         this->castling_rights = ANY_CASTLING;
@@ -17,12 +18,14 @@ namespace Engine {
 
     Board::~Board() {}
 
-    void Board::init(const std::string& fen) {
+    void Board::init(const std::string &fen) {
         std::istringstream fenStream(fen);
-        std::string boardPart, activeColor, castlingRights, enPassant, halfMove, fullMove;
+        std::string boardPart, activeColor, castlingRights, enPassant, halfMove,
+            fullMove;
 
         // Read FEN components
-        fenStream >> boardPart >> activeColor >> castlingRights >> enPassant >> halfMove >> fullMove;
+        fenStream >> boardPart >> activeColor >> castlingRights >> enPassant >>
+            halfMove >> fullMove;
 
         // Clear board state
         clearBoard();
@@ -41,27 +44,39 @@ namespace Engine {
 
         // Set halfmove and fullmove counters
         this->fifty_move_counter = std::stoi(halfMove);
-        this->ply = (std::stoi(fullMove) - 1) * 2 + (this->side_to_move == BLACK ? 1 : 0);
+        this->ply = (std::stoi(fullMove) - 1) * 2 +
+                    (this->side_to_move == BLACK ? 1 : 0);
     }
 
-    CastlingRights Board::parseCastlingRights(const std::string& castlingRights) {
+    CastlingRights
+    Board::parseCastlingRights(const std::string &castlingRights) {
         CastlingRights rights = NO_CASTLING;
 
         for (char c : castlingRights) {
             switch (c) {
-                case 'K': rights = static_cast<CastlingRights>(rights | WHITE_OO);  break;
-                case 'Q': rights = static_cast<CastlingRights>(rights | WHITE_OOO); break;
-                case 'k': rights = static_cast<CastlingRights>(rights | BLACK_OO);  break;
-                case 'q': rights = static_cast<CastlingRights>(rights | BLACK_OOO); break;
-                case '-': break;
-                default: /* Handle invalid character if needed */; break;
+            case 'K':
+                rights = static_cast<CastlingRights>(rights | WHITE_OO);
+                break;
+            case 'Q':
+                rights = static_cast<CastlingRights>(rights | WHITE_OOO);
+                break;
+            case 'k':
+                rights = static_cast<CastlingRights>(rights | BLACK_OO);
+                break;
+            case 'q':
+                rights = static_cast<CastlingRights>(rights | BLACK_OOO);
+                break;
+            case '-':
+                break;
+            default: /* Handle invalid character if needed */;
+                break;
             }
         }
 
         return rights;
     }
 
-    Square Board::parseEnPassantSquare(const std::string& enPassant) {
+    Square Board::parseEnPassantSquare(const std::string &enPassant) {
         if (enPassant == "-") {
             return SQ_NONE;
         }
@@ -73,11 +88,9 @@ namespace Engine {
         return make_square(File(file), Rank(7 - rank));
     }
 
-    void Board::clearBoard() {
-        this->bitboards.fill(0);
-    }
+    void Board::clearBoard() { this->bitboards.fill(0); }
 
-    void Board::parseBoardPart(const std::string& boardPart) {
+    void Board::parseBoardPart(const std::string &boardPart) {
         Square square = SQ_A8; // Start from the top-left square of the board
 
         for (char c : boardPart) {
@@ -100,19 +113,32 @@ namespace Engine {
 
     Piece Board::charToPiece(char c) const {
         switch (c) {
-            case 'P': return W_PAWN;
-            case 'N': return W_KNIGHT;
-            case 'B': return W_BISHOP;
-            case 'R': return W_ROOK;
-            case 'Q': return W_QUEEN;
-            case 'K': return W_KING;
-            case 'p': return B_PAWN;
-            case 'n': return B_KNIGHT;
-            case 'b': return B_BISHOP;
-            case 'r': return B_ROOK;
-            case 'q': return B_QUEEN;
-            case 'k': return B_KING;
-            default:  return NO_PIECE;
+        case 'P':
+            return W_PAWN;
+        case 'N':
+            return W_KNIGHT;
+        case 'B':
+            return W_BISHOP;
+        case 'R':
+            return W_ROOK;
+        case 'Q':
+            return W_QUEEN;
+        case 'K':
+            return W_KING;
+        case 'p':
+            return B_PAWN;
+        case 'n':
+            return B_KNIGHT;
+        case 'b':
+            return B_BISHOP;
+        case 'r':
+            return B_ROOK;
+        case 'q':
+            return B_QUEEN;
+        case 'k':
+            return B_KING;
+        default:
+            return NO_PIECE;
         }
     }
 
@@ -134,13 +160,19 @@ namespace Engine {
             std::cout << "\n";
         }
 
-        std::cout << "  a b c d e f g h" << std::endl << std::endl; // Print file letters
-        std::cout << "side to move: " << (side_to_move == WHITE ? "white" : "black") << std::endl;
+        std::cout << "  a b c d e f g h" << std::endl
+                  << std::endl; // Print file letters
+        std::cout << "side to move: "
+                  << (side_to_move == WHITE ? "white" : "black") << std::endl;
         std::cout << "castling rights: ";
-        if (castling_rights & WHITE_OO)  std::cout << "K";
-        if (castling_rights & WHITE_OOO) std::cout << "Q";
-        if (castling_rights & BLACK_OO)  std::cout << "k";
-        if (castling_rights & BLACK_OOO) std::cout << "q";
+        if (castling_rights & WHITE_OO)
+            std::cout << "K";
+        if (castling_rights & WHITE_OOO)
+            std::cout << "Q";
+        if (castling_rights & BLACK_OO)
+            std::cout << "k";
+        if (castling_rights & BLACK_OOO)
+            std::cout << "q";
         std::cout << std::endl;
     }
 
@@ -156,20 +188,33 @@ namespace Engine {
 
     char Board::pieceToChar(Piece piece) const {
         switch (piece) {
-            case W_PAWN: return 'P';
-            case W_KNIGHT: return 'N';
-            case W_BISHOP: return 'B';
-            case W_ROOK: return 'R';
-            case W_QUEEN: return 'Q';
-            case W_KING: return 'K';
-            case B_PAWN: return 'p';
-            case B_KNIGHT: return 'n';
-            case B_BISHOP: return 'b';
-            case B_ROOK: return 'r';
-            case B_QUEEN: return 'q';
-            case B_KING: return 'k';
-            default: return '.';
+        case W_PAWN:
+            return 'P';
+        case W_KNIGHT:
+            return 'N';
+        case W_BISHOP:
+            return 'B';
+        case W_ROOK:
+            return 'R';
+        case W_QUEEN:
+            return 'Q';
+        case W_KING:
+            return 'K';
+        case B_PAWN:
+            return 'p';
+        case B_KNIGHT:
+            return 'n';
+        case B_BISHOP:
+            return 'b';
+        case B_ROOK:
+            return 'r';
+        case B_QUEEN:
+            return 'q';
+        case B_KING:
+            return 'k';
+        default:
+            return '.';
         }
     }
 
-};
+}; // namespace Engine

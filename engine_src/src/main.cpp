@@ -1,11 +1,10 @@
-#include <iostream>
-
-#include "types.hpp"
-#include "./class/board/Board.hpp"
 #include <fstream>
 #include <iostream>
 
-std::string fen_getter(const std::string& file) {
+#include "./class/board/Board.hpp"
+#include "types.hpp"
+
+std::string fen_getter(const std::string &file) {
     if (file.empty()) {
         return std::string(Engine::START_FEN);
     }
