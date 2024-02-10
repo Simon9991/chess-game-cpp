@@ -6,7 +6,7 @@ LDFLAGS = -Wall -Wextra -g -std=c++20
 INC = -I include
 
 # Executable
-NAME = evaluate
+NAME = engine
 
 # Files
 SRC = $(wildcard src/*.cpp src/*/*.cpp src/*/*/*.cpp)
