@@ -21,6 +21,8 @@ int main(int ac, char **av) {
 
     if (ac > 1) {
         arg = av[1];
+    } else {
+        // TODO: Handle multiple fen
     }
 
     std::string fen = fen_getter(arg);

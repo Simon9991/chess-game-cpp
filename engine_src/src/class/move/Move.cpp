@@ -9,7 +9,7 @@ namespace Engine {
     std::array<Bitboard, PIECE_NB> MoveGenerator::generateMoves() {
         std::array<Bitboard, PIECE_NB> moves;
 
-        /* generatePawnMoves(board.getSideToMove()); */
+        generatePawnMoves(board.getSideToMove());
 
         return moves;
     }

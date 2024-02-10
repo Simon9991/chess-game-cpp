@@ -217,4 +217,9 @@ namespace Engine {
         }
     }
 
+    // Getters
+    Color Board::getSideToMove() const { return side_to_move; }
+
+    Bitboard Board::getBitboard(Piece piece) const { return bitboards[piece]; }
+
 }; // namespace Engine

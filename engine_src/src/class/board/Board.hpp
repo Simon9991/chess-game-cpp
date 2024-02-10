@@ -11,6 +11,11 @@ namespace Engine {
         Board(const std::string &fen);
         ~Board();
 
+        // getters
+        Bitboard getBitboard(Piece piece) const;
+        Color getSideToMove() const;
+
+        // helpers
         void print() const;
 
       private:
