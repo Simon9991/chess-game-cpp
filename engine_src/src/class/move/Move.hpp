@@ -14,9 +14,16 @@ namespace Engine {
         MoveGenerator(const Board &board);
         std::array<Bitboard, PIECE_NB> generateMoves();
 
+        // helper
+        void print(std::array<Bitboard, PIECE_NB> moves) const;
+        void print(Bitboard bb) const;
+
       private:
         const Board &board;
         Bitboard generatePawnMoves(Color side_to_move);
+
+        // LSB pop
+        int getLSBIndex(Bitboard bb) { return __builtin_ctzll(bb); }
     };
 } // namespace Engine
 
